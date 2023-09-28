@@ -1,2 +1,5 @@
 # ごめんうまく設定できなくて(めんどくさくて).gitignore2つあります
 /.env
+
+# misc
+.DS_Store
