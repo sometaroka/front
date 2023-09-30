@@ -10,7 +10,7 @@
 | <span style="color: #d1a3ff; ">git commit -m '**コミット名**' </span>      |   インデックスに登録された内容をリポジトリに記録   |
 | <span style="color: #d1a3ff; ">git push origin **ブランチ名** </span>      | リモートリポジトリにローカルリポジトリの変更を保存 |
 | <span style="color: #a3d1ff; ">git fetch </span>                           |         ブランチの更新を取得し，差分を比較         |
-| <span style="color: #a3d1ff; ">git pull (git fetch + git merge) </span>    |       更新をローカルに取り入れるて反映させる       |
+| <span style="color: #a3d1ff; ">git pull (git fetch + git merge) </span>    |        更新をローカルに取り入れて反映させる        |
 | <span style="color: #a3ffff; ">git merge **ブランチ名** </span>            |         現在のブランチを他のブランチに統合         |
 | <span style="color: #a3ffd1; ">git checkout -b **ブランチ名** </span>      |            ブランチを作成してそこへ移動            |
 | <span style="color: #a3ffd1; ">git checkout(switch) **ブランチ名** </span> |                   ブランチへ移動                   |
