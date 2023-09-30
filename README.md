@@ -1,6 +1,8 @@
 # front
 
-## よく使う Git コマンド
+[環境構築](https://fresh-rhodium-639.notion.site/efe628f3b49449e082670e253c0a165f)はこちら
+
+<details><summary> よく使う Git コマンド </summary>
 
 | Command                                                                    |                        動作                        |
 | :------------------------------------------------------------------------- | :------------------------------------------------: |
@@ -22,3 +24,5 @@
 | <span style="color: #ffd1a3; ">git remote -v </span>                       |           現在のリモートリポジトリの確認           |
 | <span style="color: #ffd1a3; ">git branch </span>                          |                現在のブランチの確認                |
 | <span style="color: #ffd1a3; ">git branch -r </span>                       |            現在のリモートブランチの確認            |
+
+</details>
