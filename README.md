@@ -14,9 +14,10 @@ developブランチに移動してから以下を実行．
 - 開発方法についてはデモ画面とファイルを参照しながら理解してね．
 ![transition](https://github.com/sometaroka/front/assets/114457271/94785495-78db-495a-a0eb-4b0fe9fb14ba)
 
-- 画面コンポーネント  
+- ```App.js```が基盤となるファイルです．(タブ遷移)
+- 画面コンポーネントディレクトリ  
 ```front/react_native/components/Screen```  
-- 遷移コンポーネント  
+- 遷移コンポーネント ディレクトリ  
 ```front/react_native/components/ScreenTransition```  
 上記のフォルダにて画面の種類ごとにフォルダを作ってファイルを作成してください．  
 **画面ごとに分けて管理しやすいようにするため．**
