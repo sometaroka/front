@@ -10,6 +10,7 @@ import DemoScreen3 from "./components/Screen/DemoScreen/DemoScreen3";
 const Tab = createBottomTabNavigator();
 
 // コンポーネント関数を定義する．
+// exportをまとめて書く方法．
 export default function App() {
   return (
     // <NavigationContainer>
