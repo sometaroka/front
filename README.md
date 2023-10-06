@@ -10,6 +10,18 @@ developブランチに移動してから以下を実行．
 
 <hr>
 
+**開発について**  
+- 画面コンポーネント  
+```front/react_native/components/Screen```  
+- 遷移コンポーネント  
+```front/react_native/components/ScreenTransition```  
+上記のフォルダにて画面の種類ごとにフォルダを作ってファイルを作成してください．  
+**画面ごとに分けて管理しやすいようにするため．**
+- ファイル名は日本語禁止，1文字目は大文字，単語を連結する場合は空白なし，大文字で繋げる．  
+例：```DemoScreenNest.js```
+
+<hr>
+
 <details><summary> よく使う Git コマンド </summary>
 
 | Command                                                                    |                        動作                        |
