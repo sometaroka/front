@@ -1,20 +1,59 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { DemoStackTransition} from "./components/ScreenTransition/DemoTransition/DemoStackTransition";
+import DemoScreen3 from "./components/Screen/DemoScreen/DemoScreen3";
+// 必要なライブラリやコンポーネントなどをインポートする．
+// インポートし忘れのミスが結構ある．
 
+// createBottomTabNavigatorでTabオブジェクトを生成．
+const Tab = createBottomTabNavigator();
+
+// コンポーネント関数を定義する．
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    // <NavigationContainer>
+    //   <Tab.Navigator
+    //     tabBarOptions={{
+    //       activeTintColor: "white",
+    //       inactiveTintColor: "#333399",
+    //       activeBackgroundColor: "#333399",
+    //       inactiveBackgroundColor: "#9999dd",
+    //     }}
+    //     screenOptions={{
+    //       headerTintColor: "#ffffff",
+    //       headerStyle: {
+    //         backgroundColor: "violet",
+    //       },
+    //     }}
+    //   >
+    //     <Tab.Screen name="ホーム" component={TestStackScreen} />
+    //     <Tab.Screen name="メッセージ" component={Message} />
+    //   </Tab.Navigator>
+    // </NavigationContainer>
+
+    // 画面の定義はTab.Screenコンポーネントで行い，Tab.Navigatorで囲む．
+    // Tab.Navigatorにオプションをつけると色とか諸々いじれる．
+    // 詳細なオプションは調べるなりしてね．
+     <NavigationContainer>
+      <Tab.Navigator
+        tabBarOptions={{
+          activeTintColor: "white",
+          inactiveTintColor: "#333399",
+          activeBackgroundColor: "#333399",
+          inactiveBackgroundColor: "#9999dd",
+        }}
+        screenOptions={{
+          headerTintColor: "#ffffff",
+          headerStyle: {
+            backgroundColor: "violet",
+          },
+        }}
+      >
+        <Tab.Screen name="画面１" component={DemoStackTransition} />
+        <Tab.Screen name="画面２" component={DemoScreen3} />
+      
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
