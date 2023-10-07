@@ -11,7 +11,8 @@ developブランチに移動してから以下を実行．
 <hr>
 
 **開発について**  
-- 開発方法についてはデモ画面とファイルを参照しながら理解してね．
+- [React Nativeについてはこちら](https://zenn.dev/yutama_kotaro/articles/7a0d1d771d2ca3)  
+- 開発方法についてはデモ画面や各ファイル等を参照しながら理解してね．
 ![transition](https://github.com/sometaroka/front/assets/114457271/94785495-78db-495a-a0eb-4b0fe9fb14ba)
 
 - ```App.js```が基盤となるファイルです．(タブ遷移)
