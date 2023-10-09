@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import DemoScreen1 from "../../Screen/DemoScreen/DemoScreen1";
-import { DemoStackScreen1, DemoStackScreen2} from "./DemoStackScreen";
+import { DemoStackScreen1, DemoStackScreen2 } from "./DemoStackScreen";
 // 必要なライブラリやコンポーネントなどをインポートする．
 // インポートし忘れのミスが結構ある．
 
@@ -29,8 +29,8 @@ export function DemoStackTransition() {
       <Stack.Screen name="DemoScreen1" component={DemoScreen1} />
       <Stack.Screen name="DemoStackScreen1" component={DemoStackScreen1} />
       <Stack.Screen name="DemoStackScreen2" component={DemoStackScreen2} />
-         {/* name="名前"で遷移先の名前を設定．<重要> */}
-         {/* component={}の中には遷移先の画面コンポーネントを設定する．*/}
+      {/* name="名前"で遷移先の名前を設定．<重要> */}
+      {/* component={}の中には遷移先の画面コンポーネントを設定する．*/}
     </Stack.Navigator>
   );
 }
