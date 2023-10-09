@@ -12,12 +12,12 @@ import { createStackNavigator } from "@react-navigation/stack";
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-let loginState = false;
+let isLogin = false;
 
 // コンポーネント関数を定義する．
 // exportをまとめて書く方法．
 export default function App() {
-  if (loginState == false) {
+  if (isLogin == false) {
     //ログイン前の画面
     return (
       <NavigationContainer>
@@ -26,7 +26,7 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     );
-  } else if (loginState == true) {
+  } else if (isLogin == true) {
     return (
       // <NavigationContainer>
       //   <Tab.Navigator
