@@ -55,5 +55,6 @@ export default function App() {
         <Tab.Screen name="画面２" component={DemoScreen3} />
       </Tab.Navigator>
     </NavigationContainer>
+    // test
   );
 }
