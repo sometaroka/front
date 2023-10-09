@@ -25,8 +25,8 @@ function DemoStackScreenNest() {
     >
       <Stack.Screen name="DemoNest1" component={DemoNest1} />
       <Stack.Screen name="DemoNest2" component={DemoNest2} />
-        {/* name="名前"で遷移先の名前を設定．<重要> */}
-        {/* component={}の中には遷移先の画面コンポーネントを設定する．*/}
+      {/* name="名前"で遷移先の名前を設定．<重要> */}
+      {/* component={}の中には遷移先の画面コンポーネントを設定する．*/}
     </Stack.Navigator>
   );
 }
