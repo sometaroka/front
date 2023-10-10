@@ -1,10 +1,27 @@
 import { useNavigation } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 import React, { useState } from "react";
 import { View, Text, Button, TextInput, StyleSheet } from "react-native";
+import MainScreen from "../MainScreen/MainScreen";
 
-function HomeScreen() {
-  return;
-  // テスト２
+const Stack = createStackNavigator();
+
+function LoginScreenStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerTintColor: "#ffffff",
+        // headerShown: false, //ヘッダー隠す
+        headerStyle: {
+          backgroundColor: "#333399",
+        },
+      }}
+    >
+      <Stack.Screen name="LoginScreen" component={LoginScreen} />
+      <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+      <Stack.Screen name="MainScreen" component={MainScreen} />
+    </Stack.Navigator>
+  );
 }
 
 function LoginScreen() {
@@ -15,6 +32,7 @@ function LoginScreen() {
 
   const handleOnPressLogin = () => {
     console.log(email + password);
+    navigation.navigate("MainScreen");
   };
 
   return (
@@ -48,12 +66,15 @@ function LoginScreen() {
 }
 
 function RegisterScreen() {
+  const navigation = useNavigation();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleOnPressRegister = () => {
     console.log(name + email + password);
+    navigation.navigate("LoginScreen");
   };
 
   return (
@@ -103,4 +124,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export { LoginScreen, RegisterScreen };
+export default LoginScreenStack;
