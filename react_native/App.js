@@ -14,8 +14,16 @@ export default function App() {
   //ログイン前の画面
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
+      <Stack.Navigator
+        screenOptions={{
+          headerTintColor: "#ffffff",
+          headerShown: false, //ヘッダー隠す
+          headerStyle: {
+            backgroundColor: "#333399",
+          },
+        }}
+      >
+        <Stack.Screen name="Login" component={LoginScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

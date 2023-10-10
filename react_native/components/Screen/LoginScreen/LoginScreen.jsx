@@ -17,8 +17,8 @@ function LoginScreenStack() {
         },
       }}
     >
-      <Stack.Screen name="LoginScreen" component={LoginScreen} />
-      <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Register" component={RegisterScreen} />
       <Stack.Screen name="MainScreen" component={MainScreen} />
     </Stack.Navigator>
   );
@@ -59,7 +59,7 @@ function LoginScreen() {
       />
       <Button
         title="新規登録"
-        onPress={() => navigation.navigate("RegisterScreen")}
+        onPress={() => navigation.navigate("Register")}
       />
     </View>
   );
@@ -74,7 +74,7 @@ function RegisterScreen() {
 
   const handleOnPressRegister = () => {
     console.log(name + email + password);
-    navigation.navigate("LoginScreen");
+    navigation.navigate("Login");
   };
 
   return (
