@@ -6,11 +6,15 @@ import { View, Text, Button, StyleSheet } from "react-native";
 
 // コンポーネント関数を定義する．
 function DemoScreen1() {
-  // 画面間を移動する場合はuseNavigation()フックを使ってnavigationオブジェクトを取りだす．
+    // 画面間を移動する場合はuseNavigation()フックを使ってnavigationオブジェクトを取りだす．
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
+    <View
+      style={
+        styles.container
+      }
+    >
       <Text style={styles.text}>Demo Screen1</Text>
       <Button
         title="Demo Screen2へ"
@@ -24,7 +28,7 @@ function DemoScreen1() {
       />
     </View>
   );
-}
+};
 
 // スタイル用の関数を定義する．
 // 呼び出しは上の通り
