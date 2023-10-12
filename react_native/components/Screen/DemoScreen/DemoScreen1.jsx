@@ -6,7 +6,6 @@ import { View, Text, Button, StyleSheet } from "react-native";
 
 // コンポーネント関数を定義する．
 function DemoScreen1() {
-
     // 画面間を移動する場合はuseNavigation()フックを使ってnavigationオブジェクトを取りだす．
   const navigation = useNavigation();
 
@@ -40,7 +39,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   text: {
-    color:"rgb(128 0 128)"
+    color: "rgb(128 0 128)",
   },
 });
 
