@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import DemoScreen3 from "../DemoScreen/DemoScreen3";
 import { DemoStackTransition } from "../../ScreenTransition/DemoTransition/DemoStackTransition";
+import TalkScreenStack from "../ChatScreen/TalkTableScreen";
 
 // 必要なライブラリやコンポーネントなどをインポートする．
 // インポートし忘れのミスが結構ある．
@@ -35,12 +36,13 @@ export default function HomeScreen() {
       screenOptions={{
         headerTintColor: "#ffffff",
         headerStyle: {
-          backgroundColor: "violet",
+          backgroundColor: "#aa4c8f",
         },
       }}
     >
       <Tab.Screen name="画面１" component={DemoStackTransition} />
       <Tab.Screen name="画面２" component={DemoScreen3} />
+      <Tab.Screen name="トーク一覧" component={TalkScreenStack} />
     </Tab.Navigator>
   );
 }
