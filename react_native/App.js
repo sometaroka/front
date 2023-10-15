@@ -2,6 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { DemoStackTransition } from "./components/ScreenTransition/DemoTransition/DemoStackTransition";
+import { ProfileStackTransition } from "./components/ScreenTransition/ProfileTransition/ProfileStackTransition";
 import DemoScreen3 from "./components/Screen/DemoScreen/DemoScreen3";
 // 必要なライブラリやコンポーネントなどをインポートする．
 // インポートし忘れのミスが結構ある．
@@ -53,6 +54,7 @@ export default function App() {
       >
         <Tab.Screen name="画面１" component={DemoStackTransition} />
         <Tab.Screen name="画面２" component={DemoScreen3} />
+        <Tab.Screen name="プロフィール" component={ProfileStackTransition} />
       </Tab.Navigator>
     </NavigationContainer>
   );
