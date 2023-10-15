@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Button } from "react-native";
 
-const ProfileScreen_4 = ({ navigation }) => {
+const ProfileScreen_FavoriteDialect = ({ navigation }) => {
   // console.log(route);
   return (
     <View>
@@ -10,4 +10,4 @@ const ProfileScreen_4 = ({ navigation }) => {
   );
 };
 
-export default ProfileScreen_4;
+export default ProfileScreen_FavoriteDialect;

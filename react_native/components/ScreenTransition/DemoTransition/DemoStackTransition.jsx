@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import DemoScreen1 from "../../Screen/DemoScreen/DemoScreen1";
-// import { DemoStackScreen1, DemoStackScreen2 } from "./DemoStackScreen";aaaaaaaaaaaa
+import { DemoStackScreen1, DemoStackScreen2 } from "./DemoStackScreen";
 // 必要なライブラリやコンポーネントなどをインポートする．
 // インポートし忘れのミスが結構ある．
 
