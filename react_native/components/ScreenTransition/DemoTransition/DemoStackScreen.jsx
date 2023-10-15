@@ -24,8 +24,8 @@ function DemoStackScreen1() {
       headerMode="float"
     >
       <Stack.Screen name="DemoScreen2" component={DemoScreen2} />
-        {/* name="名前"で遷移先の名前を設定．<重要> */}
-        {/* component={}の中には遷移先の画面コンポーネントを設定する．*/}
+      {/* name="名前"で遷移先の名前を設定．<重要> */}
+      {/* component={}の中には遷移先の画面コンポーネントを設定する．*/}
     </Stack.Navigator>
   );
 }
@@ -34,17 +34,17 @@ function DemoStackScreen1() {
 function DemoStackScreen2() {
   return (
     <Stack.Navigator
-        screenOptions={{
-          headerTintColor: "#ffffff",
-          headerStyle: {
-            backgroundColor: "#333399",
-          },
-        }}
+      screenOptions={{
+        headerTintColor: "#ffffff",
+        headerStyle: {
+          backgroundColor: "#333399",
+        },
+      }}
       headerMode="float"
     >
       <Stack.Screen name="Nest" component={DemoStackScreenNest} />
-        {/* name="名前"で遷移先の名前を設定．<重要> */}
-        {/* component={}の中には遷移先の画面を設定する．*/}
+      {/* name="名前"で遷移先の名前を設定．<重要> */}
+      {/* component={}の中には遷移先の画面を設定する．*/}
     </Stack.Navigator>
   );
 }
