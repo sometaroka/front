@@ -1,6 +1,11 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import ProfileScreen_1 from "../../Screen/ProfileScreen/ProfileScreen_1";
+import ProfileScreen_Home from "../../Screen/ProfileScreen/ProfileScreen_Home";
+import { ProfileStackScreen_Setting } from "./ProfileStackScreen";
+import { ProfileStackScreen_Follow } from "./ProfileStackScreen";
+import { ProfileStackScreen_Follower } from "./ProfileStackScreen";
+import { ProfileStackScreen_FavoriteDialect } from "./ProfileStackScreen";
+
 // 必要なライブラリやコンポーネントなどをインポートする．
 // インポートし忘れのミスが結構ある．
 
@@ -25,7 +30,23 @@ export function ProfileStackTransition() {
       headerMode="float"
       initialRouteName="Home"
     >
-      <Stack.Screen name="ProfileScreen_1" component={ProfileScreen_1} />
+      <Stack.Screen name="ProfileScreen_Home" component={ProfileScreen_Home} />
+      <Stack.Screen
+        name="ProfileStackScreen_Setting"
+        component={ProfileStackScreen_Setting}
+      />
+      <Stack.Screen
+        name="ProfileStackScreen_Follow"
+        component={ProfileStackScreen_Follow}
+      />
+      <Stack.Screen
+        name="ProfileStackScreen_Follower"
+        component={ProfileStackScreen_Follower}
+      />
+      <Stack.Screen
+        name="ProfileStackScreen_FavoriteDialect"
+        component={ProfileStackScreen_FavoriteDialect}
+      />
       {/* <Stack.Screen name="DemoStackScreen1" component={DemoStackScreen1} />
       <Stack.Screen name="DemoStackScreen2" component={DemoStackScreen2} /> */}
       {/* name="名前"で遷移先の名前を設定．<重要> */}

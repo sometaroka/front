@@ -7,9 +7,11 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import ProfileScreen_2 from "./ProfileScreen_2";
+import { useNavigation } from "@react-navigation/native";
+// import { ProfileStackScreen_Setting } from "../../ScreenTransition/ProfileTransition/ProfileStackScreen";
 
-const ProfileScreen_1 = ({ navigation }) => {
+const ProfileScreen_Home = () => {
+  const navigation = useNavigation();
   // console.log(route);
   return (
     <View style={styles.container}>
@@ -25,14 +27,22 @@ const ProfileScreen_1 = ({ navigation }) => {
         <Text>UserName</Text>
         <Button
           title="設定"
-          onPress={() => navigation.navigate("ProfileStackScreen_1")}
+          onPress={() => navigation.navigate("ProfileStackScreen_Setting")}
         />
         <Text>紹介文</Text>
-        <Button title="フォロー" onPress={() => navigation.navigate("")} />
-        <Button title="フォローワー" onPress={() => navigation.navigate("")} />
+        <Button
+          title="フォロー"
+          onPress={() => navigation.navigate("ProfileStackScreen_Follow")}
+        />
+        <Button
+          title="フォローワー"
+          onPress={() => navigation.navigate("ProfileStackScreen_Follower")}
+        />
         <Button
           title="お気に入り方言"
-          onPress={() => navigation.navigate("")}
+          onPress={() =>
+            navigation.navigate("ProfileStackScreen_FavoriteDialect")
+          }
         />
       </View>
       <ScrollView Style={styles.postArea}>
@@ -74,4 +84,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileScreen_1;
+export default ProfileScreen_Home;

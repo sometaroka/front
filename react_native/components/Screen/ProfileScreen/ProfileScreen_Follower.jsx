@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Button } from "react-native";
 
-const ProfileScreen_5 = ({ navigation }) => {
+const ProfileScreen_Follower = ({ navigation }) => {
   // console.log(route);
   return (
     <View>
@@ -10,4 +10,4 @@ const ProfileScreen_5 = ({ navigation }) => {
   );
 };
 
-export default ProfileScreen_5;
+export default ProfileScreen_Follower;
