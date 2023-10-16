@@ -6,6 +6,8 @@ import ProfileScreen_Follower from "../../Screen/ProfileScreen/ProfileScreen_Fol
 import ProfileScreen_FavoriteDialect from "../../Screen/ProfileScreen/ProfileScreen_FavoriteDialect";
 import { ProfileScreenStackNest_Setting_User } from "./ProfileScreenStackNest";
 import { ProfileScreenStackNest_Setting_Avatar } from "./ProfileScreenStackNest";
+import ProfileScreen_Setting_User from "../../Screen/ProfileScreen/ProfileScreen_Setting_User";
+import ProfileScreen_Setting_Avatar from "../../Screen/ProfileScreen/ProfileScreen_Setting_Avatar";
 
 // import DemoStackScreenNest from "./DemoStackScreenNest";
 
@@ -33,6 +35,14 @@ function ProfileStackScreen_Setting() {
       <Stack.Screen
         name="ProfileScreen_Setting"
         component={ProfileScreen_Setting}
+      />
+      <Stack.Screen
+        name="ProfileScreen_Setting_User"
+        component={ProfileScreen_Setting_User}
+      />
+      <Stack.Screen
+        name="ProfileScreen_Setting_Avatar"
+        component={ProfileScreen_Setting_Avatar}
       />
       {/* name="名前"で遷移先の名前を設定．<重要> */}
       {/* component={}の中には遷移先の画面コンポーネントを設定する．*/}
