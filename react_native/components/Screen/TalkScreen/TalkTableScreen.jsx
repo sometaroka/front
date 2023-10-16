@@ -60,8 +60,9 @@ function TalkTable() {
       <TextInput
         style={styles.text_input}
         placeholder="search"
-        onPress={(e) => setSearch(e)}
+        onChangeText={(e) => setSearch(e)}
       />
+      <Text>{search}</Text>
       {talkList}
     </View>
   );
@@ -132,7 +133,6 @@ function Talk() {
           visible={visible}
         >
           <View style={styles.modalView}>
-            <Text>hello modal</Text>
             <Button title="閉じる" onPress={reverseVisible} />
             {hogenList}
           </View>
@@ -142,8 +142,11 @@ function Talk() {
       <TextInput
         style={styles.chat_input}
         placeholder="inputText"
-        onPress={(e) => setChat(e)}
+        onChangeText={(e) => setChat(e)}
       />
+      <Text>
+        {chat}&{hogen}
+      </Text>
     </View>
   );
 }
