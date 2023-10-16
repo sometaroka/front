@@ -5,8 +5,8 @@ import { ProfileStackScreen_Setting } from "./ProfileStackScreen";
 import { ProfileStackScreen_Follow } from "./ProfileStackScreen";
 import { ProfileStackScreen_Follower } from "./ProfileStackScreen";
 import { ProfileStackScreen_FavoriteDialect } from "./ProfileStackScreen";
-import { ProfileStackScreen_Setting_Avatar } from "./ProfileStackScreen";
-import { ProfileStackScreen_Setting_User } from "./ProfileStackScreen";
+// import { ProfileStackScreen_Setting_Avatar } from "./ProfileStackScreen";
+// import { ProfileStackScreen_Setting_User } from "./ProfileStackScreen";
 
 // 必要なライブラリやコンポーネントなどをインポートする．
 // インポートし忘れのミスが結構ある．
@@ -52,14 +52,14 @@ export function ProfileStackTransition() {
         name="ProfileStackScreen_FavoriteDialect"
         component={ProfileStackScreen_FavoriteDialect}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="ProfileStackScreen_Setting_Avatar"
         component={ProfileStackScreen_Setting_Avatar}
       />
       <Stack.Screen
         name="ProfileStackScreen_Setting_User"
         component={ProfileStackScreen_Setting_User}
-      />
+      /> */}
       {/* <Stack.Screen name="DemoStackScreen1" component={DemoStackScreen1} />
       <Stack.Screen name="DemoStackScreen2" component={DemoStackScreen2} /> */}
       {/* name="名前"で遷移先の名前を設定．<重要> */}

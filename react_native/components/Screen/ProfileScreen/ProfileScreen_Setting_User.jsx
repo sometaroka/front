@@ -1,11 +1,13 @@
 import React from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, Image } from "react-native";
 
 const ProfileScreen_Setting_User = ({ navigation }) => {
   // console.log(route);
   return (
-    <View>
-      <Text>ProfileScreen_Setting_User</Text>
+    <View style={styles.container}>
+      <View>
+        <Image source={require("../../../assets/icon.png")} />
+      </View>
     </View>
   );
 };
