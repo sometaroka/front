@@ -1,9 +1,18 @@
 import { useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React, { useState } from "react";
-import { View, Text, Button, Image, TextInput, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  Image,
+  TextInput,
+  StyleSheet,
+  Modal,
+} from "react-native";
 import MainScreen from "../MainScreen/MainScreen";
 import talkListData from "./TalkList.json";
+import hogenListData from "./HogenList.json";
 
 const Stack = createStackNavigator();
 
@@ -62,6 +71,23 @@ function Talk() {
   const navigation = useNavigation();
 
   const [chat, setChat] = useState("");
+  const [hogen, setHogen] = useState("京都弁");
+
+  const [visible, setVisible] = useState(false);
+  const reverseVisible = () => {
+    setVisible((vis) => !vis);
+  };
+
+  const hogenList = hogenListData.map((item) => (
+    <View key={item.id}>
+      <Button
+        title={item.name}
+        onPress={() => {
+          setHogen(item.name), reverseVisible();
+        }}
+      />
+    </View>
+  ));
 
   const handleOnPress = () => {
     console.log(chat);
@@ -69,6 +95,9 @@ function Talk() {
 
   return (
     <View>
+      <View>
+        <Button title={hogen} onPress={reverseVisible} />
+      </View>
       <View style={styles.talk_container}>
         <View style={styles.partner_area}>
           <Text>partner_text_here</Text>
@@ -76,6 +105,11 @@ function Talk() {
           <Image
             style={styles.avatar_image}
             source={require("../../../assets/icon.png")}
+          />
+          <Button
+            title={"voice"}
+            style={styles.button}
+            onPress={() => console.log("音が鳴る")}
           />
         </View>
         <View style={styles.your_area}>
@@ -85,7 +119,24 @@ function Talk() {
             style={styles.avatar_image}
             source={require("../../../assets/icon.png")}
           />
+          <Button
+            title={"voice"}
+            style={styles.button}
+            onPress={() => console.log("音が鳴る2")}
+          />
         </View>
+
+        <Modal
+          animationType="slide"
+          presentationStyle="pageSheet"
+          visible={visible}
+        >
+          <View style={styles.modalView}>
+            <Text>hello modal</Text>
+            <Button title="閉じる" onPress={reverseVisible} />
+            {hogenList}
+          </View>
+        </Modal>
       </View>
 
       <TextInput
