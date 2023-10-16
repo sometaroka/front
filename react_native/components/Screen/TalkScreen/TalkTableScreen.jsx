@@ -90,7 +90,7 @@ function Talk() {
   ));
 
   const handleOnPress = () => {
-    console.log(chat);
+    // console.log(chat);
   };
 
   return (
