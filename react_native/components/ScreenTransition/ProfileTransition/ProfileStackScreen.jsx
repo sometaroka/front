@@ -4,6 +4,8 @@ import ProfileScreen_Setting from "../../Screen/ProfileScreen/ProfileScreen_Sett
 import ProfileScreen_Follow from "../../Screen/ProfileScreen/ProfileScreen_Follow";
 import ProfileScreen_Follower from "../../Screen/ProfileScreen/ProfileScreen_Follower";
 import ProfileScreen_FavoriteDialect from "../../Screen/ProfileScreen/ProfileScreen_FavoriteDialect";
+import { ProfileScreenStackNest_Setting_User } from "./ProfileScreenStackNest";
+import { ProfileScreenStackNest_Setting_Avatar } from "./ProfileScreenStackNest";
 
 // import DemoStackScreenNest from "./DemoStackScreenNest";
 
@@ -102,7 +104,7 @@ function ProfileStackScreen_FavoriteDialect() {
   );
 }
 
-function ProfileStackScreen_5() {
+function ProfileStackScreen_Setting_User() {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -113,14 +115,17 @@ function ProfileStackScreen_5() {
       }}
       headerMode="float"
     >
-      <Stack.Screen name="Nest" component={DemoStackScreenNest} />
+      <Stack.Screen
+        name="ProfileScreenStackNest_Setting_User"
+        component={ProfileScreenStackNest_Setting_User}
+      />
       {/* name="名前"で遷移先の名前を設定．<重要> */}
       {/* component={}の中には遷移先の画面を設定する．*/}
     </Stack.Navigator>
   );
 }
 
-function ProfileStackScreen_6() {
+function ProfileStackScreen_Setting_Avatar() {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -131,30 +136,33 @@ function ProfileStackScreen_6() {
       }}
       headerMode="float"
     >
-      <Stack.Screen name="Nest" component={DemoStackScreenNest} />
+      <Stack.Screen
+        name="ProfileScreenStackNest_Setting_Avatar"
+        component={ProfileScreenStackNest_Setting_Avatar}
+      />
       {/* name="名前"で遷移先の名前を設定．<重要> */}
       {/* component={}の中には遷移先の画面を設定する．*/}
     </Stack.Navigator>
   );
 }
 
-function ProfileStackScreen_7() {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerTintColor: "#ffffff",
-        headerStyle: {
-          backgroundColor: "#333399",
-        },
-      }}
-      headerMode="float"
-    >
-      <Stack.Screen name="Nest" component={DemoStackScreenNest} />
-      {/* name="名前"で遷移先の名前を設定．<重要> */}
-      {/* component={}の中には遷移先の画面を設定する．*/}
-    </Stack.Navigator>
-  );
-}
+// function ProfileStackScreen_7() {
+//   return (
+//     <Stack.Navigator
+//       screenOptions={{
+//         headerTintColor: "#ffffff",
+//         headerStyle: {
+//           backgroundColor: "#333399",
+//         },
+//       }}
+//       headerMode="float"
+//     >
+//       <Stack.Screen name="Nest" component={DemoStackScreenNest} />
+//       {/* name="名前"で遷移先の名前を設定．<重要> */}
+//       {/* component={}の中には遷移先の画面を設定する．*/}
+//     </Stack.Navigator>
+//   );
+// }
 
 // 関数をどこでも使えるようにエクスポート．
 // 一つのコンポーネントファイルに複数のコンポーネントも設定できるよ．
@@ -164,7 +172,6 @@ export {
   ProfileStackScreen_Follow,
   ProfileStackScreen_Follower,
   ProfileStackScreen_FavoriteDialect,
-  ProfileStackScreen_5,
-  ProfileStackScreen_6,
-  ProfileStackScreen_7,
+  ProfileStackScreen_Setting_User,
+  ProfileStackScreen_Setting_Avatar,
 };

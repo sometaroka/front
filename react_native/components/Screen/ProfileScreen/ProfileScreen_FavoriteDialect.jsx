@@ -5,7 +5,7 @@ const ProfileScreen_FavoriteDialect = ({ navigation }) => {
   // console.log(route);
   return (
     <View>
-      <Text>プロフィール画面1</Text>
+      <Text>地元アピの方言選択画面に飛ぶ</Text>
     </View>
   );
 };
