@@ -6,6 +6,7 @@ const ProfileScreen_Setting_Avatar = ({ navigation }) => {
   return (
     <View>
       <Text>ProfileScreen_Setting_Avatar</Text>
+      <Text>ボイス選択</Text>
     </View>
   );
 };
