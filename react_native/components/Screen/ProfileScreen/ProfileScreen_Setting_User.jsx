@@ -1,13 +1,13 @@
 import React from "react";
 import { View, Text, Button } from "react-native";
 
-const ProfileScreen_6 = ({ navigation }) => {
+const ProfileScreen_Setting_User = ({ navigation }) => {
   // console.log(route);
   return (
     <View>
-      <Text>プロフィール画面1</Text>
+      <Text>ProfileScreen_Setting_User</Text>
     </View>
   );
 };
 
-export default ProfileScreen_6;
+export default ProfileScreen_Setting_User;

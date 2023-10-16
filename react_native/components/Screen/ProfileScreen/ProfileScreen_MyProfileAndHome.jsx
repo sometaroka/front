@@ -10,7 +10,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 // import { ProfileStackScreen_Setting } from "../../ScreenTransition/ProfileTransition/ProfileStackScreen";
 
-const ProfileScreen_Home = () => {
+const ProfileScreen_MyProfileAndHome = () => {
   const navigation = useNavigation();
   // console.log(route);
   return (
@@ -84,4 +84,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileScreen_Home;
+export default ProfileScreen_MyProfileAndHome;

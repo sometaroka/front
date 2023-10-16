@@ -1,10 +1,12 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import ProfileScreen_Home from "../../Screen/ProfileScreen/ProfileScreen_Home";
+import ProfileScreen_MyProfileAndHome from "../../Screen/ProfileScreen/ProfileScreen_MyProfileAndHome";
 import { ProfileStackScreen_Setting } from "./ProfileStackScreen";
 import { ProfileStackScreen_Follow } from "./ProfileStackScreen";
 import { ProfileStackScreen_Follower } from "./ProfileStackScreen";
 import { ProfileStackScreen_FavoriteDialect } from "./ProfileStackScreen";
+import { ProfileStackScreen_Setting_Avatar } from "./ProfileStackScreen";
+import { ProfileStackScreen_Setting_User } from "./ProfileStackScreen";
 
 // 必要なライブラリやコンポーネントなどをインポートする．
 // インポートし忘れのミスが結構ある．
@@ -30,7 +32,10 @@ export function ProfileStackTransition() {
       headerMode="float"
       initialRouteName="Home"
     >
-      <Stack.Screen name="ProfileScreen_Home" component={ProfileScreen_Home} />
+      <Stack.Screen
+        name="ProfileScreen_MyProfileAndHome"
+        component={ProfileScreen_MyProfileAndHome}
+      />
       <Stack.Screen
         name="ProfileStackScreen_Setting"
         component={ProfileStackScreen_Setting}
@@ -46,6 +51,14 @@ export function ProfileStackTransition() {
       <Stack.Screen
         name="ProfileStackScreen_FavoriteDialect"
         component={ProfileStackScreen_FavoriteDialect}
+      />
+      <Stack.Screen
+        name="ProfileStackScreen_Setting_Avatar"
+        component={ProfileStackScreen_Setting_Avatar}
+      />
+      <Stack.Screen
+        name="ProfileStackScreen_Setting_User"
+        component={ProfileStackScreen_Setting_User}
       />
       {/* <Stack.Screen name="DemoStackScreen1" component={DemoStackScreen1} />
       <Stack.Screen name="DemoStackScreen2" component={DemoStackScreen2} /> */}
