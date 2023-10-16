@@ -1,44 +1,43 @@
 import { useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React, { useState } from "react";
-import { View, Text, Button, TextInput, StyleSheet } from "react-native";
+import { View, Text, Button, Image, TextInput, StyleSheet } from "react-native";
 import MainScreen from "../MainScreen/MainScreen";
 import talkListData from "./TalkList.json";
 
 const Stack = createStackNavigator();
+
+const user_table = { id: 1, name: "testUser", icon: "icon.png" };
 
 function TalkScreenStack() {
   return (
     <Stack.Navigator
       screenOptions={{
         headerTintColor: "#ffffff",
-        headerShown: false, //ヘッダー隠す
+        // headerShown: false, //ヘッダー隠す
         headerStyle: {
           backgroundColor: "#333399",
         },
       }}
     >
-      <Stack.Screen name="Login" component={ChatScreen} />
+      <Stack.Screen name="TalkTable" component={TalkTable} />
+      <Stack.Screen name="Talk" component={Talk} />
       {/* <Stack.Screen name="Register" component={RegisterScreen} />
       <Stack.Screen name="MainScreen" component={MainScreen} /> */}
     </Stack.Navigator>
   );
 }
 
-function ChatScreen() {
+function TalkTable() {
   const navigation = useNavigation();
 
   const [search, setSearch] = useState("");
-
-  const handleOnPressLogin = () => {
-    console.log(search);
-  };
 
   const talkList = talkListData.map((item) => (
     <View
       key={item.name}
       style={styles.talk_list}
-      onTouchEnd={() => console.log("test")}
+      onTouchEnd={() => navigation.navigate("Talk")}
     >
       <Text>Name: {item.name}</Text>
       <Text>Title: {item.title}</Text>
@@ -48,7 +47,7 @@ function ChatScreen() {
   ));
 
   return (
-    <View>
+    <View style={styles.talk_table_container}>
       <TextInput
         style={styles.text_input}
         placeholder="search"
@@ -59,11 +58,56 @@ function ChatScreen() {
   );
 }
 
+function Talk() {
+  const navigation = useNavigation();
+
+  const [chat, setChat] = useState("");
+
+  const handleOnPress = () => {
+    console.log(chat);
+  };
+
+  return (
+    <View>
+      <View style={styles.talk_container}>
+        <View style={styles.partner_area}>
+          <Text>partner_text_here</Text>
+          <Text>intonation</Text>
+          <Image
+            style={styles.avatar_image}
+            source={require("../../../assets/icon.png")}
+          />
+        </View>
+        <View style={styles.your_area}>
+          <Text>your_text_here</Text>
+          <Text>intonation</Text>
+          <Image
+            style={styles.avatar_image}
+            source={require("../../../assets/icon.png")}
+          />
+        </View>
+      </View>
+
+      <TextInput
+        style={styles.chat_input}
+        placeholder="inputText"
+        onPress={(e) => setChat(e)}
+      />
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
-  container: {
+  talk_table_container: {
     flex: 1,
-    alignItems: "center",
+    // alignItems: "center",
     justifyContent: "center",
+  },
+  talk_container: {
+    flexDirection: "column", // 横並びに配置
+    justifyContent: "space-between", // 左右に均等に配置
+    paddingHorizontal: 16, // 左右の余白
+    paddingVertical: 20,
   },
   text_input: {
     backgroundColor: "#ddd",
@@ -75,6 +119,27 @@ const styles = StyleSheet.create({
     borderBottomWidth: "1px",
     marginBottom: "3%",
   },
+  partner_area: {
+    backgroundColor: "lightgray",
+    padding: 30,
+    borderRadius: 10,
+  },
+  your_area: {
+    backgroundColor: "lightblue",
+    padding: 30,
+    borderRadius: 10,
+  },
+  avatar_image: {
+    width: 100,
+    height: 100,
+  },
+  chat_input: {
+    backgroundColor: "#ddd",
+    width: "50%",
+    borderBottomWidth: 1,
+  },
+  // partner_area: { left: 0 },
+  // your_area: { alignSelf: "flex-end" },
 });
 
 export default TalkScreenStack;
