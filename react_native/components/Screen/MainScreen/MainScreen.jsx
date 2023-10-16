@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import DemoScreen3 from "../DemoScreen/DemoScreen3";
 import { DemoStackTransition } from "../../ScreenTransition/DemoTransition/DemoStackTransition";
-import TalkScreenStack from "../ChatScreen/TalkTableScreen";
+import TalkScreenStack from "../TalkScreen/TalkTableScreen";
 
 // 必要なライブラリやコンポーネントなどをインポートする．
 // インポートし忘れのミスが結構ある．

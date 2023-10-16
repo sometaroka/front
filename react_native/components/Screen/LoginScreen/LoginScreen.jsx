@@ -6,12 +6,14 @@ import MainScreen from "../MainScreen/MainScreen";
 
 const Stack = createStackNavigator();
 
+let is_login = false;
+
 function LoginScreenStack() {
   return (
     <Stack.Navigator
       screenOptions={{
         headerTintColor: "#ffffff",
-        // headerShown: false, //ヘッダー隠す
+        headerShown: is_login ? false : true,
         headerStyle: {
           backgroundColor: "#333399",
         },
@@ -27,12 +29,17 @@ function LoginScreenStack() {
 function LoginScreen() {
   const navigation = useNavigation();
 
+  const [isLogin, setIsLogin] = useState(false);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleOnPressLogin = () => {
     console.log(email + password);
+    setIsLogin(true);
+
     navigation.navigate("MainScreen");
+    is_login = isLogin;
   };
 
   return (
