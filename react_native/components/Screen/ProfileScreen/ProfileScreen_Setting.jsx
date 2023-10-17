@@ -36,10 +36,6 @@ const ProfileScreen_Setting = () => {
         onPress={() => navigation.navigate("ProfileScreen_Setting_Avatar")}
       />
       <Button title={"ログアウト"} onPress={createTwoButtonAlert} />
-      <Button
-        title="ログアウト"
-        onPress={() => navigation.navigate("ProfileStackScreen_Follow")}
-      />
     </View>
   );
 };
