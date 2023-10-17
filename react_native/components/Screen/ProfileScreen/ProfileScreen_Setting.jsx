@@ -6,6 +6,24 @@ const ProfileScreen_Setting = () => {
   // console.log(route);
   const navigation = useNavigation();
 
+  const createTwoButtonAlert = () =>
+    Alert.alert("ログアウト", "本当にログアウトをしますか？", [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      {
+        text: "OK",
+        onPress: () => {
+          console.log("OK Pressed"), navigation.goBack();
+          navigation.goBack();
+          navigation.goBack();
+          // onPress: () => navigation.navigate("LoginScreen"),
+        },
+      },
+    ]);
+
   return (
     <View>
       <Text>設定画面</Text>
@@ -17,6 +35,7 @@ const ProfileScreen_Setting = () => {
         title="アバター編集/ボイス変更"
         onPress={() => navigation.navigate("ProfileScreen_Setting_Avatar")}
       />
+      <Button title={"ログアウト"} onPress={createTwoButtonAlert} />
       <Button
         title="ログアウト"
         onPress={() => navigation.navigate("ProfileStackScreen_Follow")}
