@@ -10,8 +10,9 @@ import {
 import { useNavigation } from "@react-navigation/native";
 // import { ProfileStackScreen_Setting } from "../../ScreenTransition/ProfileTransition/ProfileStackScreen";
 import PostData from "./PostData.json";
+import ProfileScreen_MyProfileAndHome from "./ProfileScreen_MyProfileAndHome";
 
-const ProfileScreen_MyProfileAndHome = () => {
+const ProfileScreen_OtherProfile = () => {
   const navigation = useNavigation();
 
   const postData = PostData.map((item) => (
@@ -37,10 +38,6 @@ const ProfileScreen_MyProfileAndHome = () => {
           source={require("../../../assets/icon.png")}
         />
         <Text>UserName</Text>
-        <Button
-          title="設定"
-          onPress={() => navigation.navigate("ProfileStackScreen_Setting")}
-        />
         <Text>紹介文</Text>
         <Button
           title="フォロー"
@@ -93,4 +90,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileScreen_MyProfileAndHome;
+export default ProfileScreen_OtherProfile;
