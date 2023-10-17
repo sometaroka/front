@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
+import { ProfileStackTransition } from "../../ScreenTransition/ProfileTransition/ProfileStackTransition";
 import { createStackNavigator } from "@react-navigation/stack";
 import DemoScreen3 from "../DemoScreen/DemoScreen3";
 import { DemoStackTransition } from "../../ScreenTransition/DemoTransition/DemoStackTransition";
@@ -41,6 +41,7 @@ export default function HomeScreen() {
     >
       <Tab.Screen name="画面１" component={DemoStackTransition} />
       <Tab.Screen name="画面２" component={DemoScreen3} />
+      <Tab.Screen name="プロフィール" component={ProfileStackTransition} />
     </Tab.Navigator>
   );
 }
