@@ -9,10 +9,21 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 // import { ProfileStackScreen_Setting } from "../../ScreenTransition/ProfileTransition/ProfileStackScreen";
+import PostData from "./PostData.json";
 
 const ProfileScreen_MyProfileAndHome = () => {
   const navigation = useNavigation();
-  // console.log(route);
+
+  const postData = PostData.map((item) => (
+    <View style={styles.postArea2} key={item.name}>
+      <Text>Name: {item.name}</Text>
+      <Text>Icon: {item.icon}</Text>
+      <Text>Post: {item.post}</Text>
+      <Text>Hougen: {item.hougen}</Text>
+      <Text>Good: {item.good}</Text>
+    </View>
+  ));
+
   return (
     <View style={styles.container}>
       <View style={styles.headerArea}>
@@ -45,11 +56,7 @@ const ProfileScreen_MyProfileAndHome = () => {
           }
         />
       </View>
-      <ScrollView Style={styles.postArea}>
-        <Text>
-          あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお
-        </Text>
-      </ScrollView>
+      <ScrollView Style={styles.postArea}>{postData}</ScrollView>
     </View>
   );
 };
@@ -78,7 +85,7 @@ const styles = StyleSheet.create({
     borderColor: "red",
   },
 
-  postArea: {
+  postArea2: {
     borderWidth: 2,
     borderColor: "blue",
   },
