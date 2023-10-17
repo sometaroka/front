@@ -1,21 +1,32 @@
 import React from "react";
-import { View, Text, Button, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  Image,
+  ScrollView,
+} from "react-native";
+import FollowerData from "./FollowerData.json";
 
 const ProfileScreen_Follower = ({ navigation }) => {
   // console.log(route);
+
+  const followerData = FollowerData.map((item) => (
+    <View style={styles.followerArea} key={item.name}>
+      <Text>Name: {item.name}</Text>
+      <Text>Self Introduce: {item.selfIntroduce}</Text>
+      <Text>User Id: {item.userId}</Text>
+      <Text>Icon: {item.icon}</Text>
+    </View>
+  ));
+
   return (
     <View style={styles.container}>
       <View>
-        <Text>フォロー</Text>
+        <Text>フォロワー</Text>
       </View>
-      <View style={styles.userInfomationArea}>
-        <Image
-          style={styles.icon}
-          source={require("../../../assets/icon.png")}
-        />
-        <Text>UserName</Text>
-        <Text>紹介文</Text>
-      </View>
+      <ScrollView>{followerData}</ScrollView>
     </View>
   );
 };
@@ -35,6 +46,12 @@ const styles = StyleSheet.create({
   userInfomationArea: {
     borderColor: "red",
     borderWidth: 2,
+  },
+
+  followerArea: {
+    marginTop: 8,
+    borderWidth: 2,
+    borderColor: "blue",
   },
 });
 

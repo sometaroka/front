@@ -9,6 +9,7 @@ import { ProfileScreenStackNest_Setting_Avatar } from "./ProfileScreenStackNest"
 import ProfileScreen_Setting_User from "../../Screen/ProfileScreen/ProfileScreen_Setting_User";
 import ProfileScreen_Setting_Avatar from "../../Screen/ProfileScreen/ProfileScreen_Setting_Avatar";
 import LoginScreen from "../../Screen/LoginScreen/LoginScreen";
+import ProfileScreen_OtherProfile from "../../Screen/ProfileScreen/ProfileScreen_OtherProfile";
 
 // import DemoStackScreenNest from "./DemoStackScreenNest";
 
@@ -66,8 +67,12 @@ function ProfileStackScreen_Follow() {
       headerMode="float"
     >
       <Stack.Screen
-        name="ProfileStackScreen_Follow"
+        name="ProfileScreen_Follow"
         component={ProfileScreen_Follow}
+      />
+      <Stack.Screen
+        name="ProfileScreen_OtherProfile"
+        component={ProfileScreen_OtherProfile}
       />
       {/* name="名前"で遷移先の名前を設定．<重要> */}
       {/* component={}の中には遷移先の画面を設定する．*/}
