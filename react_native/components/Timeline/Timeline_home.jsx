@@ -17,7 +17,7 @@ function Timeline_home() {
       </View>
       <View style={styles.button}>
         <TouchableOpacity 
-          onPress={() => navigation.navigate("DemoStackTimeline2")}
+          onPress={() => navigation.navigate("Timeline_post")}
         >
           <AntDesign name="pluscircleo" size={50} color="black" />
         </TouchableOpacity>
@@ -66,4 +66,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default {Timeline_home, Timeline_post };
+export {Timeline_home, Timeline_post };
