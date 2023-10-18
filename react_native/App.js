@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import LoginScreen from "./components/Screen/LoginScreen/LoginScreen";
 import { createStackNavigator } from "@react-navigation/stack";
 
+import Timeline_home from "./components/Timeline/Timeline_home";
 // 必要なライブラリやコンポーネントなどをインポートする．
 // インポートし忘れのミスが結構ある．
 
