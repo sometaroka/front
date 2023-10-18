@@ -2,6 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import DemoScreen2 from "../../Screen/DemoScreen/DemoScreen2";
 import DemoStackScreenNest from "./DemoScreenStackNest";
+import Timeline_home from "../../Timeline/Timeline_home";
 // 必要なライブラリやコンポーネントなどをインポートする．
 // インポートし忘れのミスが結構ある．
 
@@ -49,7 +50,25 @@ function DemoStackScreen2() {
   );
 }
 
+function DemoStackScreen3() {
+  return (
+    <Stack.Navigator
+        screenOptions={{
+          headerTintColor: "#ffffff",
+          headerStyle: {
+            backgroundColor: "#333399",
+          },
+        }}
+      headerMode="float"
+    >
+      <Stack.Screen name="Timeline" component={Timeline_home} />
+        {/* name="名前"で遷移先の名前を設定．<重要> */}
+        {/* component={}の中には遷移先の画面を設定する．*/}
+    </Stack.Navigator>
+  );
+}
+
 // 関数をどこでも使えるようにエクスポート．
 // 一つのコンポーネントファイルに複数のコンポーネントも設定できるよ．
 // その場合はexportを別で書いてね．
-export { DemoStackScreen1, DemoStackScreen2 };
+export { DemoStackScreen1, DemoStackScreen2, DemoStackScreen3 };

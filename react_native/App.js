@@ -1,8 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
-import LoginScreen from "./components/Screen/LoginScreen/LoginScreen";
-import { createStackNavigator } from "@react-navigation/stack";
-
-import Timeline_home from "./components/Timeline/Timeline_home";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { DemoStackTransition } from "./components/ScreenTransition/DemoTransition/DemoStackTransition";
+import DemoScreen3 from "./components/Screen/DemoScreen/DemoScreen3";
 // 必要なライブラリやコンポーネントなどをインポートする．
 // インポートし忘れのミスが結構ある．
 

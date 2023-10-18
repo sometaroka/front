@@ -26,6 +26,10 @@ function DemoScreen1() {
         title="Demo Screen3へ"
         onPress={() => navigation.navigate("DemoStackScreen2")}
       />
+      <Button
+        title="Timelineへ"
+        onPress={() => navigation.navigate("DemoStackScreen3")}
+      />
     </View>
   );
 };
