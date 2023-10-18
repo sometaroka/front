@@ -2,7 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import DemoScreen2 from "../../Screen/DemoScreen/DemoScreen2";
 import DemoStackScreenNest from "./DemoScreenStackNest";
-import Timeline_home from "../../Timeline/Timeline_home";
+import DemoStackTimeline1 from "./DemoStackTimeline";
 // 必要なライブラリやコンポーネントなどをインポートする．
 // インポートし忘れのミスが結構ある．
 
@@ -61,7 +61,7 @@ function DemoStackScreen3() {
         }}
       headerMode="float"
     >
-      <Stack.Screen name="Timeline" component={Timeline_home} />
+      <Stack.Screen name="DemoStackTimeline1" component={DemoStackTimeline1} />
         {/* name="名前"で遷移先の名前を設定．<重要> */}
         {/* component={}の中には遷移先の画面を設定する．*/}
     </Stack.Navigator>
