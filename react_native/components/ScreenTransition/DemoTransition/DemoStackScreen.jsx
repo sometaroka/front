@@ -2,7 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import DemoScreen2 from "../../Screen/DemoScreen/DemoScreen2";
 import DemoStackScreenNest from "./DemoScreenStackNest";
-import DemoStackTimeline1 from "./DemoStackTimeline";
+import { DemoStackTimeline1 } from "./DemoStackTimeline";
 // 必要なライブラリやコンポーネントなどをインポートする．
 // インポートし忘れのミスが結構ある．
 
