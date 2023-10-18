@@ -12,7 +12,7 @@ function Timeline_home() {
         <Text style={styles.moji_home}>🍜home🍜</Text>
       </View>
       <View style={styles.button}>
-        <AntDesign name="pluscircleo" size={50} color="white" />
+        <AntDesign name="pluscircleo" size={50} color="black" />
       </View>
       <StatusBar style="light" />
     </View>
@@ -22,30 +22,28 @@ function Timeline_home() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#1A0923',
     flex: 1,
   },
   topbar: {
     borderTopWidth: 1,
-    borderColor: '#fff',
+    borderColor: '#000',
   },
   moji_ber: {
     paddingVertical: 30,
     paddingHorizontal: 160,
-    color: 'white',
+    color: 'black',
     fontSize: 20,
   },
   moji_home: {
-    paddingVertical: 250,
+    paddingVertical: 180,
     paddingHorizontal: 70,
-    color: 'white',
+    color: 'black',
     fontSize: 50,
   },
   button: {
     alignItems: 'flex-end',
     paddingHorizontal: 20,
-    paddingVertical: 15,
-    borderRadius: 20,
+    paddingVertical: 20,
   },
 });
 
