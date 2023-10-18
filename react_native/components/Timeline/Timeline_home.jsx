@@ -1,8 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons'; 
+import { useNavigation } from "@react-navigation/native";
 
 function Timeline_home() {
+
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <View>
@@ -12,7 +16,11 @@ function Timeline_home() {
         <Text style={styles.moji_home}>🍜home🍜</Text>
       </View>
       <View style={styles.button}>
-        <AntDesign name="pluscircleo" size={50} color="black" />
+        <TouchableOpacity 
+          onPress={() => navigation.navigate("DemoStackScreen2")}
+        >
+          <AntDesign name="pluscircleo" size={50} color="black" />
+        </TouchableOpacity>
       </View>
       <StatusBar style="light" />
     </View>
