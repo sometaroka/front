@@ -32,15 +32,19 @@ const ProfileScreen_MyProfileAndHome = () => {
           style={styles.headerImage}
           source={require("../../../assets/icon.png")}
         />
-        <Image
-          style={styles.iconImage}
-          source={require("../../../assets/icon.png")}
-        />
-        <Text>UserName</Text>
-        <Button
-          title="設定"
-          onPress={() => navigation.navigate("ProfileStackScreen_Setting")}
-        />
+        <View style={styles.imageNameSettingArea}>
+          <Image
+            style={styles.iconImage}
+            source={require("../../../assets/icon.png")}
+          />
+          <Text style={styles.userName}>UserName</Text>
+          <Button
+            style={styles.SettingButton}
+            title="設定"
+            onPress={() => navigation.navigate("ProfileStackScreen_Setting")}
+          />
+        </View>
+
         <Text>紹介文</Text>
         <Button
           title="フォロー"
@@ -76,11 +80,6 @@ const styles = StyleSheet.create({
     height: 70,
   },
 
-  iconImage: {
-    height: 60,
-    width: 60,
-  },
-
   headerArea: {
     borderWidth: 2,
     borderColor: "red",
@@ -91,6 +90,34 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "blue",
   },
+
+  // imageNameSettingAreaのスタイル
+
+  imageNameSettingArea: {
+    borderWidth: 2,
+    borderColor: "skyblue",
+    flexDirection: "row",
+    // justifyContent: "center",
+    alignItemsItems: "center",
+  },
+
+  iconImage: {
+    marginRight: "6%",
+    height: 60,
+    width: 60,
+  },
+
+  userName: {
+    alignItems: "center",
+  },
+
+  settingButton: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  // imageNameSettingAreaのスタイルここまで
 });
 
 export default ProfileScreen_MyProfileAndHome;
