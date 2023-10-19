@@ -78,7 +78,7 @@ const ProfileScreen_Setting_User = ({ navigation }) => {
           value={inputValue_6}
           onChangeText={(text) => setInputValue_6(text)}
         />
-        <Button title="送信" onPress={handleSubmit} />
+        <Button title="変更" onPress={handleSubmit} />
       </ScrollView>
     </View>
   );
