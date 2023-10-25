@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -37,10 +37,85 @@ function TalkScreenStack() {
   );
 }
 
+// ↓↓適宜コメント文に切り替えたりして
+
+// ガチ本番用(Django起動しないと使えない)
+// function TalkTable() {
+//   const navigation = useNavigation();
+
+//   const [search, setSearch] = useState("");
+//   const [data, setData] = useState("");
+
+//   useEffect(() => {
+//     const getMyData = async () => {
+//       await fetch("http://localhost:8000/tests/", {
+//         method: "GET",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//       })
+//         .then((res) => {
+//           if (res.ok) {
+//             return res.json();
+//           }
+//           throw new Error("Some Error");
+//         })
+//         .then((data) => {
+//           // setData(data);
+//           const talkList = data.map((item) => (
+//             <View
+//               style={styles.talk_list}
+//               key={item.message_id}
+//               onTouchEnd={() => navigation.navigate("Talk")}
+//             >
+//               <Text>{item.message_id}</Text>
+//               <Text>{item.message_data}</Text>
+//               <Text>{item.massege_date}</Text>
+//             </View>
+//           ));
+//           setData(talkList);
+//         })
+//         .catch((error) => {
+//           console.log(error);
+//         });
+//     };
+
+//     getMyData();
+//   }, []);
+
+//   const talkList = talkListData.map((item) => (
+//     <View
+//       key={item.name}
+//       style={styles.talk_list}
+//       onTouchEnd={() => navigation.navigate("Talk")}
+//     >
+//       <Text>Name: {item.name}</Text>
+//       <Text>Title: {item.title}</Text>
+//       <Text>Hogen: {item.hogen}</Text>
+//       <Text>IconSrc: {item.icon}</Text>
+//     </View>
+//   ));
+
+//   return (
+//     <View style={styles.talk_table_container}>
+//       <TextInput
+//         style={styles.text_input}
+//         placeholder="search"
+//         onChangeText={(e) => setSearch(e)}
+//       />
+//       <Text>{search}</Text>
+//       {/* {talkList} */}
+//       {data}
+//     </View>
+//   );
+// }
+
+// スタイル用(テストデータ)
 function TalkTable() {
   const navigation = useNavigation();
 
   const [search, setSearch] = useState("");
+  const [data, setData] = useState("");
 
   const talkList = talkListData.map((item) => (
     <View
