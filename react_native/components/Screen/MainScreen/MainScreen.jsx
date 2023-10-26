@@ -36,13 +36,13 @@ export default function HomeScreen() {
       screenOptions={{
         headerTintColor: "#ffffff",
         headerStyle: {
-          backgroundColor: "violet",
+          backgroundColor: "#aa4c8f",
         },
       }}
     >
       <Tab.Screen name="画面１" component={DemoStackTransition} />
       <Tab.Screen name="画面２" component={DemoScreen3} />
-      <Tab.Screen name="プロフィール" component={ProfileStackTransition} />
+      <Tab.Screen name="トーク一覧" component={TalkScreenStack} />
     </Tab.Navigator>
   );
 }
