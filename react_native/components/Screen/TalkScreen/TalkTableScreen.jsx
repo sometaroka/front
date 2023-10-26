@@ -9,10 +9,12 @@ import {
   TextInput,
   StyleSheet,
   Modal,
+  ScrollView,
 } from "react-native";
 import MainScreen from "../MainScreen/MainScreen";
 import talkListData from "./TalkList.json";
 import hogenListData from "./HogenList.json";
+import talkHistoryData from "./TalkHistory.json";
 
 const Stack = createStackNavigator();
 
@@ -31,6 +33,7 @@ function TalkScreenStack() {
     >
       <Stack.Screen name="TalkTable" component={TalkTable} />
       <Stack.Screen name="Talk" component={Talk} />
+      <Stack.Screen name="TalkHistory" component={TalkHistory} />
       {/* <Stack.Screen name="Register" component={RegisterScreen} />
       <Stack.Screen name="MainScreen" component={MainScreen} /> */}
     </Stack.Navigator>
@@ -138,7 +141,7 @@ function TalkTable() {
         onChangeText={(e) => setSearch(e)}
       />
       <Text>{search}</Text>
-      {talkList}
+      <ScrollView>{talkList}</ScrollView>
     </View>
   );
 }
@@ -173,6 +176,10 @@ function Talk() {
     <View>
       <View>
         <Button title={hogen} onPress={reverseVisible} />
+        <Button
+          title="トーク履歴"
+          onPress={() => navigation.navigate("TalkHistory")}
+        />
       </View>
       <View style={styles.talk_container}>
         <View style={styles.partner_area}>
@@ -222,6 +229,35 @@ function Talk() {
       <Text>
         {chat}&{hogen}
       </Text>
+    </View>
+  );
+}
+
+function TalkHistory() {
+  const [inputValue, setInputValue] = useState(""); // ステート変数の名前を修正
+
+  const handleSubmit = () => {
+    console.log("送信された値:", inputValue); // 正しいステート変数を使用するように修正
+    setInputValue(""); // 送信後に入力をクリアする
+  };
+
+  const talkHistory = talkHistoryData.map((item) => (
+    <View key={item.id}>
+      <Text>Name: {item.name}</Text>
+      <Text>icon: {item.icon}</Text>
+      <Text>talkContent: {item.talk_content}</Text>
+    </View>
+  ));
+
+  return (
+    <View>
+      <ScrollView>{talkHistory}</ScrollView>
+      <TextInput
+        style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
+        value={inputValue}
+        onChangeText={(text) => setInputValue(text)}
+      />
+      <Button title="送信" onPress={handleSubmit} />
     </View>
   );
 }
