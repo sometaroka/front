@@ -1,0 +1,82 @@
+[
+  {
+    "room_id": 1,
+    "name": "John",
+    "title": "Software Engineer",
+    "hogen": "kyoto",
+    "icon": "icon1.png",
+    "talk_content": "おはよー世界！"
+  },
+
+  {
+    "room_id": 1,
+    "name": "Alice",
+    "title": "Software Engineer",
+    "hogen": "kyoto",
+    "icon": "icon1.png",
+    "talk_content": "おはよー"
+  },
+
+  {
+    "room_id": 1,
+    "name": "Alice",
+    "title": "Software Engineer",
+    "hogen": "kyoto",
+    "icon": "icon1.png",
+    "talk_content": "てかそれ、プログラミングで一番最初に表示させる文章やん"
+  },
+
+  {
+    "room_id": 1,
+    "name": "John",
+    "title": "Software Engineer",
+    "hogen": "kyoto",
+    "icon": "icon1.png",
+    "talk_content": "そうそう"
+  },
+
+  {
+    "room_id": 1,
+    "name": "John",
+    "title": "Software Engineer",
+    "hogen": "kyoto",
+    "icon": "icon1.png",
+    "talk_content": "あれってなんで「Hellow World!」なんだろう"
+  },
+
+  {
+    "room_id": 1,
+    "name": "Alice",
+    "title": "Software Engineer",
+    "hogen": "kyoto",
+    "icon": "icon1.png",
+    "talk_content": "なんでやろうね？"
+  },
+
+  {
+    "room_id": 1,
+    "name": "John",
+    "title": "Software Engineer",
+    "hogen": "kyoto",
+    "icon": "icon1.png",
+    "talk_content": "さっぱり。"
+  },
+
+  {
+    "room_id": 1,
+    "name": "John",
+    "title": "Software Engineer",
+    "hogen": "kyoto",
+    "icon": "icon1.png",
+    "talk_content": "今流行りのChatGPT様に聞いちゃう？"
+  },
+
+  {
+    "room_id": 1,
+    "name": "Alice",
+    "title": "Software Engineer",
+    "hogen": "kyoto",
+    "icon": "icon1.png",
+    "talk_content": "きくきく！！！！"
+  }
+]
