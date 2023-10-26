@@ -24,10 +24,10 @@ function TalkScreenStack() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerTintColor: "#ffffff",
+        headerTintColor: "#5214BA",
         // headerShown: false, //ヘッダー隠す
         headerStyle: {
-          backgroundColor: "#333399",
+          backgroundColor: "#FFFFFF",
         },
       }}
     >
@@ -242,7 +242,7 @@ function TalkHistory() {
   };
 
   const talkHistory = talkHistoryData.map((item) => (
-    <View key={item.id}>
+    <View style={styles.talk_hisutory_content} key={item.id}>
       <Text>Name: {item.name}</Text>
       <Text>icon: {item.icon}</Text>
       <Text>talkContent: {item.talk_content}</Text>
@@ -250,7 +250,7 @@ function TalkHistory() {
   ));
 
   return (
-    <View>
+    <View style={styles.talk_history}>
       <ScrollView>{talkHistory}</ScrollView>
       <TextInput
         style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
@@ -305,6 +305,23 @@ const styles = StyleSheet.create({
   },
   // partner_area: { left: 0 },
   // your_area: { alignSelf: "flex-end" },
+
+  // ↓トーク履歴表示画面のスタイルじゃぜ
+  talk_history: {
+    borderTopWidth: 2,
+    borderColor: "#5214BA",
+  },
+
+  talk_hisutory_content: {
+    minWidth: "35%",
+    maxWidth: "75%",
+    marginTop: 10,
+    padding: 4,
+    backgroundColor: "#DFCEFF",
+    borderWidth: 0.2,
+    borderRadius: 8,
+  },
+  // ↑トーク履歴表示画面のスタイル終わりじゃぜ
 });
 
 export default TalkScreenStack;

@@ -34,6 +34,7 @@ export default function HomeScreen() {
         inactiveBackgroundColor: "#9999dd",
       }}
       screenOptions={{
+        headerShown: false,
         headerTintColor: "#ffffff",
         headerStyle: {
           backgroundColor: "#aa4c8f",
