@@ -12,7 +12,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import MainScreen from "../MainScreen/MainScreen";
+// import MainScreen from "../MainScreen/MainScreen";
 import talkListData from "./TalkList.json";
 import hogenListData from "./HogenList.json";
 import talkHistoryData from "./TalkHistory.json";
@@ -162,7 +162,7 @@ function Talk() {
 
   // チャット画面
   const hogenList = hogenListData.map((item) => (
-    <View key={item.id}> 
+    <View key={item.id}>
       <Button
         title={item.name}
         onPress={() => {
@@ -178,7 +178,7 @@ function Talk() {
 
   return (
     <View>
-      <View style={styles.topber}> 
+      <View style={styles.topber}>
         <Button
           title="トーク履歴"
           onPress={() => navigation.navigate("TalkHistory")}
@@ -241,10 +241,10 @@ function Talk() {
           </View>
         </Modal>
       </View>
-      
+
       <View style={styles.b_input}>
-        <TouchableOpacity 
-          style={styles.b_camera} 
+        <TouchableOpacity
+          style={styles.b_camera}
           onPress={() => console.log("カメラを開く")}
         >
           <Fontisto name="camera" size={20} color="#d9d9d9" />
@@ -255,14 +255,14 @@ function Talk() {
           placeholderTextColor="#d9d9d9"
           onChangeText={(e) => setChat(e)}
         />
-        <TouchableOpacity 
-          style={styles.b_mic} 
+        <TouchableOpacity
+          style={styles.b_mic}
           onPress={() => console.log("マイクを起動")}
         >
           <Fontisto name="mic" size={20} color="#d9d9d9" />
         </TouchableOpacity>
-        <TouchableOpacity 
-          style={styles.b_send} 
+        <TouchableOpacity
+          style={styles.b_send}
           onPress={() => console.log("送信")}
         >
           <Fontisto name="play" size={10} color="#5214BA" />
@@ -389,6 +389,121 @@ function TalkHistory() {
   );
 }
 
+function TalkHistory() {
+  // const [inputValue, setInputValue] = useState(""); // ステート変数の名前を修正
+
+  // const handleSubmit = () => {
+  //   console.log("送信された値:", inputValue); // 正しいステート変数を使用するように修正
+  //   setInputValue(""); // 送信後に入力をクリアする
+  // };
+
+  // const talkHistory = talkHistoryData.map((item) => (
+  //   <View key={item.id}>
+  //     <Text>Name: {item.name}</Text>
+  //     <Text>icon: {item.icon}</Text>
+  //     <Text>talkContent: {item.talk_content}</Text>
+  //   </View>
+  // ));
+
+  const [talkHistory, setHistory] = useState("");
+  const [message, setMessage] = useState("");
+
+  const getTestData = async () => {
+    await fetch("http://localhost:8000/tests/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error("Some Error");
+      })
+      .then((data) => {
+        // setData(data);
+        const talkHistory = data.map((item) => (
+          <View style={styles.talk_list} key={item.message_id}>
+            <Text>{item.message_id}</Text>
+            <Text>{item.message_data}</Text>
+            <Text>{item.massege_date}</Text>
+            <Text>{item.intnation}</Text>
+            <Text>{item.user}</Text>
+          </View>
+        ));
+        setHistory(talkHistory);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getTestData();
+  }, []);
+
+  const handleSubmit = () => {
+    fetch("http://localhost:8000/tests/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        message_data: message,
+        intnation: "intonation~~~~!!!!!",
+        user: 1,
+        talk_id: "a29ac742-0796-4f36-b9bf-fd7b537b491d",
+      }),
+    })
+      // アバターが出てくる画面のチャットで使う．
+      // 送ったデータが表示される．
+      //  .then((response) => {
+      //   if (!response.ok) {
+      //     throw new Error("Network response was not ok");
+      //   }
+      //   return response.json();
+      // })
+      // .then((responseJson) => {
+      //   const talkHistory = responseJson.map((item) => (
+      //     <View
+      //       style={styles.talk_list}
+      //       key={item.message_id}
+      //       onTouchEnd={() => navigation.navigate("Talk")}
+      //     >
+      //        <Text>{item.message_id}</Text>
+      // <Text>{item.message_data}</Text>
+      // <Text>{item.massege_date}</Text>
+      // <Text>{item.intnation}</Text>
+      // <Text>{item.user}</Text>
+      //     </View>
+      //   ));
+      //   setHistory(talkHistory);
+      // })
+      // .catch((error) => {
+      //   console.log(error);
+      // });
+      .then(() => {
+        getTestData();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  return (
+    <View>
+      <ScrollView>
+        {talkHistory}
+        <TextInput
+          style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
+          value={message}
+          onChangeText={(e) => setMessage(e)}
+        />
+        <Button title="送信" onPress={handleSubmit} />
+      </ScrollView>
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
   talk_table_container: {
     flex: 1,
@@ -406,7 +521,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: "1px",
     marginBottom: "3%",
   },
-  
+
   // partner_area: { left: 0 },
   // your_area: { alignSelf: "flex-end" },
 
@@ -547,17 +662,19 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginLeft: 10, //右側の間を調整
   },
-  
+
   //↓Talk（チャット画面）のスタイル
-  topber: { //方言選択ボタン区切ってる線より上
+  topber: {
+    //方言選択ボタン区切ってる線より上
     borderBottomWidth: 1, // ボーダーの太さ（ピクセル単位）
-    borderBottomColor: '#5214BA', // ボーダーの色
-    flexDirection: 'row', // 入力欄とアイコンを横に配置
+    borderBottomColor: "#5214BA", // ボーダーの色
+    flexDirection: "row", // 入力欄とアイコンを横に配置
     justifyContent: "space-between", // 上下に均等に配置
   },
 
-  b_hogen: { //方言選択ボタンの形
-    backgroundColor: '#5214AB', // ボタンの背景色
+  b_hogen: {
+    //方言選択ボタンの形
+    backgroundColor: "#5214AB", // ボタンの背景色
     paddingVertical: 5, // 垂直方向の余白
     paddingHorizontal: 10, // 水平方向の余白
     borderRadius: 100, // ボタンの角丸設定
@@ -566,99 +683,112 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
 
-  buttonText: { //方言選択ボタンの文字の色
-    color: '#d9d9d9', // ボタンのテキストの色
-    textAlign: 'right', // 右寄せ
+  buttonText: {
+    //方言選択ボタンの文字の色
+    color: "#d9d9d9", // ボタンのテキストの色
+    textAlign: "right", // 右寄せ
     paddingLeft: 0, // 左側の余白を削除
   },
 
-  talk_container: { //チャット画面の大枠
+  talk_container: {
+    //チャット画面の大枠
     flexDirection: "column", // 垂直方向に配置
     justifyContent: "space-between", // 上下に均等に配置
     paddingHorizontal: 10, // 左右の余白
     paddingVertical: 20,
   },
 
-  partner_area: { //相手側のメッセージ表示
+  partner_area: {
+    //相手側のメッセージ表示
     backgroundColor: "#DFCEFF",
     padding: 10,
     borderRadius: 10,
     marginRight: 50, //右側の間を調整
     height: 75, //高さを設定
-    flexDirection: 'row', // 入力欄とアイコンを横に配置
-    justifyContent: 'space-between', //均等に配置
+    flexDirection: "row", // 入力欄とアイコンを横に配置
+    justifyContent: "space-between", //均等に配置
   },
 
-  t_option: { //テキストの改行のためのオプション
+  t_option: {
+    //テキストの改行のためのオプション
     flex: 1,
   },
 
-  area_text: { //メッセージのテキスト表示
+  area_text: {
+    //メッセージのテキスト表示
     marginTop: 0, //上の余白
     marginBottom: 0, //下の余白
     fontSize: 15, //文字の大きさ
   },
 
-  b_area: { //表示メッセージ横のボタン2つ用
-    flexDirection: 'column', //ボタンを縦に配置
-    justifyContent: 'space-between', //均等に配置
+  b_area: {
+    //表示メッセージ横のボタン2つ用
+    flexDirection: "column", //ボタンを縦に配置
+    justifyContent: "space-between", //均等に配置
   },
 
-  partner_stage: { //相手側のアバター用のステージ（足下の楕円）
+  partner_stage: {
+    //相手側のアバター用のステージ（足下の楕円）
     width: 150,
     height: 50,
-    backgroundColor: '#d9d9d9',
+    backgroundColor: "#d9d9d9",
     borderRadius: 100,
-    overflow: 'visible', //写真がはみ出ても表示されるようにする
+    overflow: "visible", //写真がはみ出ても表示されるようにする
     marginTop: 80,
   },
 
-  avatar_image: { //アバター用のスタイル
+  avatar_image: {
+    //アバター用のスタイル
     width: 100,
     height: 100,
-    position: 'absolute', // 画像の位置を絶対位置に設定
+    position: "absolute", // 画像の位置を絶対位置に設定
     left: 25, // 楕円内での画像の左の位置調整
     bottom: 20, // 楕円内での画像の上の位置調整
   },
 
-  your_stage: { //こちら側のアバター用のステージ（足下の楕円）
+  your_stage: {
+    //こちら側のアバター用のステージ（足下の楕円）
     width: 150,
     height: 50,
-    backgroundColor: '#d9d9d9',
+    backgroundColor: "#d9d9d9",
     borderRadius: 100,
-    overflow: 'visible', //写真がはみ出ても表示されるようにする
+    overflow: "visible", //写真がはみ出ても表示されるようにする
     marginTop: 80,
     marginLeft: 220,
     marginBottom: 5,
   },
 
-  your_area: { //こちら側のメッセージ表示
+  your_area: {
+    //こちら側のメッセージ表示
     backgroundColor: "#DFCEFF",
     padding: 10,
     borderRadius: 10,
     marginLeft: 50, //左側の間を調整
     height: 75, //高さを設定
-    flexDirection: 'row', // 入力欄とアイコンを横に配置
-    justifyContent: 'space-between', //均等に配置
+    flexDirection: "row", // 入力欄とアイコンを横に配置
+    justifyContent: "space-between", //均等に配置
   },
 
-  b_input: { //入力フォームの枠
-    backgroundColor: '#5214AB', // フォームの背景色
+  b_input: {
+    //入力フォームの枠
+    backgroundColor: "#5214AB", // フォームの背景色
     paddingVertical: 5, // 垂直方向の余白
     paddingHorizontal: 10, // 水平方向の余白
     borderRadius: 100, // フォームの角丸設定
-    flexDirection: 'row', // 入力欄とアイコンを横に配置
+    flexDirection: "row", // 入力欄とアイコンを横に配置
     bottom: 0,
     marginTop: 50, //上の余白
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 
-  b_camera: { //カメラボタン
+  b_camera: {
+    //カメラボタン
     marginRight: 5, //右側の間を調整
   },
 
-  chat_input: { //入力フォームのテキスト入力部分
+  chat_input: {
+    //入力フォームのテキスト入力部分
     //backgroundColor: "#ddd",
     color: "#d9d9d9",
     width: "70%",
@@ -703,11 +833,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  b_mic: { //マイクボタン
+  b_mic: {
+    //マイクボタン
     marginLeft: 20, //左側の間を調整
   },
 
-  b_send: { //送信ボタン
+  b_send: {
+    //送信ボタン
     marginLeft: 15, //右側の間を調整
     width: 20,
     height: 20,
