@@ -157,8 +157,10 @@ function Talk() {
     setVisible((vis) => !vis);
   };
 
+  // チャット画面
   const hogenList = hogenListData.map((item) => (
-    <View key={item.id}>
+    // 方言選択ボタン？
+    <View key={item.id}> 
       <Button
         title={item.name}
         onPress={() => {
@@ -174,15 +176,15 @@ function Talk() {
 
   return (
     <View>
-      <View>
+      <View> {/*トーク履歴*/}
         <Button title={hogen} onPress={reverseVisible} />
         <Button
           title="トーク履歴"
           onPress={() => navigation.navigate("TalkHistory")}
         />
       </View>
-      <View style={styles.talk_container}>
-        <View style={styles.partner_area}>
+      <View style={styles.talk_container}>{/* トーク用（相手自分どっちも）*/}
+        <View style={styles.partner_area}>{/* トーク用（相手）*/}
           <Text>partner_text_here</Text>
           <Text>intonation</Text>
           <Image
@@ -195,7 +197,7 @@ function Talk() {
             onPress={() => console.log("音が鳴る")}
           />
         </View>
-        <View style={styles.your_area}>
+        <View style={styles.your_area}>{/* トーク用（自分）*/}
           <Text>your_text_here</Text>
           <Text>intonation</Text>
           <Image
@@ -221,6 +223,7 @@ function Talk() {
         </Modal>
       </View>
 
+{/* 入力欄*/}
       <TextInput
         style={styles.chat_input}
         placeholder="inputText"
