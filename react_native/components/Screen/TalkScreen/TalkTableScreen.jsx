@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -9,10 +9,12 @@ import {
   TextInput,
   StyleSheet,
   Modal,
+  ScrollView,
 } from "react-native";
-import MainScreen from "../MainScreen/MainScreen";
+// import MainScreen from "../MainScreen/MainScreen";
 import talkListData from "./TalkList.json";
 import hogenListData from "./HogenList.json";
+// import talkHistoryData from "./TalkHistory.json";
 
 const Stack = createStackNavigator();
 
@@ -31,16 +33,92 @@ function TalkScreenStack() {
     >
       <Stack.Screen name="TalkTable" component={TalkTable} />
       <Stack.Screen name="Talk" component={Talk} />
+      <Stack.Screen name="TalkHistory" component={TalkHistory} />
       {/* <Stack.Screen name="Register" component={RegisterScreen} />
       <Stack.Screen name="MainScreen" component={MainScreen} /> */}
     </Stack.Navigator>
   );
 }
 
+// ↓↓適宜コメント文に切り替えたりして
+
+// ガチ本番用(Django起動しないと使えない)
+// function TalkTable() {
+//   const navigation = useNavigation();
+
+//   const [search, setSearch] = useState("");
+//   const [data, setData] = useState("");
+
+//   useEffect(() => {
+//     const getMyData = async () => {
+//       await fetch("http://localhost:8000/tests/", {
+//         method: "GET",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//       })
+//         .then((res) => {
+//           if (res.ok) {
+//             return res.json();
+//           }
+//           throw new Error("Some Error");
+//         })
+//         .then((data) => {
+//           // setData(data);
+//           const talkList = data.map((item) => (
+//             <View
+//               style={styles.talk_list}
+//               key={item.message_id}
+//               onTouchEnd={() => navigation.navigate("Talk")}
+//             >
+//               <Text>{item.message_id}</Text>
+//               <Text>{item.message_data}</Text>
+//               <Text>{item.massege_date}</Text>
+//             </View>
+//           ));
+//           setData(talkList);
+//         })
+//         .catch((error) => {
+//           console.log(error);
+//         });
+//     };
+
+//     getMyData();
+//   }, []);
+
+//   const talkList = talkListData.map((item) => (
+//     <View
+//       key={item.name}
+//       style={styles.talk_list}
+//       onTouchEnd={() => navigation.navigate("Talk")}
+//     >
+//       <Text>Name: {item.name}</Text>
+//       <Text>Title: {item.title}</Text>
+//       <Text>Hogen: {item.hogen}</Text>
+//       <Text>IconSrc: {item.icon}</Text>
+//     </View>
+//   ));
+
+//   return (
+//     <View style={styles.talk_table_container}>
+//       <TextInput
+//         style={styles.text_input}
+//         placeholder="search"
+//         onChangeText={(e) => setSearch(e)}
+//       />
+//       <Text>{search}</Text>
+//       {/* {talkList} */}
+//       {data}
+//     </View>
+//   );
+// }
+
+// スタイル用(テストデータ)
 function TalkTable() {
   const navigation = useNavigation();
 
   const [search, setSearch] = useState("");
+  const [data, setData] = useState("");
 
   const talkList = talkListData.map((item) => (
     <View
@@ -63,7 +141,7 @@ function TalkTable() {
         onChangeText={(e) => setSearch(e)}
       />
       <Text>{search}</Text>
-      {talkList}
+      <ScrollView>{talkList}</ScrollView>
     </View>
   );
 }
@@ -98,6 +176,10 @@ function Talk() {
     <View>
       <View>
         <Button title={hogen} onPress={reverseVisible} />
+        <Button
+          title="トーク履歴"
+          onPress={() => navigation.navigate("TalkHistory")}
+        />
       </View>
       <View style={styles.talk_container}>
         <View style={styles.partner_area}>
@@ -147,6 +229,121 @@ function Talk() {
       <Text>
         {chat}&{hogen}
       </Text>
+    </View>
+  );
+}
+
+function TalkHistory() {
+  // const [inputValue, setInputValue] = useState(""); // ステート変数の名前を修正
+
+  // const handleSubmit = () => {
+  //   console.log("送信された値:", inputValue); // 正しいステート変数を使用するように修正
+  //   setInputValue(""); // 送信後に入力をクリアする
+  // };
+
+  // const talkHistory = talkHistoryData.map((item) => (
+  //   <View key={item.id}>
+  //     <Text>Name: {item.name}</Text>
+  //     <Text>icon: {item.icon}</Text>
+  //     <Text>talkContent: {item.talk_content}</Text>
+  //   </View>
+  // ));
+
+  const [talkHistory, setHistory] = useState("");
+  const [message, setMessage] = useState("");
+
+  const getTestData = async () => {
+    await fetch("http://localhost:8000/tests/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error("Some Error");
+      })
+      .then((data) => {
+        // setData(data);
+        const talkHistory = data.map((item) => (
+          <View style={styles.talk_list} key={item.message_id}>
+            <Text>{item.message_id}</Text>
+            <Text>{item.message_data}</Text>
+            <Text>{item.massege_date}</Text>
+            <Text>{item.intnation}</Text>
+            <Text>{item.user}</Text>
+          </View>
+        ));
+        setHistory(talkHistory);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getTestData();
+  }, []);
+
+  const handleSubmit = () => {
+    fetch("http://localhost:8000/tests/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        message_data: message,
+        intnation: "intonation~~~~!!!!!",
+        user: 1,
+        talk_id: "a29ac742-0796-4f36-b9bf-fd7b537b491d",
+      }),
+    })
+      // アバターが出てくる画面のチャットで使う．
+      // 送ったデータが表示される．
+      //  .then((response) => {
+      //   if (!response.ok) {
+      //     throw new Error("Network response was not ok");
+      //   }
+      //   return response.json();
+      // })
+      // .then((responseJson) => {
+      //   const talkHistory = responseJson.map((item) => (
+      //     <View
+      //       style={styles.talk_list}
+      //       key={item.message_id}
+      //       onTouchEnd={() => navigation.navigate("Talk")}
+      //     >
+      //        <Text>{item.message_id}</Text>
+      // <Text>{item.message_data}</Text>
+      // <Text>{item.massege_date}</Text>
+      // <Text>{item.intnation}</Text>
+      // <Text>{item.user}</Text>
+      //     </View>
+      //   ));
+      //   setHistory(talkHistory);
+      // })
+      // .catch((error) => {
+      //   console.log(error);
+      // });
+      .then(() => {
+        getTestData();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  return (
+    <View>
+      <ScrollView>
+        {talkHistory}
+        <TextInput
+          style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
+          value={message}
+          onChangeText={(e) => setMessage(e)}
+        />
+        <Button title="送信" onPress={handleSubmit} />
+      </ScrollView>
     </View>
   );
 }
