@@ -10,11 +10,13 @@ import {
   StyleSheet,
   Modal,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import MainScreen from "../MainScreen/MainScreen";
 import talkListData from "./TalkList.json";
 import hogenListData from "./HogenList.json";
 import talkHistoryData from "./TalkHistory.json";
+import { Fontisto } from '@expo/vector-icons';
 
 const Stack = createStackNavigator();
 
@@ -159,7 +161,6 @@ function Talk() {
 
   // チャット画面
   const hogenList = hogenListData.map((item) => (
-    // 方言選択ボタン？
     <View key={item.id}> 
       <Button
         title={item.name}
@@ -176,8 +177,10 @@ function Talk() {
 
   return (
     <View>
-      <View> 
-        <Button title={hogen} onPress={reverseVisible} />
+      <View style={styles.topber}> 
+        <TouchableOpacity style={styles.b_hogen} onPress={reverseVisible}>
+          <Text style={styles.buttonText}>{hogen}</Text>
+        </TouchableOpacity>
         <Button
           title="トーク履歴"
           onPress={() => navigation.navigate("TalkHistory")}
@@ -223,11 +226,20 @@ function Talk() {
         </Modal>
       </View>
 
-      <TextInput
-        style={styles.chat_input}
-        placeholder="inputText"
-        onChangeText={(e) => setChat(e)}
-      />
+      <View style={styles.b_input}>
+        <View style={styles.b_input_option}>
+          <Fontisto name="camera" size={20} color="#d9d9d9" />
+        </View>
+        <TextInput
+          style={styles.chat_input}
+          placeholder="Message..."
+          placeholderTextColor="#d9d9d9"
+          onChangeText={(e) => setChat(e)}
+        />
+        <View style={styles.b_input_option}>
+          <Fontisto name="mic" size={20} color="#d9d9d9" />
+        </View>
+      </View>
       <Text>
         {chat}&{hogen}
       </Text>
@@ -301,12 +313,43 @@ const styles = StyleSheet.create({
     height: 100,
   },
   chat_input: {
-    backgroundColor: "#ddd",
+    //backgroundColor: "#ddd",
+    color: "#d9d9d9",
     width: "50%",
     borderBottomWidth: 1,
   },
   // partner_area: { left: 0 },
   // your_area: { alignSelf: "flex-end" },
+
+  topber: { //方言選択ボタン区切ってる線より上
+    borderBottomWidth: 1, // ボーダーの太さ（ピクセル単位）
+    borderBottomColor: '#5214BA', // ボーダーの色
+  },
+
+  b_hogen: { //ボタンの形(方言)
+    backgroundColor: '#5214AB', // ボタンの背景色
+    paddingVertical: 5, // 垂直方向の余白
+    paddingHorizontal: 10, // 水平方向の余白
+    borderRadius: 100, // ボタンの角丸設定
+    marginLeft: 325,
+  },
+  buttonText: { //ボタンの文字の色
+    color: '#d9d9d9', // ボタンのテキストの色
+    textAlign: 'right', // 右寄せ
+    paddingLeft: 0, // 左側の余白を削除
+  },
+  b_input: { //ボタンの形（入力欄）
+    backgroundColor: '#5214AB', // ボタンの背景色
+    paddingVertical: 5, // 垂直方向の余白
+    paddingHorizontal: 10, // 水平方向の余白
+    borderRadius: 100, // ボタンの角丸設定
+    flexDirection: 'row', // 入力欄とアイコンを横に配置
+  },
+  b_input_option: {
+    marginLeft: 5, //左側の間を調整
+    marginRight: 5, //右側の間を調整
+  }
+
 });
 
 export default TalkScreenStack;
