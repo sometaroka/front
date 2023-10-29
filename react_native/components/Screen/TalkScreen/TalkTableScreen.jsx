@@ -402,9 +402,9 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     overflow: 'visible',
     marginTop: 80,
-},
+  },
 
-your_stage: {
+  your_stage: {
     width: 150,
     height: 50,
     backgroundColor: '#d9d9d9',
@@ -413,7 +413,7 @@ your_stage: {
     marginTop: 80,
     marginLeft: 220,
     marginBottom: 5,
-},
+  },
 
 
 });
