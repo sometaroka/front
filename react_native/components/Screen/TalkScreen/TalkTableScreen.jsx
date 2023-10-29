@@ -17,6 +17,8 @@ import talkListData from "./TalkList.json";
 import hogenListData from "./HogenList.json";
 import talkHistoryData from "./TalkHistory.json";
 import { Fontisto } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
+
 
 const Stack = createStackNavigator();
 
@@ -188,30 +190,41 @@ function Talk() {
       </View>
       <View style={styles.talk_container}>
         <View style={styles.partner_area}>
-          <Text>partner_text_here</Text>
-          <Text>intonation</Text>
+          <Text style={styles.area_text}>partner_text_here</Text>
+          <View style={styles.b_area}>
+            <TouchableOpacity onPress={() => console.log("intonation")}>
+              <FontAwesome name="comment" size={20} color="#5214BA" />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => console.log("音が鳴る")}>
+              <Fontisto name="volume-up" size={20} color="#5214BA" />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.partner_stage}>
           <Image
             style={styles.avatar_image}
             source={require("../../../assets/icon.png")}
-          />
-          <Button
-            title={"voice"}
-            style={styles.button}
-            onPress={() => console.log("音が鳴る")}
           />
         </View>
-        <View style={styles.your_area}>
-          <Text>your_text_here</Text>
-          <Text>intonation</Text>
+
+        <View style={styles.your_stage}>
           <Image
             style={styles.avatar_image}
             source={require("../../../assets/icon.png")}
           />
-          <Button
-            title={"voice"}
-            style={styles.button}
-            onPress={() => console.log("音が鳴る2")}
-          />
+        </View>
+
+        <View style={styles.your_area}>
+          <Text style={styles.area_text}>your_text_here</Text>
+          <View style={styles.b_area}>
+            <TouchableOpacity onPress={() => console.log("intonation")}>
+              <FontAwesome name="comment" size={20} color="#5214BA" />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => console.log("音が鳴る2")}>
+              <Fontisto name="volume-up" size={20} color="#5214BA" />
+            </TouchableOpacity>
+          </View>
         </View>
 
         <Modal
@@ -226,23 +239,31 @@ function Talk() {
         </Modal>
       </View>
 
-      <View style={styles.b_input}>
-        <View style={styles.b_input_option}>
-          <Fontisto name="camera" size={20} color="#d9d9d9" />
+      <View>
+        <View style={styles.b_input}>
+          <TouchableOpacity 
+            style={styles.b_input_option} 
+            onPress={() => console.log("カメラを開く")}
+          >
+            <Fontisto name="camera" size={20} color="#d9d9d9" />
+          </TouchableOpacity>
+          <TextInput
+            style={styles.chat_input}
+            placeholder="Message..."
+            placeholderTextColor="#d9d9d9"
+            onChangeText={(e) => setChat(e)}
+          />
+          <TouchableOpacity 
+            style={styles.b_input_option} 
+            onPress={() => console.log("マイクを起動")}
+          >
+            <Fontisto name="mic" size={20} color="#d9d9d9" />
+          </TouchableOpacity>
         </View>
-        <TextInput
-          style={styles.chat_input}
-          placeholder="Message..."
-          placeholderTextColor="#d9d9d9"
-          onChangeText={(e) => setChat(e)}
-        />
-        <View style={styles.b_input_option}>
-          <Fontisto name="mic" size={20} color="#d9d9d9" />
-        </View>
+        <Text>
+          {chat}&{hogen}
+        </Text>
       </View>
-      <Text>
-        {chat}&{hogen}
-      </Text>
     </View>
   );
 }
@@ -283,9 +304,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   talk_container: {
-    flexDirection: "column", // 横並びに配置
-    justifyContent: "space-between", // 左右に均等に配置
-    paddingHorizontal: 16, // 左右の余白
+    flexDirection: "column", // 垂直方向に配置
+    justifyContent: "space-between", // 上下に均等に配置
+    paddingHorizontal: 10, // 左右の余白
     paddingVertical: 20,
   },
   text_input: {
@@ -299,18 +320,29 @@ const styles = StyleSheet.create({
     marginBottom: "3%",
   },
   partner_area: {
-    backgroundColor: "lightgray",
-    padding: 30,
+    backgroundColor: "#DFCEFF",
+    padding: 10,
     borderRadius: 10,
+    marginRight: 50, //右側の間を調整
+    height: 75, //高さを設定
+    flexDirection: 'row', // 入力欄とアイコンを横に配置
+    justifyContent: 'space-between', //均等に配置
   },
   your_area: {
-    backgroundColor: "lightblue",
-    padding: 30,
+    backgroundColor: "#DFCEFF",
+    padding: 10,
     borderRadius: 10,
+    marginLeft: 50, //左側の間を調整
+    height: 75, //高さを設定
+    flexDirection: 'row', // 入力欄とアイコンを横に配置
+    justifyContent: 'space-between', //均等に配置
   },
   avatar_image: {
     width: 100,
     height: 100,
+    position: 'absolute', // 画像の位置を絶対位置に設定
+    left: 25, // 楕円内での画像の左の位置調整
+    bottom: 20, // 楕円内での画像の上の位置調整
   },
   chat_input: {
     //backgroundColor: "#ddd",
@@ -331,7 +363,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5, // 垂直方向の余白
     paddingHorizontal: 10, // 水平方向の余白
     borderRadius: 100, // ボタンの角丸設定
-    marginLeft: 325,
+    marginLeft: 325, //左の余白
   },
   buttonText: { //ボタンの文字の色
     color: '#d9d9d9', // ボタンのテキストの色
@@ -344,11 +376,43 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10, // 水平方向の余白
     borderRadius: 100, // ボタンの角丸設定
     flexDirection: 'row', // 入力欄とアイコンを横に配置
+    bottom: 0,
   },
   b_input_option: {
-    marginLeft: 5, //左側の間を調整
     marginRight: 5, //右側の間を調整
-  }
+  },
+
+  b_area: { //表示メッセージ横のボタン2つ用
+    flexDirection: 'column', //ボタンを縦に配置
+    justifyContent: 'space-between', //均等に配置
+  },
+
+  area_text: {
+    marginTop: 0, //上の余白
+    marginBottom: 0, //下の余白
+    fontSize: 15, //文字の大きさ
+  },
+
+  partner_stage: {
+    width: 150,
+    height: 50,
+    backgroundColor: '#d9d9d9',
+    borderRadius: 100,
+    overflow: 'visible',
+    marginTop: 80,
+},
+
+your_stage: {
+    width: 150,
+    height: 50,
+    backgroundColor: '#d9d9d9',
+    borderRadius: 100,
+    overflow: 'visible',
+    marginTop: 80,
+    marginLeft: 220,
+    marginBottom: 5,
+},
+
 
 });
 
