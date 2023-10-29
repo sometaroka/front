@@ -363,19 +363,23 @@ const styles = StyleSheet.create({
     borderRadius: 100, // ボタンの角丸設定
     marginLeft: 325, //左の余白
   },
+
   buttonText: { //ボタンの文字の色
     color: '#d9d9d9', // ボタンのテキストの色
     textAlign: 'right', // 右寄せ
     paddingLeft: 0, // 左側の余白を削除
   },
-  b_input: { //ボタンの形（入力欄）
+
+  b_input: { //入力欄
     backgroundColor: '#5214AB', // ボタンの背景色
     paddingVertical: 5, // 垂直方向の余白
     paddingHorizontal: 10, // 水平方向の余白
     borderRadius: 100, // ボタンの角丸設定
     flexDirection: 'row', // 入力欄とアイコンを横に配置
     bottom: 0,
+    marginTop: 50, //上の余白
   },
+
   b_input_option: {
     marginRight: 5, //右側の間を調整
   },
