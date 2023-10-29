@@ -238,32 +238,30 @@ function Talk() {
           </View>
         </Modal>
       </View>
-
-      <View>
-        <View style={styles.b_input}>
-          <TouchableOpacity 
-            style={styles.b_input_option} 
-            onPress={() => console.log("カメラを開く")}
-          >
-            <Fontisto name="camera" size={20} color="#d9d9d9" />
-          </TouchableOpacity>
-          <TextInput
-            style={styles.chat_input}
-            placeholder="Message..."
-            placeholderTextColor="#d9d9d9"
-            onChangeText={(e) => setChat(e)}
-          />
-          <TouchableOpacity 
-            style={styles.b_input_option} 
-            onPress={() => console.log("マイクを起動")}
-          >
-            <Fontisto name="mic" size={20} color="#d9d9d9" />
-          </TouchableOpacity>
-        </View>
-        <Text>
-          {chat}&{hogen}
-        </Text>
+      
+      <View style={styles.b_input}>
+        <TouchableOpacity 
+          style={styles.b_input_option} 
+          onPress={() => console.log("カメラを開く")}
+        >
+          <Fontisto name="camera" size={20} color="#d9d9d9" />
+        </TouchableOpacity>
+        <TextInput
+          style={styles.chat_input}
+          placeholder="Message..."
+          placeholderTextColor="#d9d9d9"
+          onChangeText={(e) => setChat(e)}
+        />
+        <TouchableOpacity 
+          style={styles.b_input_option} 
+          onPress={() => console.log("マイクを起動")}
+        >
+          <Fontisto name="mic" size={20} color="#d9d9d9" />
+        </TouchableOpacity>
       </View>
+      <Text>
+        {chat}&{hogen}
+      </Text>
     </View>
   );
 }
