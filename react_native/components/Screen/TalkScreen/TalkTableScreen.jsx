@@ -241,7 +241,7 @@ function Talk() {
       
       <View style={styles.b_input}>
         <TouchableOpacity 
-          style={styles.b_input_option} 
+          style={styles.b_camera} 
           onPress={() => console.log("カメラを開く")}
         >
           <Fontisto name="camera" size={20} color="#d9d9d9" />
@@ -253,10 +253,16 @@ function Talk() {
           onChangeText={(e) => setChat(e)}
         />
         <TouchableOpacity 
-          style={styles.b_input_option} 
+          style={styles.b_mic} 
           onPress={() => console.log("マイクを起動")}
         >
           <Fontisto name="mic" size={20} color="#d9d9d9" />
+        </TouchableOpacity>
+        <TouchableOpacity 
+          style={styles.b_send} 
+          onPress={() => console.log("送信")}
+        >
+          <Fontisto name="play" size={10} color="#5214BA" />
         </TouchableOpacity>
       </View>
       <Text>
@@ -345,8 +351,9 @@ const styles = StyleSheet.create({
   chat_input: {
     //backgroundColor: "#ddd",
     color: "#d9d9d9",
-    width: "50%",
+    width: "70%",
     borderBottomWidth: 1,
+    marginLeft: 10, //右側の間を調整
   },
   // partner_area: { left: 0 },
   // your_area: { alignSelf: "flex-end" },
@@ -384,8 +391,23 @@ const styles = StyleSheet.create({
     marginTop: 50, //上の余白
   },
 
-  b_input_option: {
+  b_camera: { //カメラボタン
     marginRight: 5, //右側の間を調整
+  },
+
+  b_mic: { //マイクボタン
+    marginLeft: 20, //左側の間を調整
+  },
+
+  b_send: { //送信ボタン
+    marginLeft: 15, //右側の間を調整
+    width: 20,
+    height: 20,
+    backgroundColor: "#d9d9d9",
+    borderRadius: 50,
+    justifyContent: 'center', 
+    alignItems: 'center',
+    alignItems: 'center',
   },
 
   b_area: { //表示メッセージ横のボタン2つ用
