@@ -180,13 +180,13 @@ function Talk() {
   return (
     <View>
       <View style={styles.topber}> 
-        <TouchableOpacity style={styles.b_hogen} onPress={reverseVisible}>
-          <Text style={styles.buttonText}>{hogen}</Text>
-        </TouchableOpacity>
         <Button
           title="トーク履歴"
           onPress={() => navigation.navigate("TalkHistory")}
         />
+        <TouchableOpacity style={styles.b_hogen} onPress={reverseVisible}>
+          <Text style={styles.buttonText}>{hogen}</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.talk_container}>
         <View style={styles.partner_area}>
@@ -354,6 +354,8 @@ const styles = StyleSheet.create({
   topber: { //方言選択ボタン区切ってる線より上
     borderBottomWidth: 1, // ボーダーの太さ（ピクセル単位）
     borderBottomColor: '#5214BA', // ボーダーの色
+    flexDirection: 'row', // 入力欄とアイコンを横に配置
+    justifyContent: "space-between", // 上下に均等に配置
   },
 
   b_hogen: { //ボタンの形(方言)
@@ -361,7 +363,9 @@ const styles = StyleSheet.create({
     paddingVertical: 5, // 垂直方向の余白
     paddingHorizontal: 10, // 水平方向の余白
     borderRadius: 100, // ボタンの角丸設定
-    marginLeft: 325, //左の余白
+    marginLeft: 220, //左の余白
+    height: 25,
+    marginTop: 5,
   },
 
   buttonText: { //ボタンの文字の色
