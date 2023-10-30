@@ -407,7 +407,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     justifyContent: 'center', 
     alignItems: 'center',
-    alignItems: 'center',
   },
 
   b_area: { //表示メッセージ横のボタン2つ用
