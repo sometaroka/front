@@ -242,10 +242,15 @@ function TalkHistory() {
   };
 
   const talkHistory = talkHistoryData.map((item) => (
-    <View style={styles.talk_hisutory_content} key={item.id}>
-      <Text>Name: {item.name}</Text>
-      <Text>icon: {item.icon}</Text>
-      <Text>talkContent: {item.talk_content}</Text>
+    <View style={styles.talk_history_container} key={item.id}>
+      <View style={styles.talk_history_content}>
+        <Text>Name: {item.name}</Text>
+        <Text>icon: {item.icon}</Text>
+        <Text>talkContent: {item.talk_content}</Text>
+      </View>
+      <View>
+        <Text style={styles.talk_time}>{item.time}</Text>
+      </View>
     </View>
   ));
 
@@ -307,19 +312,37 @@ const styles = StyleSheet.create({
   // your_area: { alignSelf: "flex-end" },
 
   // ↓トーク履歴表示画面のスタイルじゃぜ
+
   talk_history: {
     borderTopWidth: 2,
     borderColor: "#5214BA",
   },
 
-  talk_hisutory_content: {
+  talk_history_container: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "row",
+  },
+
+  talk_history_content: {
     minWidth: "35%",
     maxWidth: "75%",
     marginTop: 10,
+    marginLeft: 4,
     padding: 4,
+    // paddingTop: 12,
+    // paddingBottom: 0,
     backgroundColor: "#DFCEFF",
     borderWidth: 0.2,
     borderRadius: 8,
+  },
+
+  talk_time: {
+    position: "absolute",
+    bottom: 0,
+    left: 5,
+    fontSize: 12,
+    justifyContent: "flex-end",
   },
   // ↑トーク履歴表示画面のスタイル終わりじゃぜ
 });
