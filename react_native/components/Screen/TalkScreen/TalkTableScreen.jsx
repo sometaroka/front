@@ -246,8 +246,16 @@ function TalkHistory() {
 
   const talkHistory = talkHistoryData.map((item) => (
     <View style={styles.talk_history_container} key={item.id}>
-      <View style={styles.talk_history_content}>
+      {/* <View style={styles.talk_history_content}> */}
+      <View
+        style={
+          item.user_id == 12345
+            ? styles.talk_history_content_mine
+            : styles.talk_history_content_partner
+        }
+      >
         <Text>Name: {item.name}</Text>
+        <Text>UserId: {item.user_id}</Text>
         <Text>icon: {item.icon}</Text>
         <Text>talkContent: {item.talk_content}</Text>
       </View>
@@ -373,7 +381,7 @@ const styles = StyleSheet.create({
     // borderColor: "red",
   },
 
-  talk_history_content: {
+  talk_history_content_mine: {
     minWidth: "35%",
     maxWidth: "70%",
     marginTop: 10,
@@ -384,6 +392,23 @@ const styles = StyleSheet.create({
     // paddingTop: 12,
     // paddingBottom: 0,
     backgroundColor: "#DFCEFF",
+    borderWidth: 0.2,
+    borderRadius: 8,
+    borderColor: "#DFCEFF",
+  },
+
+  talk_history_content_partner: {
+    minWidth: "35%",
+    maxWidth: "70%",
+    marginTop: 10,
+    marginLeft: 4,
+    padding: 4,
+    // marginRight: -32,
+    // paddingRight: -10,
+    // paddingTop: 12,
+    // paddingBottom: 0,
+    // backgroundColor: "#DFCEFF",
+    backgroundColor: "pink",
     borderWidth: 0.2,
     borderRadius: 8,
     borderColor: "#DFCEFF",
