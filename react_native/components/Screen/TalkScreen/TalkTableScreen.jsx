@@ -10,11 +10,14 @@ import {
   StyleSheet,
   Modal,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import MainScreen from "../MainScreen/MainScreen";
 import talkListData from "./TalkList.json";
 import hogenListData from "./HogenList.json";
 import talkHistoryData from "./TalkHistory.json";
+import { Fontisto } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 
 const Stack = createStackNavigator();
 
@@ -248,6 +251,20 @@ function TalkHistory() {
         <Text>icon: {item.icon}</Text>
         <Text>talkContent: {item.talk_content}</Text>
       </View>
+      <View style={styles.b_area}>
+        <TouchableOpacity
+          style={styles.talk_icon1}
+          onPress={() => console.log("intonation")}
+        >
+          <FontAwesome name="comment" size={17} color="#5214BA" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.talk_icon2}
+          onPress={() => console.log("音が鳴る2")}
+        >
+          <Fontisto name="volume-up" size={17} color="#5214BA" />
+        </TouchableOpacity>
+      </View>
       <View>
         <Text style={styles.talk_time}>{item.time}</Text>
       </View>
@@ -256,13 +273,33 @@ function TalkHistory() {
 
   return (
     <View style={styles.talk_history}>
-      <ScrollView>{talkHistory}</ScrollView>
-      <TextInput
-        style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-        value={inputValue}
-        onChangeText={(text) => setInputValue(text)}
-      />
-      <Button title="送信" onPress={handleSubmit} />
+      <ScrollView style={styles.talk_history_area}>{talkHistory}</ScrollView>
+      <View style={styles.b_input}>
+        <TouchableOpacity
+          style={styles.b_camera}
+          onPress={() => console.log("カメラを開く")}
+        >
+          <Fontisto name="camera" size={20} color="#d9d9d9" />
+        </TouchableOpacity>
+        <TextInput
+          style={styles.chat_input}
+          placeholder="Message..."
+          placeholderTextColor="#d9d9d9"
+          onChangeText={(e) => setChat(e)}
+        />
+        <TouchableOpacity
+          style={styles.b_mic}
+          onPress={() => console.log("マイクを起動")}
+        >
+          <Fontisto name="mic" size={20} color="#d9d9d9" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.b_send}
+          onPress={() => console.log("送信")}
+        >
+          <Fontisto name="play" size={10} color="#5214BA" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -313,36 +350,118 @@ const styles = StyleSheet.create({
 
   // ↓トーク履歴表示画面のスタイルじゃぜ
 
+  talk_history_area: {
+    height: "90%",
+    // borderWidth: 2,
+    // borderColor: "pink",
+  },
+
   talk_history: {
     borderTopWidth: 2,
     borderColor: "#5214BA",
+    height: "100%",
+    // borderWidth: 2,
+    // borderColor: "pink",
   },
 
   talk_history_container: {
     flex: 1,
     display: "flex",
     flexDirection: "row",
+
+    // borderWidth: 1,
+    // borderColor: "red",
   },
 
   talk_history_content: {
     minWidth: "35%",
-    maxWidth: "75%",
+    maxWidth: "70%",
     marginTop: 10,
     marginLeft: 4,
     padding: 4,
+    // marginRight: -32,
+    // paddingRight: -10,
     // paddingTop: 12,
     // paddingBottom: 0,
     backgroundColor: "#DFCEFF",
     borderWidth: 0.2,
     borderRadius: 8,
+    borderColor: "#DFCEFF",
+  },
+
+  b_area: {
+    flex: 1,
+    //表示メッセージ横のボタン2つ用
+    backgroundColor: "#DFCEFF",
+    flexDirection: "column", //ボタンを縦に配置
+    justifyContent: "space-between", //均等に配置
+  },
+
+  talk_icon1: {
+    position: "relative",
+    top: 10,
+  },
+
+  talk_icon2: {
+    position: "relative",
+    bottom: 3,
   },
 
   talk_time: {
     position: "absolute",
     bottom: 0,
-    left: 5,
+    left: 10,
     fontSize: 12,
     justifyContent: "flex-end",
+  },
+
+  // ↓入力欄のデザイン
+  chat_input: {
+    //backgroundColor: "#ddd",
+    color: "#d9d9d9",
+    width: "70%",
+    borderBottomWidth: 1,
+    marginLeft: 10, //右側の間を調整
+  },
+
+  b_input: {
+    //入力欄
+    height: "100%",
+    flex: 1,
+    backgroundColor: "#5214AB", // ボタンの背景色
+    paddingVertical: 5, // 垂直方向の余白
+    paddingHorizontal: 10, // 水平方向の余白
+    borderRadius: 100, // ボタンの角丸設定
+    flexDirection: "row", // 入力欄とアイコンを横に配置
+    bottom: 0,
+    // marginTop: 50, //上の余白
+  },
+
+  b_camera: {
+    //カメラボタン
+    marginRight: 5, //右側の間を調整
+  },
+
+  b_mic: {
+    //マイクボタン
+    marginLeft: 20, //左側の間を調整
+  },
+
+  b_send: {
+    //送信ボタン
+    marginLeft: 15, //右側の間を調整
+    width: 20,
+    height: 20,
+    backgroundColor: "#d9d9d9",
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  b_area: {
+    //表示メッセージ横のボタン2つ用
+    flexDirection: "column", //ボタンを縦に配置
+    justifyContent: "space-between", //均等に配置
   },
   // ↑トーク履歴表示画面のスタイル終わりじゃぜ
 });
