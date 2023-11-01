@@ -190,7 +190,9 @@ function Talk() {
       </View>
       <View style={styles.talk_container}>
         <View style={styles.partner_area}>
-          <Text style={styles.area_text}>partner_text_here</Text>
+          <View style={styles.t_option}>
+            <Text style={styles.area_text}>partner_text_here</Text>
+          </View>
           <View style={styles.b_area}>
             <TouchableOpacity onPress={() => console.log("intonation")}>
               <FontAwesome name="comment" size={20} color="#5214BA" />
@@ -216,7 +218,9 @@ function Talk() {
         </View>
 
         <View style={styles.your_area}>
-          <Text style={styles.area_text}>your_text_here</Text>
+          <View style={styles.t_option}>
+            <Text style={styles.area_text}>your_text_here</Text>
+          </View>
           <View style={styles.b_area}>
             <TouchableOpacity onPress={() => console.log("intonation")}>
               <FontAwesome name="comment" size={20} color="#5214BA" />
@@ -440,6 +444,9 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 
+  t_option: {
+    flex: 1,
+  },
 
 });
 
