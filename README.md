@@ -1,30 +1,34 @@
 # front
 
-**ブランチ命名規則**  
-- ```feature/#(Issuesの番号)_(内容)```  
-例：```feature/#1_tab_bar```
+# test
+
+**ブランチ命名規則**
+
+- `feature/#(Issuesの番号)_(内容)`  
+  例：`feature/#1_tab_bar`
 - 日本語禁止
 
-developブランチに移動してから以下を実行．  
-作成&移動コマンド：```git checkout -b feature/#(Issuesの番号)_(内容)```
+develop ブランチに移動してから以下を実行．  
+作成&移動コマンド：`git checkout -b feature/#(Issuesの番号)_(内容)`
 
 <hr>
 
-**開発について**  
-- [React Nativeの基本文法](https://zenn.dev/yutama_kotaro/articles/7a0d1d771d2ca3)についてはこちら  
-- 開発方法についてはデモ画面や各ファイル等を参照しながら理解してね．
-![transition](https://github.com/sometaroka/front/assets/114457271/94785495-78db-495a-a0eb-4b0fe9fb14ba)
+**開発について**
 
-- ```MainScreen.jsx```にコンポーネントを追加することでタブ遷移を追加できます．  
+- [React Native の基本文法](https://zenn.dev/yutama_kotaro/articles/7a0d1d771d2ca3)についてはこちら
+- 開発方法についてはデモ画面や各ファイル等を参照しながら理解してね．
+  ![transition](https://github.com/sometaroka/front/assets/114457271/94785495-78db-495a-a0eb-4b0fe9fb14ba)
+
+- `MainScreen.jsx`にコンポーネントを追加することでタブ遷移を追加できます．
 - 画面コンポーネントディレクトリ  
-```front/react_native/components/Screen```  
+  `front/react_native/components/Screen`
 - 遷移コンポーネント ディレクトリ  
-```front/react_native/components/ScreenTransition```  
-画面と遷移を同じファイルに載せてもらってもいいです．  
-上記のフォルダにて画面ごとにフォルダを作ってファイルを作成してください．  
-**画面ごとに分けて管理しやすいようにするため．**
-- ファイル名は日本語禁止，1文字目は大文字，単語を連結する場合は空白なし，大文字で繋げる．  
-例：```DemoScreenNest.js```
+  `front/react_native/components/ScreenTransition`  
+  画面と遷移を同じファイルに載せてもらってもいいです．  
+  上記のフォルダにて画面ごとにフォルダを作ってファイルを作成してください．  
+  **画面ごとに分けて管理しやすいようにするため．**
+- ファイル名は日本語禁止，1 文字目は大文字，単語を連結する場合は空白なし，大文字で繋げる．  
+  例：`DemoScreenNest.js`
 
 <hr>
 
