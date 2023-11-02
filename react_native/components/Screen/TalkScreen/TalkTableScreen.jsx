@@ -410,7 +410,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 
-  your_area: { //相手側のメッセージ表示
+  your_area: { //こちら側のメッセージ表示
     backgroundColor: "#DFCEFF",
     padding: 10,
     borderRadius: 10,
