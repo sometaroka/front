@@ -177,7 +177,7 @@ function Talk() {
   };
 
   return (
-    <View>
+    <View style={styles.chat}>
       <View style={styles.topber}> 
         <Button
           title="トーク履歴"
@@ -268,9 +268,7 @@ function Talk() {
           <Fontisto name="play" size={10} color="#5214BA" />
         </TouchableOpacity>
       </View>
-      <Text>
-        {chat}&{hogen}
-      </Text>
+      
     </View>
   );
 }
@@ -578,7 +576,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between", // 上下に均等に配置
     paddingHorizontal: 10, // 左右の余白
     paddingVertical: 20,
-    height: "83%",
+    height: "86%",
   },
 
   partner_area: { //相手側のメッセージ表示
@@ -736,6 +734,10 @@ const styles = StyleSheet.create({
     // borderColor: "pink",
   },
   // ↑トーク履歴表示画面のスタイル終わりじゃぜ
+
+  chat: {
+    height: "100%",
+  }
 });
 
 export default TalkScreenStack;
