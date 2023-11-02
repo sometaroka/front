@@ -428,6 +428,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row', // 入力欄とアイコンを横に配置
     bottom: 0,
     marginTop: 50, //上の余白
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   b_camera: { //カメラボタン
