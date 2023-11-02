@@ -258,6 +258,7 @@ function TalkHistory() {
           {item.time}
         </Text>
       </View>
+
       <View
         style={
           item.user_id == 12345
@@ -265,24 +266,26 @@ function TalkHistory() {
             : styles.talk_history_content_partner
         }
       >
-        <Text>Name: {item.name}</Text>
-        <Text>UserId: {item.user_id}</Text>
-        <Text>icon: {item.icon}</Text>
-        <Text>talkContent: {item.talk_content}</Text>
-      </View>
-      <View style={styles.b_area}>
-        <TouchableOpacity
-          style={styles.talk_icon1}
-          onPress={() => console.log("intonation")}
-        >
-          <FontAwesome name="comment" size={17} color="#5214BA" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.talk_icon2}
-          onPress={() => console.log("音が鳴る2")}
-        >
-          <Fontisto name="volume-up" size={17} color="#5214BA" />
-        </TouchableOpacity>
+        <View style={styles.talk_content_text}>
+          <Text>Name: {item.name}</Text>
+          <Text>UserId: {item.user_id}</Text>
+          <Text>icon: {item.icon}</Text>
+          <Text>talkContent: {item.talk_content}</Text>
+        </View>
+        <View style={styles.b_area}>
+          <TouchableOpacity
+            style={styles.talk_icon1}
+            onPress={() => console.log("intonation")}
+          >
+            <FontAwesome name="comment" size={17} color="#5214BA" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.talk_icon2}
+            onPress={() => console.log("音が鳴る2")}
+          >
+            <Fontisto name="volume-up" size={17} color="#5214BA" />
+          </TouchableOpacity>
+        </View>
       </View>
       <View>
         <Text
@@ -408,7 +411,7 @@ const styles = StyleSheet.create({
     // position: "relative",
     padding: 4,
     marginTop: 10,
-    marginRight: 0,
+    marginRight: 5,
     marginBottom: 0,
     marginLeft: "auto",
     // marginRight: -32,
@@ -419,13 +422,17 @@ const styles = StyleSheet.create({
     borderWidth: 0.2,
     borderRadius: 8,
     borderColor: "#DFCEFF",
+
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 
   talk_history_content_partner: {
     minWidth: "35%",
     maxWidth: "70%",
     marginTop: 10,
-    marginLeft: 4,
+    marginLeft: 5,
     padding: 4,
     // marginRight: -32,
     // paddingRight: -10,
@@ -435,19 +442,19 @@ const styles = StyleSheet.create({
     borderWidth: 0.2,
     borderRadius: 8,
     borderColor: "#DFCEFF",
+
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 
-  b_area: {
-    flex: 1,
-    //表示メッセージ横のボタン2つ用
-    backgroundColor: "#DFCEFF",
-    flexDirection: "column", //ボタンを縦に配置
-    justifyContent: "space-between", //均等に配置
+  talk_content_text: {
+    width: "88%",
   },
 
   talk_icon1: {
     position: "relative",
-    top: 10,
+    top: 3,
   },
 
   talk_icon2: {
@@ -458,7 +465,7 @@ const styles = StyleSheet.create({
   talk_time_partner: {
     position: "absolute",
     bottom: 0,
-    left: 10,
+    left: 5,
     fontSize: 12,
     justifyContent: "flex-end",
   },
@@ -522,8 +529,13 @@ const styles = StyleSheet.create({
 
   b_area: {
     //表示メッセージ横のボタン2つ用
+    // backgroundColor: "#DFCEFF",
     flexDirection: "column", //ボタンを縦に配置
     justifyContent: "space-between", //均等に配置
+    display: "flex",
+    flexDirection: "column",
+
+    marginLeft: 5,
   },
   // ↑トーク履歴表示画面のスタイル終わりじゃぜ
 });
