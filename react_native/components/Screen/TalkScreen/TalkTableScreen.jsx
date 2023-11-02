@@ -253,7 +253,7 @@ function TalkHistory() {
   const [message, setMessage] = useState("");
 
   const getTestData = async () => {
-    await fetch("http://localhost:8000/tests/", {
+    await fetch("http://192.168.3.18:8000/tests/", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -288,14 +288,14 @@ function TalkHistory() {
   }, []);
 
   const handleSubmit = () => {
-    fetch("http://localhost:8000/tests/", {
+    fetch("http://192.168.3.18:8000/tests/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         message_data: message,
         intnation: "intonation~~~~!!!!!",
         user: 1,
-        talk_id: "a29ac742-0796-4f36-b9bf-fd7b537b491d",
+        talk_id: "592e2e4e-295a-43cc-b09a-b8254efe9b69",
       }),
     })
       // アバターが出てくる画面のチャットで使う．
@@ -367,7 +367,7 @@ const styles = StyleSheet.create({
   },
   talk_list: {
     backgroundColor: "#e6cde3",
-    borderBottomWidth: "1px",
+    borderBottomWidth: 1,
     marginBottom: "3%",
   },
   partner_area: {
