@@ -279,6 +279,42 @@ function Talk() {
 function TalkHistory() {
   const [inputValue, setInputValue] = useState(""); // ステート変数の名前を修正
 
+  //下から持ってきた1
+  const [talkHistory, setHistory] = useState("");
+  const [message, setMessage] = useState("");
+
+  //下より持ってきた2
+  const getTestData = async () => {
+    await fetch("http://localhost:8000/tests/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error("Some Error");
+      })
+      .then((data) => {
+        // setData(data);
+        const talkHistory = data.map((item) => (
+          <View style={styles.talk_list} key={item.message_id}>
+            <Text>{item.message_id}</Text>
+            <Text>{item.message_data}</Text>
+            <Text>{item.massege_date}</Text>
+            <Text>{item.intnation}</Text>
+            <Text>{item.user}</Text>
+          </View>
+        ));
+        setHistory(talkHistory);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const handleSubmit = () => {
     console.log("送信された値:", inputValue); // 正しいステート変数を使用するように修正
     setInputValue(""); // 送信後に入力をクリアする
@@ -407,6 +443,7 @@ function TalkHistory() {
   //   </View>
   // ));
 
+  //上に持って行った1
   const [talkHistory, setHistory] = useState("");
   const [message, setMessage] = useState("");
 
