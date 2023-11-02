@@ -244,8 +244,24 @@ function TalkHistory() {
     setInputValue(""); // 送信後に入力をクリアする
   };
 
+  const navigation = useNavigation();
+
+  const [chat, setChat] = useState("");
+
+  const [visible, setVisible] = useState(false);
+  const reverseVisible = () => {
+    setVisible((vis) => !vis);
+  };
+
   const talkHistory = talkHistoryData.map((item) => (
-    <View style={styles.talk_history_container} key={item.id}>
+    <View
+      style={
+        item.user_id == 12345
+          ? styles.talk_history_container_mine
+          : styles.talk_history_container_partner
+      }
+      key={item.id}
+    >
       {/* <View style={styles.talk_history_content}> */}
       <View style={styles.talk_time_mine_parent}>
         <Text
@@ -272,7 +288,7 @@ function TalkHistory() {
           <Text>icon: {item.icon}</Text>
           <Text>talkContent: {item.talk_content}</Text>
         </View>
-        <View style={styles.b_area}>
+        <View style={styles.talk_history_b_area}>
           <TouchableOpacity
             style={styles.talk_icon1}
             onPress={() => console.log("intonation")}
@@ -304,27 +320,27 @@ function TalkHistory() {
   return (
     <View style={styles.talk_history}>
       <ScrollView style={styles.talk_history_area}>{talkHistory}</ScrollView>
-      <View style={styles.b_input}>
+      <View style={styles.talk_history_b_input}>
         <TouchableOpacity
-          style={styles.b_camera}
+          style={styles.talk_history_b_camera}
           onPress={() => console.log("カメラを開く")}
         >
           <Fontisto name="camera" size={20} color="#d9d9d9" />
         </TouchableOpacity>
         <TextInput
-          style={styles.chat_input}
+          style={styles.talk_history_chat_input}
           placeholder="Message..."
           placeholderTextColor="#d9d9d9"
           onChangeText={(e) => setChat(e)}
         />
         <TouchableOpacity
-          style={styles.b_mic}
+          style={styles.talk_history_b_mic}
           onPress={() => console.log("マイクを起動")}
         >
           <Fontisto name="mic" size={20} color="#d9d9d9" />
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.b_send}
+          style={styles.talk_history_b_send}
           onPress={() => console.log("送信")}
         >
           <Fontisto name="play" size={10} color="#5214BA" />
@@ -394,7 +410,19 @@ const styles = StyleSheet.create({
     // borderColor: "pink",
   },
 
-  talk_history_container: {
+  talk_history_container_mine: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "row",
+
+    marginLeft: "auto",
+    alignItems: "flex-end",
+
+    // borderWidth: 2,
+    // borderColor: "pink",
+  },
+
+  talk_history_container_partner: {
     flex: 1,
     display: "flex",
     flexDirection: "row",
@@ -478,6 +506,7 @@ const styles = StyleSheet.create({
 
   talk_time_mine: {
     fontSize: 12,
+    marginRight: 5,
   },
 
   talk_time_mine_hidden: {
@@ -485,7 +514,7 @@ const styles = StyleSheet.create({
   },
 
   // ↓入力欄のデザイン
-  chat_input: {
+  talk_history_chat_input: {
     //backgroundColor: "#ddd",
     color: "#d9d9d9",
     width: "70%",
@@ -493,7 +522,7 @@ const styles = StyleSheet.create({
     marginLeft: 10, //右側の間を調整
   },
 
-  b_input: {
+  talk_history_b_input: {
     //入力欄
     height: "100%",
     flex: 1,
@@ -503,20 +532,23 @@ const styles = StyleSheet.create({
     borderRadius: 100, // ボタンの角丸設定
     flexDirection: "row", // 入力欄とアイコンを横に配置
     bottom: 0,
+    alignItems: "center",
     // marginTop: 50, //上の余白
+    justifyContent: "center",
+    // gap: 10,
   },
 
-  b_camera: {
+  talk_history_b_camera: {
     //カメラボタン
     marginRight: 5, //右側の間を調整
   },
 
-  b_mic: {
+  talk_history_b_mic: {
     //マイクボタン
     marginLeft: 20, //左側の間を調整
   },
 
-  b_send: {
+  talk_history_b_send: {
     //送信ボタン
     marginLeft: 15, //右側の間を調整
     width: 20,
@@ -527,7 +559,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  b_area: {
+  talk_history_b_area: {
     //表示メッセージ横のボタン2つ用
     // backgroundColor: "#DFCEFF",
     flexDirection: "column", //ボタンを縦に配置
