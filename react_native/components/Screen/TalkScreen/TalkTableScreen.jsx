@@ -16,9 +16,8 @@ import MainScreen from "../MainScreen/MainScreen";
 import talkListData from "./TalkList.json";
 import hogenListData from "./HogenList.json";
 import talkHistoryData from "./TalkHistory.json";
-import { Fontisto } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
-
+import { Fontisto } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 
 const Stack = createStackNavigator();
 
@@ -28,10 +27,10 @@ function TalkScreenStack() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerTintColor: "#ffffff",
+        headerTintColor: "#5214BA",
         // headerShown: false, //ヘッダー隠す
         headerStyle: {
-          backgroundColor: "#333399",
+          backgroundColor: "#FFFFFF",
         },
       }}
     >
@@ -284,23 +283,108 @@ function TalkHistory() {
     setInputValue(""); // 送信後に入力をクリアする
   };
 
+  const navigation = useNavigation();
+
+  const [chat, setChat] = useState("");
+
+  const [visible, setVisible] = useState(false);
+  const reverseVisible = () => {
+    setVisible((vis) => !vis);
+  };
+
   const talkHistory = talkHistoryData.map((item) => (
-    <View key={item.id}>
-      <Text>Name: {item.name}</Text>
-      <Text>icon: {item.icon}</Text>
-      <Text>talkContent: {item.talk_content}</Text>
+    <View
+      style={
+        item.user_id == 12345
+          ? styles.talk_history_container_mine
+          : styles.talk_history_container_partner
+      }
+      key={item.id}
+    >
+      {/* <View style={styles.talk_history_content}> */}
+      <View style={styles.talk_time_mine_parent}>
+        <Text
+          style={
+            item.user_id == 12345
+              ? styles.talk_time_mine
+              : styles.talk_time_mine_hidden
+          }
+        >
+          {item.time}
+        </Text>
+      </View>
+
+      <View
+        style={
+          item.user_id == 12345
+            ? styles.talk_history_content_mine
+            : styles.talk_history_content_partner
+        }
+      >
+        <View style={styles.talk_content_text}>
+          <Text>Name: {item.name}</Text>
+          <Text>UserId: {item.user_id}</Text>
+          <Text>icon: {item.icon}</Text>
+          <Text>talkContent: {item.talk_content}</Text>
+        </View>
+        <View style={styles.talk_history_b_area}>
+          <TouchableOpacity
+            style={styles.talk_icon1}
+            onPress={() => console.log("intonation")}
+          >
+            <FontAwesome name="comment" size={17} color="#5214BA" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.talk_icon2}
+            onPress={() => console.log("音が鳴る2")}
+          >
+            <Fontisto name="volume-up" size={17} color="#5214BA" />
+          </TouchableOpacity>
+        </View>
+      </View>
+      <View>
+        <Text
+          style={
+            item.user_id == 12345
+              ? styles.talk_time_partner_hidden
+              : styles.talk_time_partner
+          }
+        >
+          {item.time}
+        </Text>
+      </View>
     </View>
   ));
 
   return (
-    <View>
-      <ScrollView>{talkHistory}</ScrollView>
-      <TextInput
-        style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-        value={inputValue}
-        onChangeText={(text) => setInputValue(text)}
-      />
-      <Button title="送信" onPress={handleSubmit} />
+    <View style={styles.talk_history}>
+      <ScrollView style={styles.talk_history_area}>{talkHistory}</ScrollView>
+      <View style={styles.talk_history_b_input}>
+        <TouchableOpacity
+          style={styles.talk_history_b_camera}
+          onPress={() => console.log("カメラを開く")}
+        >
+          <Fontisto name="camera" size={20} color="#d9d9d9" />
+        </TouchableOpacity>
+        <TextInput
+          style={styles.talk_history_chat_input}
+          placeholder="Message..."
+          placeholderTextColor="#d9d9d9"
+          onChangeText={(e) => setChat(e)}
+        />
+        <TouchableOpacity
+          style={styles.talk_history_b_mic}
+          onPress={() => console.log("マイクを起動")}
+        >
+          <Fontisto name="mic" size={20} color="#d9d9d9" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.talk_history_b_send}
+          onPress={() => console.log("送信")}
+        >
+          <Fontisto name="play" size={10} color="#5214BA" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -326,12 +410,151 @@ const styles = StyleSheet.create({
   // partner_area: { left: 0 },
   // your_area: { alignSelf: "flex-end" },
 
+  // ↓トーク履歴表示画面のスタイルじゃぜ
+
+  talk_history_area: {
+    height: "90%",
+    // borderWidth: 2,
+    // borderColor: "pink",
+  },
+
+  talk_history: {
+    borderTopWidth: 2,
+    borderColor: "#5214BA",
+    height: "100%",
+    // borderWidth: 2,
+    // borderColor: "pink",
+  },
+
+  talk_history_container_mine: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "row",
+
+    marginLeft: "auto",
+    alignItems: "flex-end",
+
+    Width: "100%",
+
+    // borderWidth: 2,
+    // borderColor: "pink",
+  },
+
+  talk_history_container_partner: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "row",
+
+    // borderWidth: 2,
+    // borderColor: "pink",
+  },
+
+  talk_history_content_mine: {
+    minWidth: "1%",
+    maxWidth: "70%",
+
+    marginTop: 10,
+    marginRight: 4,
+    // position: "relative",
+    padding: 4,
+    marginTop: 10,
+    marginRight: 5,
+    marginBottom: 0,
+    marginLeft: "auto",
+    // marginRight: -32,
+    // paddingRight: -10,
+    // paddingTop: 12,
+    // paddingBottom: 0,
+    backgroundColor: "#DFCEFF",
+    borderWidth: 0.2,
+    borderRadius: 8,
+    borderColor: "#DFCEFF",
+
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+
+  talk_history_content_partner: {
+    minWidth: "1%",
+    maxWidth: "70%",
+    marginTop: 10,
+    marginLeft: 5,
+    padding: 4,
+    // marginRight: -32,
+    // paddingRight: -10,
+    // paddingTop: 12,
+    // paddingBottom: 0,
+    backgroundColor: "#DFCEFF",
+    borderWidth: 0.2,
+    borderRadius: 8,
+    borderColor: "#DFCEFF",
+
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+
+  talk_content_text: {
+    // width: "88%",
+    maxWidth: "90%",
+    minWidth: "10%",
+
+    // marginRight: 5,
+
+    // borderWidth: 2,
+    // borderColor: "pink",
+  },
+
+  talk_icon1: {
+    position: "relative",
+    top: 3,
+  },
+
+  talk_icon2: {
+    position: "relative",
+    bottom: 3,
+  },
+
+  talk_time_partner: {
+    position: "absolute",
+    bottom: 0,
+    left: 5,
+    fontSize: 12,
+    justifyContent: "flex-end",
+  },
+
+  talk_time_partner_hidden: {
+    display: "none",
+  },
+
+  talk_time_mine_parent: {},
+
+  talk_time_mine: {
+    fontSize: 12,
+    marginRight: 5,
+  },
+
+  talk_time_mine_hidden: {
+    display: "none",
+  },
+
+  // ↓入力欄のデザイン
+  talk_history_chat_input: {
+    //backgroundColor: "#ddd",
+    color: "#d9d9d9",
+    width: "70%",
+    borderBottomWidth: 1,
+    marginLeft: 10, //右側の間を調整
+  },
+  
   //↓Talk（チャット画面）のスタイル
   topber: { //方言選択ボタン区切ってる線より上
     borderBottomWidth: 1, // ボーダーの太さ（ピクセル単位）
     borderBottomColor: '#5214BA', // ボーダーの色
     flexDirection: 'row', // 入力欄とアイコンを横に配置
     justifyContent: "space-between", // 上下に均等に配置
+    height: "7%",
   },
 
   b_hogen: { //方言選択ボタンの形
@@ -355,6 +578,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between", // 上下に均等に配置
     paddingHorizontal: 10, // 左右の余白
     paddingVertical: 20,
+    height: "83%",
   },
 
   partner_area: { //相手側のメッセージ表示
@@ -421,15 +645,18 @@ const styles = StyleSheet.create({
   },
 
   b_input: { //入力フォームの枠
-    backgroundColor: '#5214AB', // フォームの背景色
+    height: "100%",
+    flex: 1,
+    backgroundColor: "#5214AB", // ボタンの背景色
     paddingVertical: 5, // 垂直方向の余白
     paddingHorizontal: 10, // 水平方向の余白
-    borderRadius: 100, // フォームの角丸設定
-    flexDirection: 'row', // 入力欄とアイコンを横に配置
+    borderRadius: 100, // ボタンの角丸設定
+    flexDirection: "row", // 入力欄とアイコンを横に配置
     bottom: 0,
-    marginTop: 50, //上の余白
-    justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: "center",
+    // marginTop: 50, //上の余白
+    justifyContent: "center",
+    // gap: 10,
   },
 
   b_camera: { //カメラボタン
@@ -444,6 +671,43 @@ const styles = StyleSheet.create({
     marginLeft: 10, //右側の間を調整
   },
 
+  talk_history_b_input: {
+    //入力欄
+    height: "100%",
+    flex: 1,
+    backgroundColor: "#5214AB", // ボタンの背景色
+    paddingVertical: 5, // 垂直方向の余白
+    paddingHorizontal: 10, // 水平方向の余白
+    borderRadius: 100, // ボタンの角丸設定
+    flexDirection: "row", // 入力欄とアイコンを横に配置
+    bottom: 0,
+    alignItems: "center",
+    // marginTop: 50, //上の余白
+    justifyContent: "center",
+    // gap: 10,
+  },
+
+  talk_history_b_camera: {
+    //カメラボタン
+    marginRight: 5, //右側の間を調整
+  },
+
+  talk_history_b_mic: {
+    //マイクボタン
+    marginLeft: 20, //左側の間を調整
+  },
+
+  talk_history_b_send: {
+    //送信ボタン
+    marginLeft: 15, //右側の間を調整
+    width: 20,
+    height: 20,
+    backgroundColor: "#d9d9d9",
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
   b_mic: { //マイクボタン
     marginLeft: 20, //左側の間を調整
   },
@@ -454,10 +718,24 @@ const styles = StyleSheet.create({
     height: 20,
     backgroundColor: "#d9d9d9",
     borderRadius: 50,
-    justifyContent: 'center', 
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
-  //チャット画面のスタイルここまで
+
+  talk_history_b_area: {
+    //表示メッセージ横のボタン2つ用
+    // backgroundColor: "#DFCEFF",
+    flexDirection: "column", //ボタンを縦に配置
+    justifyContent: "space-between", //均等に配置
+    display: "flex",
+    flexDirection: "column",
+
+    marginLeft: 5,
+
+    // borderWidth: 2,
+    // borderColor: "pink",
+  },
+  // ↑トーク履歴表示画面のスタイル終わりじゃぜ
 });
 
 export default TalkScreenStack;
