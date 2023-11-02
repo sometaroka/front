@@ -311,12 +311,7 @@ const styles = StyleSheet.create({
     // alignItems: "center",
     justifyContent: "center",
   },
-  talk_container: {
-    flexDirection: "column", // 垂直方向に配置
-    justifyContent: "space-between", // 上下に均等に配置
-    paddingHorizontal: 10, // 左右の余白
-    paddingVertical: 20,
-  },
+
   text_input: {
     backgroundColor: "#ddd",
     width: "50%",
@@ -327,41 +322,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: "1px",
     marginBottom: "3%",
   },
-  partner_area: {
-    backgroundColor: "#DFCEFF",
-    padding: 10,
-    borderRadius: 10,
-    marginRight: 50, //右側の間を調整
-    height: 75, //高さを設定
-    flexDirection: 'row', // 入力欄とアイコンを横に配置
-    justifyContent: 'space-between', //均等に配置
-  },
-  your_area: {
-    backgroundColor: "#DFCEFF",
-    padding: 10,
-    borderRadius: 10,
-    marginLeft: 50, //左側の間を調整
-    height: 75, //高さを設定
-    flexDirection: 'row', // 入力欄とアイコンを横に配置
-    justifyContent: 'space-between', //均等に配置
-  },
-  avatar_image: {
-    width: 100,
-    height: 100,
-    position: 'absolute', // 画像の位置を絶対位置に設定
-    left: 25, // 楕円内での画像の左の位置調整
-    bottom: 20, // 楕円内での画像の上の位置調整
-  },
-  chat_input: {
-    //backgroundColor: "#ddd",
-    color: "#d9d9d9",
-    width: "70%",
-    borderBottomWidth: 1,
-    marginLeft: 10, //右側の間を調整
-  },
+  
   // partner_area: { left: 0 },
   // your_area: { alignSelf: "flex-end" },
 
+  //↓Talk（チャット画面）のスタイル
   topber: { //方言選択ボタン区切ってる線より上
     borderBottomWidth: 1, // ボーダーの太さ（ピクセル単位）
     borderBottomColor: '#5214BA', // ボーダーの色
@@ -369,7 +334,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between", // 上下に均等に配置
   },
 
-  b_hogen: { //ボタンの形(方言)
+  b_hogen: { //方言選択ボタンの形
     backgroundColor: '#5214AB', // ボタンの背景色
     paddingVertical: 5, // 垂直方向の余白
     paddingHorizontal: 10, // 水平方向の余白
@@ -379,17 +344,87 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
 
-  buttonText: { //ボタンの文字の色
+  buttonText: { //方言選択ボタンの文字の色
     color: '#d9d9d9', // ボタンのテキストの色
     textAlign: 'right', // 右寄せ
     paddingLeft: 0, // 左側の余白を削除
   },
 
-  b_input: { //入力欄
-    backgroundColor: '#5214AB', // ボタンの背景色
+  talk_container: { //チャット画面の大枠
+    flexDirection: "column", // 垂直方向に配置
+    justifyContent: "space-between", // 上下に均等に配置
+    paddingHorizontal: 10, // 左右の余白
+    paddingVertical: 20,
+  },
+
+  partner_area: { //相手側のメッセージ表示
+    backgroundColor: "#DFCEFF",
+    padding: 10,
+    borderRadius: 10,
+    marginRight: 50, //右側の間を調整
+    height: 75, //高さを設定
+    flexDirection: 'row', // 入力欄とアイコンを横に配置
+    justifyContent: 'space-between', //均等に配置
+  },
+
+  t_option: { //テキストの改行のためのオプション
+    flex: 1,
+  },
+
+  area_text: { //メッセージのテキスト表示
+    marginTop: 0, //上の余白
+    marginBottom: 0, //下の余白
+    fontSize: 15, //文字の大きさ
+  },
+
+  b_area: { //表示メッセージ横のボタン2つ用
+    flexDirection: 'column', //ボタンを縦に配置
+    justifyContent: 'space-between', //均等に配置
+  },
+
+  partner_stage: { //相手側のアバター用のステージ（足下の楕円）
+    width: 150,
+    height: 50,
+    backgroundColor: '#d9d9d9',
+    borderRadius: 100,
+    overflow: 'visible', //写真がはみ出ても表示されるようにする
+    marginTop: 80,
+  },
+
+  avatar_image: { //アバター用のスタイル
+    width: 100,
+    height: 100,
+    position: 'absolute', // 画像の位置を絶対位置に設定
+    left: 25, // 楕円内での画像の左の位置調整
+    bottom: 20, // 楕円内での画像の上の位置調整
+  },
+
+  your_stage: { //こちら側のアバター用のステージ（足下の楕円）
+    width: 150,
+    height: 50,
+    backgroundColor: '#d9d9d9',
+    borderRadius: 100,
+    overflow: 'visible', //写真がはみ出ても表示されるようにする
+    marginTop: 80,
+    marginLeft: 220,
+    marginBottom: 5,
+  },
+
+  your_area: { //相手側のメッセージ表示
+    backgroundColor: "#DFCEFF",
+    padding: 10,
+    borderRadius: 10,
+    marginLeft: 50, //左側の間を調整
+    height: 75, //高さを設定
+    flexDirection: 'row', // 入力欄とアイコンを横に配置
+    justifyContent: 'space-between', //均等に配置
+  },
+
+  b_input: { //入力フォームの枠
+    backgroundColor: '#5214AB', // フォームの背景色
     paddingVertical: 5, // 垂直方向の余白
     paddingHorizontal: 10, // 水平方向の余白
-    borderRadius: 100, // ボタンの角丸設定
+    borderRadius: 100, // フォームの角丸設定
     flexDirection: 'row', // 入力欄とアイコンを横に配置
     bottom: 0,
     marginTop: 50, //上の余白
@@ -397,6 +432,14 @@ const styles = StyleSheet.create({
 
   b_camera: { //カメラボタン
     marginRight: 5, //右側の間を調整
+  },
+
+  chat_input: { //入力フォームのテキスト入力部分
+    //backgroundColor: "#ddd",
+    color: "#d9d9d9",
+    width: "70%",
+    borderBottomWidth: 1,
+    marginLeft: 10, //右側の間を調整
   },
 
   b_mic: { //マイクボタン
@@ -412,42 +455,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center', 
     alignItems: 'center',
   },
-
-  b_area: { //表示メッセージ横のボタン2つ用
-    flexDirection: 'column', //ボタンを縦に配置
-    justifyContent: 'space-between', //均等に配置
-  },
-
-  area_text: {
-    marginTop: 0, //上の余白
-    marginBottom: 0, //下の余白
-    fontSize: 15, //文字の大きさ
-  },
-
-  partner_stage: {
-    width: 150,
-    height: 50,
-    backgroundColor: '#d9d9d9',
-    borderRadius: 100,
-    overflow: 'visible',
-    marginTop: 80,
-  },
-
-  your_stage: {
-    width: 150,
-    height: 50,
-    backgroundColor: '#d9d9d9',
-    borderRadius: 100,
-    overflow: 'visible',
-    marginTop: 80,
-    marginLeft: 220,
-    marginBottom: 5,
-  },
-
-  t_option: {
-    flex: 1,
-  },
-
+  //チャット画面のスタイルここまで
 });
 
 export default TalkScreenStack;
