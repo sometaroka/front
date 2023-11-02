@@ -16,6 +16,7 @@ function DemoStackScreen1() {
     // 詳細なオプションは調べるなりしてね．
     <Stack.Navigator
       screenOptions={{
+        headerShown: false,
         headerTintColor: "#ffffff",
         headerStyle: {
           backgroundColor: "#333399",
