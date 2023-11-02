@@ -418,6 +418,8 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     alignItems: "flex-end",
 
+    Width: "100%",
+
     // borderWidth: 2,
     // borderColor: "pink",
   },
@@ -432,8 +434,9 @@ const styles = StyleSheet.create({
   },
 
   talk_history_content_mine: {
-    minWidth: "35%",
+    minWidth: "1%",
     maxWidth: "70%",
+
     marginTop: 10,
     marginRight: 4,
     // position: "relative",
@@ -457,7 +460,7 @@ const styles = StyleSheet.create({
   },
 
   talk_history_content_partner: {
-    minWidth: "35%",
+    minWidth: "1%",
     maxWidth: "70%",
     marginTop: 10,
     marginLeft: 5,
@@ -477,7 +480,14 @@ const styles = StyleSheet.create({
   },
 
   talk_content_text: {
-    width: "88%",
+    // width: "88%",
+    maxWidth: "90%",
+    minWidth: "10%",
+
+    // marginRight: 5,
+
+    // borderWidth: 2,
+    // borderColor: "pink",
   },
 
   talk_icon1: {
@@ -568,6 +578,9 @@ const styles = StyleSheet.create({
     flexDirection: "column",
 
     marginLeft: 5,
+
+    // borderWidth: 2,
+    // borderColor: "pink",
   },
   // ↑トーク履歴表示画面のスタイル終わりじゃぜ
 });
