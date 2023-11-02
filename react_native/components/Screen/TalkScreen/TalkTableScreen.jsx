@@ -247,6 +247,17 @@ function TalkHistory() {
   const talkHistory = talkHistoryData.map((item) => (
     <View style={styles.talk_history_container} key={item.id}>
       {/* <View style={styles.talk_history_content}> */}
+      <View style={styles.talk_time_mine_parent}>
+        <Text
+          style={
+            item.user_id == 12345
+              ? styles.talk_time_mine
+              : styles.talk_time_mine_hidden
+          }
+        >
+          {item.time}
+        </Text>
+      </View>
       <View
         style={
           item.user_id == 12345
@@ -274,7 +285,15 @@ function TalkHistory() {
         </TouchableOpacity>
       </View>
       <View>
-        <Text style={styles.talk_time}>{item.time}</Text>
+        <Text
+          style={
+            item.user_id == 12345
+              ? styles.talk_time_partner_hidden
+              : styles.talk_time_partner
+          }
+        >
+          {item.time}
+        </Text>
       </View>
     </View>
   ));
@@ -377,8 +396,8 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
 
-    borderWidth: 2,
-    borderColor: "pink",
+    // borderWidth: 2,
+    // borderColor: "pink",
   },
 
   talk_history_content_mine: {
@@ -388,7 +407,7 @@ const styles = StyleSheet.create({
     marginRight: 4,
     // position: "relative",
     padding: 4,
-    marginTop: 0,
+    marginTop: 10,
     marginRight: 0,
     marginBottom: 0,
     marginLeft: "auto",
@@ -436,12 +455,26 @@ const styles = StyleSheet.create({
     bottom: 3,
   },
 
-  talk_time: {
+  talk_time_partner: {
     position: "absolute",
     bottom: 0,
     left: 10,
     fontSize: 12,
     justifyContent: "flex-end",
+  },
+
+  talk_time_partner_hidden: {
+    display: "none",
+  },
+
+  talk_time_mine_parent: {},
+
+  talk_time_mine: {
+    fontSize: 12,
+  },
+
+  talk_time_mine_hidden: {
+    display: "none",
   },
 
   // ↓入力欄のデザイン
