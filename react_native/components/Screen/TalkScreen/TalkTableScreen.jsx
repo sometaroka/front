@@ -275,6 +275,7 @@ function Talk() {
   );
 }
 
+// 下の通信機能を取り入れてください．
 function TalkHistory() {
   const [inputValue, setInputValue] = useState(""); // ステート変数の名前を修正
 
@@ -389,6 +390,7 @@ function TalkHistory() {
   );
 }
 
+// 通信機能
 function TalkHistory() {
   // const [inputValue, setInputValue] = useState(""); // ステート変数の名前を修正
 
