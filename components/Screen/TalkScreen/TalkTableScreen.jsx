@@ -26,7 +26,7 @@ function TalkScreenStack() {
     <Stack.Navigator
       screenOptions={{
         headerTintColor: "#ffffff",
-        headerShown: false, //ヘッダー隠す
+        //headerShown: false, //ヘッダー隠す
         headerStyle: {
           backgroundColor: "#333399",
         },
@@ -128,10 +128,10 @@ function TalkTable() {
       style={styles.talk_list}
       onTouchEnd={() => navigation.navigate("Talk")}
     >
-      <Text>Name: {item.name}</Text>
-      <Text>Title: {item.title}</Text>
-      <Text>Hogen: {item.hogen}</Text>
-      <Text>IconSrc: {item.icon}</Text>
+      <Text style={{ color: 'white' }}>Name: {item.name}</Text>
+      <Text style={{ color: 'white' }}>Title: {item.title}</Text>
+      <Text style={{ color: 'white' }}>Hogen: {item.hogen}</Text>
+      <Text style={{ color: 'white' }}>IconSrc: {item.icon}</Text>
       <View style={styles.horizontalLine} />
     </View>
   ));
