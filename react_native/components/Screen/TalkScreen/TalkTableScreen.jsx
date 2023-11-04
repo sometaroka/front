@@ -274,6 +274,7 @@ function TalkHistory() {
             <Text>{item.massege_date}</Text>
             <Text>{item.intnation}</Text>
             <Text>{item.user}</Text>
+            <Text>{item.translated_data}</Text>
           </View>
         ));
         setHistory(talkHistory);
@@ -288,48 +289,66 @@ function TalkHistory() {
   }, []);
 
   const handleSubmit = () => {
+    // まず、メッセージをバックエンドに送信して方言に変換
     fetch("http://192.168.3.18:8000/tests/", {
+      // このエンドポイントは仮のものです
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         message_data: message,
-        intnation: "intonation~~~~!!!!!",
-        user: 1,
-        talk_id: "592e2e4e-295a-43cc-b09a-b8254efe9b69",
       }),
     })
-      // アバターが出てくる画面のチャットで使う．
-      // 送ったデータが表示される．
-      //  .then((response) => {
-      //   if (!response.ok) {
-      //     throw new Error("Network response was not ok");
-      //   }
-      //   return response.json();
-      // })
-      // .then((responseJson) => {
-      //   const talkHistory = responseJson.map((item) => (
-      //     <View
-      //       style={styles.talk_list}
-      //       key={item.message_id}
-      //       onTouchEnd={() => navigation.navigate("Talk")}
-      //     >
-      //        <Text>{item.message_id}</Text>
-      // <Text>{item.message_data}</Text>
-      // <Text>{item.massege_date}</Text>
-      // <Text>{item.intnation}</Text>
-      // <Text>{item.user}</Text>
-      //     </View>
-      //   ));
-      //   setHistory(talkHistory);
-      // })
-      // .catch((error) => {
-      //   console.log(error);
-      // });
-      .then(() => {
-        getTestData();
+      .then((response) => response.json())
+      .then((data) => {
+        // 取得した変換されたメッセージを intonation として設定
+        console.log(data);
+        const intonation = String(data.translated_data);
+
+        // アバターが出てくる画面のチャットで使う．
+        // 送ったデータが表示される．
+        //  .then((response) => {
+        //   if (!response.ok) {
+        //     throw new Error("Network response was not ok");
+        //   }
+        //   return response.json();
+        // })
+        // .then((responseJson) => {
+        //   const talkHistory = responseJson.map((item) => (
+        //     <View
+        //       style={styles.talk_list}
+        //       key={item.message_id}
+        //       onTouchEnd={() => navigation.navigate("Talk")}
+        //     >
+        //        <Text>{item.message_id}</Text>
+        // <Text>{item.message_data}</Text>
+        // <Text>{item.massege_date}</Text>
+        // <Text>{item.intnation}</Text>
+        // <Text>{item.user}</Text>
+        //     </View>
+        //   ));
+        //   setHistory(talkHistory);
+        // })
+        // .catch((error) => {
+        //   console.log(error);
+        // });
+        return fetch("http://192.168.3.18:8000/tests/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message_data: message,
+            intnation: intonation, // ここに変換されたメッセージを設定
+            user: 1,
+            talk_id: "592e2e4e-295a-43cc-b09a-b8254efe9b69",
+          }),
+        });
       })
+      .then((response) => {
+        // 必要に応じて、2つ目のリクエストのレスポンスを処理
+        console.log("Data successfully sent to backend");
+      })
+
       .catch((error) => {
-        console.log(error);
+        console.error("Error:", error);
       });
   };
 
