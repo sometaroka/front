@@ -283,7 +283,7 @@ function TalkHistory() {
   const [talkHistory, setHistory] = useState("");
   const [message, setMessage] = useState("");
 
-  //下より持ってきた2
+  //下から持ってきた2
   const getTestData = async () => {
     await fetch("http://localhost:8000/tests/", {
       method: "GET",
@@ -315,9 +315,62 @@ function TalkHistory() {
       });
   };
 
-  const handleSubmit = () => {
+  //下から持ってきた3
+  useEffect(() => {
+    getTestData();
+  }, []);
+
+  //ログに入力したデータを表示
+  const handleSubmit2 = () => {
     console.log("送信された値:", inputValue); // 正しいステート変数を使用するように修正
     setInputValue(""); // 送信後に入力をクリアする
+  };
+
+  //下から持ってきた4
+  const handleSubmit = () => {
+    fetch("http://localhost:8000/tests/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        message_data: message,
+        intnation: "intonation~~~~!!!!!",
+        user: 1,
+        talk_id: "a29ac742-0796-4f36-b9bf-fd7b537b491d",
+      }),
+    })
+      // アバターが出てくる画面のチャットで使う．
+      // 送ったデータが表示される．
+      //  .then((response) => {
+      //   if (!response.ok) {
+      //     throw new Error("Network response was not ok");
+      //   }
+      //   return response.json();
+      // })
+      // .then((responseJson) => {
+      //   const talkHistory = responseJson.map((item) => (
+      //     <View
+      //       style={styles.talk_list}
+      //       key={item.message_id}
+      //       onTouchEnd={() => navigation.navigate("Talk")}
+      //     >
+      //        <Text>{item.message_id}</Text>
+      // <Text>{item.message_data}</Text>
+      // <Text>{item.massege_date}</Text>
+      // <Text>{item.intnation}</Text>
+      // <Text>{item.user}</Text>
+      //     </View>
+      //   ));
+      //   setHistory(talkHistory);
+      // })
+      // .catch((error) => {
+      //   console.log(error);
+      // });
+      .then(() => {
+        getTestData();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const navigation = useNavigation();
@@ -417,7 +470,7 @@ function TalkHistory() {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.talk_history_b_send}
-          onPress={() => console.log("送信")}
+          onPress={handleSubmit2}
         >
           <Fontisto name="play" size={10} color="#5214BA" />
         </TouchableOpacity>
@@ -426,122 +479,125 @@ function TalkHistory() {
   );
 }
 
-// 通信機能
-function TalkHistory() {
-  // const [inputValue, setInputValue] = useState(""); // ステート変数の名前を修正
+// // 通信機能
+// function TalkHistory() {
+//   // const [inputValue, setInputValue] = useState(""); // ステート変数の名前を修正
 
-  // const handleSubmit = () => {
-  //   console.log("送信された値:", inputValue); // 正しいステート変数を使用するように修正
-  //   setInputValue(""); // 送信後に入力をクリアする
-  // };
+//   // const handleSubmit = () => {
+//   //   console.log("送信された値:", inputValue); // 正しいステート変数を使用するように修正
+//   //   setInputValue(""); // 送信後に入力をクリアする
+//   // };
 
-  // const talkHistory = talkHistoryData.map((item) => (
-  //   <View key={item.id}>
-  //     <Text>Name: {item.name}</Text>
-  //     <Text>icon: {item.icon}</Text>
-  //     <Text>talkContent: {item.talk_content}</Text>
-  //   </View>
-  // ));
+//   // const talkHistory = talkHistoryData.map((item) => (
+//   //   <View key={item.id}>
+//   //     <Text>Name: {item.name}</Text>
+//   //     <Text>icon: {item.icon}</Text>
+//   //     <Text>talkContent: {item.talk_content}</Text>
+//   //   </View>
+//   // ));
 
-  //上に持って行った1
-  const [talkHistory, setHistory] = useState("");
-  const [message, setMessage] = useState("");
+//   //上に持って行った1
+//   const [talkHistory, setHistory] = useState("");
+//   const [message, setMessage] = useState("");
 
-  const getTestData = async () => {
-    await fetch("http://localhost:8000/tests/", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        throw new Error("Some Error");
-      })
-      .then((data) => {
-        // setData(data);
-        const talkHistory = data.map((item) => (
-          <View style={styles.talk_list} key={item.message_id}>
-            <Text>{item.message_id}</Text>
-            <Text>{item.message_data}</Text>
-            <Text>{item.massege_date}</Text>
-            <Text>{item.intnation}</Text>
-            <Text>{item.user}</Text>
-          </View>
-        ));
-        setHistory(talkHistory);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+//   //上に持って行った2
+//   const getTestData = async () => {
+//     await fetch("http://localhost:8000/tests/", {
+//       method: "GET",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     })
+//       .then((res) => {
+//         if (res.ok) {
+//           return res.json();
+//         }
+//         throw new Error("Some Error");
+//       })
+//       .then((data) => {
+//         // setData(data);
+//         const talkHistory = data.map((item) => (
+//           <View style={styles.talk_list} key={item.message_id}>
+//             <Text>{item.message_id}</Text>
+//             <Text>{item.message_data}</Text>
+//             <Text>{item.massege_date}</Text>
+//             <Text>{item.intnation}</Text>
+//             <Text>{item.user}</Text>
+//           </View>
+//         ));
+//         setHistory(talkHistory);
+//       })
+//       .catch((error) => {
+//         console.log(error);
+//       });
+//   };
 
-  useEffect(() => {
-    getTestData();
-  }, []);
+//   //上に持って行った3
+//   useEffect(() => {
+//     getTestData();
+//   }, []);
 
-  const handleSubmit = () => {
-    fetch("http://localhost:8000/tests/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        message_data: message,
-        intnation: "intonation~~~~!!!!!",
-        user: 1,
-        talk_id: "a29ac742-0796-4f36-b9bf-fd7b537b491d",
-      }),
-    })
-      // アバターが出てくる画面のチャットで使う．
-      // 送ったデータが表示される．
-      //  .then((response) => {
-      //   if (!response.ok) {
-      //     throw new Error("Network response was not ok");
-      //   }
-      //   return response.json();
-      // })
-      // .then((responseJson) => {
-      //   const talkHistory = responseJson.map((item) => (
-      //     <View
-      //       style={styles.talk_list}
-      //       key={item.message_id}
-      //       onTouchEnd={() => navigation.navigate("Talk")}
-      //     >
-      //        <Text>{item.message_id}</Text>
-      // <Text>{item.message_data}</Text>
-      // <Text>{item.massege_date}</Text>
-      // <Text>{item.intnation}</Text>
-      // <Text>{item.user}</Text>
-      //     </View>
-      //   ));
-      //   setHistory(talkHistory);
-      // })
-      // .catch((error) => {
-      //   console.log(error);
-      // });
-      .then(() => {
-        getTestData();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+// //上に持って行った4
+//   const handleSubmit = () => {
+//     fetch("http://localhost:8000/tests/", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({
+//         message_data: message,
+//         intnation: "intonation~~~~!!!!!",
+//         user: 1,
+//         talk_id: "a29ac742-0796-4f36-b9bf-fd7b537b491d",
+//       }),
+//     })
+//       // アバターが出てくる画面のチャットで使う．
+//       // 送ったデータが表示される．
+//       //  .then((response) => {
+//       //   if (!response.ok) {
+//       //     throw new Error("Network response was not ok");
+//       //   }
+//       //   return response.json();
+//       // })
+//       // .then((responseJson) => {
+//       //   const talkHistory = responseJson.map((item) => (
+//       //     <View
+//       //       style={styles.talk_list}
+//       //       key={item.message_id}
+//       //       onTouchEnd={() => navigation.navigate("Talk")}
+//       //     >
+//       //        <Text>{item.message_id}</Text>
+//       // <Text>{item.message_data}</Text>
+//       // <Text>{item.massege_date}</Text>
+//       // <Text>{item.intnation}</Text>
+//       // <Text>{item.user}</Text>
+//       //     </View>
+//       //   ));
+//       //   setHistory(talkHistory);
+//       // })
+//       // .catch((error) => {
+//       //   console.log(error);
+//       // });
+//       .then(() => {
+//         getTestData();
+//       })
+//       .catch((error) => {
+//         console.log(error);
+//       });
+//   };
 
-  return (
-    <View>
-      <ScrollView>
-        {talkHistory}
-        <TextInput
-          style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-          value={message}
-          onChangeText={(e) => setMessage(e)}
-        />
-        <Button title="送信" onPress={handleSubmit} />
-      </ScrollView>
-    </View>
-  );
-}
+//   return (
+//     <View>
+//       <ScrollView>
+//         {talkHistory}
+//         <TextInput
+//           style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
+//           value={message}
+//           onChangeText={(e) => setMessage(e)}
+//         />
+//         <Button title="送信" onPress={handleSubmit} />
+//       </ScrollView>
+//     </View>
+//   );
+// }
 
 const styles = StyleSheet.create({
   talk_table_container: {
