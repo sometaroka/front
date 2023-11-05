@@ -290,7 +290,7 @@ function TalkHistory() {
 
   const handleSubmit = () => {
     // まず、メッセージをバックエンドに送信して方言に変換
-    fetch("http://192.168.3.18:8000/tests/", {
+    fetch("http://192.168.3.18:8000/translate_message/", {
       // このエンドポイントは仮のものです
       method: "POST",
       headers: { "Content-Type": "application/json" },

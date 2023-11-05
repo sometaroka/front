@@ -1,0 +1,121 @@
+const [talkHistory, setHistory] = useState([]);
+  const [message, setMessage] = useState("");
+
+  const getTestData = async () => {
+    await fetch("http://192.168.3.18:8000/tests/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error("Some Error");
+      })
+      .then((data) => {
+        // setData(data);
+        const talkHistory = data.map((item) => (
+          <View style={styles.talk_list} key={item.message_id}>
+            <Text>{item.message_id}</Text>
+            <Text>{item.message_data}</Text>
+            <Text>{item.massege_date}</Text>
+            <Text>{item.intnation}</Text>
+            <Text>{item.user}</Text>
+            <Text>{item.translated_data}</Text>
+          </View>
+        ));
+        setHistory(talkHistory);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getTestData();
+  }, []);
+
+  const handleSubmit = async () => {
+    try {
+      // メッセージを翻訳エンドポイントに送信
+      const translationResponse = await fetch(
+        "http://192.168.3.18:8000/translate_message/",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message_data: message }),
+        }
+      );
+
+      if (!translationResponse.ok) {
+        throw new Error(
+          `Network response was not ok: ${translationResponse.status} ${translationResponse.statusText}`
+        );
+      }
+
+      // 翻訳結果を取得
+      const { translated_data } = await translationResponse.json();
+
+      // 翻訳結果を表示リストに追加（stateの更新）
+      setHistory([
+        ...talkHistory,
+        {
+          message_data: message,
+          translated_data: translated_data,
+          tall_id: "592e2e4e-295a-43cc-b09a-b8254efe9b69", // 仮のUUID生成関数を使用
+          massege_date: new Date().toISOString(),
+          intnation: "", // 必要に応じて設定
+          user: 1, // 現在のユーザーIDを設定
+        },
+      ]);
+
+      // messageをクリア
+      setMessage("");
+    } catch (error) {
+      console.error("Fetch error:", error);
+    }
+  };
+
+  // アバターが出てくる画面のチャットで使う．
+  // 送ったデータが表示される．
+  //  .then((response) => {
+  //   if (!response.ok) {
+  //     throw new Error("Network response was not ok");
+  //   }
+  //   return response.json();
+  // })
+  // .then((responseJson) => {
+  //   const talkHistory = responseJson.map((item) => (
+  //     <View
+  //       style={styles.talk_list}
+  //       key={item.message_id}
+  //       onTouchEnd={() => navigation.navigate("Talk")}
+  //     >
+  //        <Text>{item.message_id}</Text>
+  // <Text>{item.message_data}</Text>
+  // <Text>{item.massege_date}</Text>
+  // <Text>{item.intnation}</Text>
+  // <Text>{item.user}</Text>
+  //     </View>
+  //   ));
+  //   setHistory(talkHistory);
+  // })
+  // .catch((error) => {
+  //   console.log(error);
+  // });
+  return (
+    <View>
+      <ScrollView>
+        {talkHistory}
+        <TextInput
+          style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
+          value={message}
+          onChangeText={(e) => setMessage(e)}
+        />
+        <Button title="送信" onPress={handleSubmit} />
+      </ScrollView>
+    </View>
+  );
+}
