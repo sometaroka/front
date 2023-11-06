@@ -1,31 +1,53 @@
-import { NavigationContainer } from "@react-navigation/native";
-import LoginScreen from "./components/Screen/LoginScreen/LoginScreen";
-import { createStackNavigator } from "@react-navigation/stack";
+import React, { useState } from "react";
+import { View, TextInput, StyleSheet } from "react-native";
+import { Button, Text } from "react-native-elements";
+import axios from "axios";
 
-// 必要なライブラリやコンポーネントなどをインポートする．
-// インポートし忘れのミスが結構ある．
+const App = () => {
+  const [text, setText] = useState("");
+  const [translatedText, setTranslatedText] = useState("");
 
-// createStackNavigatorでStackオブジェクトを生成．
-const Stack = createStackNavigator();
+  const handleTranslate = () => {
+    axios
+      .post("http://10.0.2.2:8000/translate/", { text: text })
+      .then((response) => {
+        setTranslatedText(response.data.translated_text);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
-// コンポーネント関数を定義する．
-// exportをまとめて書く方法．
-export default function App() {
-  //ログイン前の画面
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerTintColor: "#ffffff",
-          headerShown: false, //ヘッダー隠す
-          headerStyle: {
-            backgroundColor: "#333399",
-          },
-        }}
-      >
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View style={styles.container}>
+      <TextInput
+        style={styles.input}
+        placeholder="標準語を大阪弁に変換しよう！"
+        multiline={true}
+        onChangeText={(text) => setText(text)}
+        value={text}
+      />
+      <Button title="変換" onPress={handleTranslate} />
+      <Text h4>{translatedText}</Text>
+    </View>
   );
-}
-// #9
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+  },
+  input: {
+    width: "100%",
+    height: 200,
+    borderWidth: 1,
+    padding: 10,
+    marginTop: 10,
+    textAlignVertical: "top",
+  },
+});
+
+export default App;
