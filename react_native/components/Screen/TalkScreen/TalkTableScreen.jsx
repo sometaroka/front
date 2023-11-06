@@ -346,6 +346,10 @@ function TalkHistory() {
         // 必要に応じて、2つ目のリクエストのレスポンスを処理
         console.log("Data successfully sent to backend");
       })
+      .then(() => {
+        console.log("送信された値:", message);
+        getTestData();
+      })
 
       .catch((error) => {
         console.error("Error:", error);
