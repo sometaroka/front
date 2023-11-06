@@ -375,12 +375,13 @@ function TalkHistory() {
 
   const navigation = useNavigation();
 
-  const [chat, setChat] = useState("");
+  // const [chat, setChat] = useState("");
 
   const [visible, setVisible] = useState(false);
-  const reverseVisible = () => {
-    setVisible((vis) => !vis);
-  };
+
+  // const reverseVisible = () => {
+  //   setVisible((vis) => !vis);
+  // };
 
   const talkHistory = talkHistoryData.map((item) => (
     <View
@@ -460,7 +461,9 @@ function TalkHistory() {
           style={styles.talk_history_chat_input}
           placeholder="Message..."
           placeholderTextColor="#d9d9d9"
-          onChangeText={(e) => setChat(e)}
+          value={message}
+          onChangeText={(e) => setMessage(e)}
+          // onChangeText={(e) => setChat(e)}
         />
         <TouchableOpacity
           style={styles.talk_history_b_mic}
@@ -470,7 +473,10 @@ function TalkHistory() {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.talk_history_b_send}
-          onPress={handleSubmit2}
+          onPress={() => {
+            handleSubmit2();
+            handleSubmit();
+          }}
         >
           <Fontisto name="play" size={10} color="#5214BA" />
         </TouchableOpacity>
@@ -479,125 +485,125 @@ function TalkHistory() {
   );
 }
 
-// // 通信機能
-// function TalkHistory() {
-//   // const [inputValue, setInputValue] = useState(""); // ステート変数の名前を修正
+// 通信機能
+function TalkHistory() {
+  // const [inputValue, setInputValue] = useState(""); // ステート変数の名前を修正
 
-//   // const handleSubmit = () => {
-//   //   console.log("送信された値:", inputValue); // 正しいステート変数を使用するように修正
-//   //   setInputValue(""); // 送信後に入力をクリアする
-//   // };
+  // const handleSubmit = () => {
+  //   console.log("送信された値:", inputValue); // 正しいステート変数を使用するように修正
+  //   setInputValue(""); // 送信後に入力をクリアする
+  // };
 
-//   // const talkHistory = talkHistoryData.map((item) => (
-//   //   <View key={item.id}>
-//   //     <Text>Name: {item.name}</Text>
-//   //     <Text>icon: {item.icon}</Text>
-//   //     <Text>talkContent: {item.talk_content}</Text>
-//   //   </View>
-//   // ));
+  // const talkHistory = talkHistoryData.map((item) => (
+  //   <View key={item.id}>
+  //     <Text>Name: {item.name}</Text>
+  //     <Text>icon: {item.icon}</Text>
+  //     <Text>talkContent: {item.talk_content}</Text>
+  //   </View>
+  // ));
 
-//   //上に持って行った1
-//   const [talkHistory, setHistory] = useState("");
-//   const [message, setMessage] = useState("");
+  //上に持って行った1
+  const [talkHistory, setHistory] = useState("");
+  const [message, setMessage] = useState("");
 
-//   //上に持って行った2
-//   const getTestData = async () => {
-//     await fetch("http://localhost:8000/tests/", {
-//       method: "GET",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     })
-//       .then((res) => {
-//         if (res.ok) {
-//           return res.json();
-//         }
-//         throw new Error("Some Error");
-//       })
-//       .then((data) => {
-//         // setData(data);
-//         const talkHistory = data.map((item) => (
-//           <View style={styles.talk_list} key={item.message_id}>
-//             <Text>{item.message_id}</Text>
-//             <Text>{item.message_data}</Text>
-//             <Text>{item.massege_date}</Text>
-//             <Text>{item.intnation}</Text>
-//             <Text>{item.user}</Text>
-//           </View>
-//         ));
-//         setHistory(talkHistory);
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   };
+  //上に持って行った2
+  const getTestData = async () => {
+    await fetch("http://localhost:8000/tests/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error("Some Error");
+      })
+      .then((data) => {
+        // setData(data);
+        const talkHistory = data.map((item) => (
+          <View style={styles.talk_list} key={item.message_id}>
+            <Text>{item.message_id}</Text>
+            <Text>{item.message_data}</Text>
+            <Text>{item.massege_date}</Text>
+            <Text>{item.intnation}</Text>
+            <Text>{item.user}</Text>
+          </View>
+        ));
+        setHistory(talkHistory);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-//   //上に持って行った3
-//   useEffect(() => {
-//     getTestData();
-//   }, []);
+  //上に持って行った3
+  useEffect(() => {
+    getTestData();
+  }, []);
 
-// //上に持って行った4
-//   const handleSubmit = () => {
-//     fetch("http://localhost:8000/tests/", {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify({
-//         message_data: message,
-//         intnation: "intonation~~~~!!!!!",
-//         user: 1,
-//         talk_id: "a29ac742-0796-4f36-b9bf-fd7b537b491d",
-//       }),
-//     })
-//       // アバターが出てくる画面のチャットで使う．
-//       // 送ったデータが表示される．
-//       //  .then((response) => {
-//       //   if (!response.ok) {
-//       //     throw new Error("Network response was not ok");
-//       //   }
-//       //   return response.json();
-//       // })
-//       // .then((responseJson) => {
-//       //   const talkHistory = responseJson.map((item) => (
-//       //     <View
-//       //       style={styles.talk_list}
-//       //       key={item.message_id}
-//       //       onTouchEnd={() => navigation.navigate("Talk")}
-//       //     >
-//       //        <Text>{item.message_id}</Text>
-//       // <Text>{item.message_data}</Text>
-//       // <Text>{item.massege_date}</Text>
-//       // <Text>{item.intnation}</Text>
-//       // <Text>{item.user}</Text>
-//       //     </View>
-//       //   ));
-//       //   setHistory(talkHistory);
-//       // })
-//       // .catch((error) => {
-//       //   console.log(error);
-//       // });
-//       .then(() => {
-//         getTestData();
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   };
+  //上に持って行った4
+  const handleSubmit = () => {
+    fetch("http://localhost:8000/tests/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        message_data: message,
+        intnation: "intonation~~~~!!!!!",
+        user: 1,
+        talk_id: "a29ac742-0796-4f36-b9bf-fd7b537b491d",
+      }),
+    })
+      // アバターが出てくる画面のチャットで使う．
+      // 送ったデータが表示される．
+      //  .then((response) => {
+      //   if (!response.ok) {
+      //     throw new Error("Network response was not ok");
+      //   }
+      //   return response.json();
+      // })
+      // .then((responseJson) => {
+      //   const talkHistory = responseJson.map((item) => (
+      //     <View
+      //       style={styles.talk_list}
+      //       key={item.message_id}
+      //       onTouchEnd={() => navigation.navigate("Talk")}
+      //     >
+      //        <Text>{item.message_id}</Text>
+      // <Text>{item.message_data}</Text>
+      // <Text>{item.massege_date}</Text>
+      // <Text>{item.intnation}</Text>
+      // <Text>{item.user}</Text>
+      //     </View>
+      //   ));
+      //   setHistory(talkHistory);
+      // })
+      // .catch((error) => {
+      //   console.log(error);
+      // });
+      .then(() => {
+        getTestData();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-//   return (
-//     <View>
-//       <ScrollView>
-//         {talkHistory}
-//         <TextInput
-//           style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-//           value={message}
-//           onChangeText={(e) => setMessage(e)}
-//         />
-//         <Button title="送信" onPress={handleSubmit} />
-//       </ScrollView>
-//     </View>
-//   );
-// }
+  return (
+    <View>
+      <ScrollView>
+        {talkHistory}
+        <TextInput
+          style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
+          value={message}
+          onChangeText={(e) => setMessage(e)}
+        />
+        <Button title="送信" onPress={handleSubmit} />
+      </ScrollView>
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   talk_table_container: {
@@ -763,7 +769,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginLeft: 10, //右側の間を調整
   },
-  
+
   b_mic: {
     //マイクボタン
     marginLeft: 20, //左側の間を調整
