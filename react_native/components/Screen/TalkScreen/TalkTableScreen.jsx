@@ -299,10 +299,11 @@ function TalkHistory() {
       })
       .then((data) => {
         // setData(data);
+        const myId = item.user;
         const talkHistory = data.map((item) => (
           <View
             style={
-              item.user == 12345
+              item.user == myId
                 ? styles.talk_history_container_mine
                 : styles.talk_history_container_partner
             }
@@ -312,7 +313,7 @@ function TalkHistory() {
             <View style={styles.talk_time_mine_parent}>
               <Text
                 style={
-                  item.user == 12345
+                  item.user == myId
                     ? styles.talk_time_mine
                     : styles.talk_time_mine_hidden
                 }
@@ -323,7 +324,7 @@ function TalkHistory() {
 
             <View
               style={
-                item.user == 12345
+                item.user == myId
                   ? styles.talk_history_content_mine
                   : styles.talk_history_content_partner
               }
@@ -352,7 +353,7 @@ function TalkHistory() {
             <View>
               <Text
                 style={
-                  item.user == 12345
+                  item.user == myId
                     ? styles.talk_time_partner_hidden
                     : styles.talk_time_partner
                 }
