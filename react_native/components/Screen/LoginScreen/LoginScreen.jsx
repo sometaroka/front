@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React, { useState } from "react";
-import { View, Text, Button, TextInput, StyleSheet } from "react-native";
+import { View, Text, Button, TextInput, StyleSheet, Pressable } from "react-native";
 import MainScreen from "../MainScreen/MainScreen";
 
 const Stack = createStackNavigator();
@@ -34,8 +34,25 @@ function LoginScreen() {
     console.log(email + password);
     navigation.navigate("MainScreen");
   };
+  
+  // アイコン画像を載せる
+  return(
+    <View style={styles.container}>
+      <Pressable 
+        style={styles.button_style}
+        onPress={handleOnPressLogin}>
+          <Text style={styles.button_text}>Login</Text>
+      </Pressable>
+      <Pressable 
+        style={styles.button_style}
+        onPress={() => navigation.navigate("Register")}>
+        <Text style={styles.button_text}>Sign Up</Text>
+      </Pressable>
 
-  return (
+    </View>
+  )
+
+  {/*return (
     <View>
       <Text>Login</Text>
       <TextInput
@@ -62,7 +79,7 @@ function LoginScreen() {
         onPress={() => navigation.navigate("Register")}
       />
     </View>
-  );
+  );*/}
 }
 
 function RegisterScreen() {
@@ -78,8 +95,8 @@ function RegisterScreen() {
   };
 
   return (
-    <View>
-      <Text>Register</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Sign Up</Text>
       <TextInput
         style={styles.text_input}
         placeholder="Name"
@@ -96,14 +113,23 @@ function RegisterScreen() {
         secureTextEntry={true}
         onChangeText={(e) => setPassword(e)}
       />
-      <Text>
-        {name}&{email}&{password}
-      </Text>
-      <Button
-        title={"Register"}
-        style={styles.button}
-        onPress={handleOnPressRegister}
+      <TextInput
+        style={styles.text_input}
+        placeholder="Re Password"
+        secureTextEntry={true}
+        onChangeText={(e) => setPassword(e)}
       />
+      <Pressable 
+        style={styles.button_style1}
+        onPress={handleOnPressRegister}>
+        <Text style={styles.button_text}>Sign Up</Text>
+      </Pressable>
+      <Text>Already have an account ? Login</Text>
+      <Pressable 
+        style={styles.account}
+        onPress={handleOnPressRegister}>
+        <Text style={styles.button_text1}>Sign Up with Google</Text>
+      </Pressable>
     </View>
   );
 }
@@ -113,14 +139,61 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "#AD80FF",
   },
   text_input: {
+    width: 290,
+    height: 40,
+    margin: 10,
+    paddingLeft: 5,
     backgroundColor: "#ddd",
-    width: "50%",
-    borderBottomWidth: 1,
+    borderRadius: 5,
   },
-  button: {
-    backgroundColor: "#ccc",
+  button_style: {
+    top: 120,
+    width: 300,
+    height: 60,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 50,
+    borderWidth: 2,
+    marginBottom: 20
+  },
+  button_style1: {
+    top: 10,
+    width: 290,
+    height: 40,
+    backgroundColor: "#39057A",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 50,
+    borderWidth: 2,
+    marginBottom: 20
+  },
+  account: {
+    width: 290,
+    height: 40,
+    backgroundColor: "#ddd",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10,
+    borderRadius: 5,
+  },
+  button_text: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "white"
+  },
+  button_text1: {
+    fontSize: 18,
+    fontWeight: "bold",
+    coler: "gray"
+  },
+  title: {
+    fontWeight: "bold",
+    fontSize: 40,
+    color: "white",
+    bottom: 30,
   },
 });
 
