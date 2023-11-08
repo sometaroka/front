@@ -29,7 +29,7 @@ const ProfileScreen_MyProfileAndHome = () => {
       <Text style={styles.otherPost}>{item.post}</Text>
       <View style={styles.container3}>
       <Text style={styles.otherDailect}>方言: {item.hougen}</Text>
-      <Text style={styles.otherGood}>Good: {item.good}</Text>
+      <Text style={styles.otherDailect}>Good: {item.good}</Text>
       </View>
       </View>
     </View>
@@ -110,11 +110,6 @@ const styles = StyleSheet.create({
     borderColor: "#AD80FFCC",
     flexDirection: "row"
   },
-  otherIcon: {
-    height: 60,
-    width: 60,
-    borderRadius: 100,
-  },
 
   // imageNameSettingAreaのスタイル
 
@@ -134,12 +129,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 45,
     margin: 15,
+    color: "#E6E7E8",
   },
   introduce: {
     alignItems: "center",
     fontWeight: "bold",
     fontSize: 35,
     margin: 15,
+    color: "#E6E7E8",
   },
   settingButton: {
     flex: 1,
@@ -155,28 +152,36 @@ const styles = StyleSheet.create({
   edit: {
     width: 120,
     height: 25,
+    top: 15,
     backgroundColor: "#AD80FFCC",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 5,
-    marginBottom: 7,
+    marginBottom: 10,
   },
 
+  otherIcon: {
+    height: 60,
+    width: 60,
+    borderRadius: 100,
+  },
   otherName: {
     margin: 5,
     fontSize: 18,
     fontWeight: "bold",
+    color: "#E6E7E8",
   },
   otherId: {
-    marginTop: 5,
-    color: "gray"
+    marginTop: 7,
+    color: "#C0C0C0"
   },
   otherPost: {
     margin: 5,
+    color: "#E6E7E8",
   },
   otherDailect: {
     marginLeft: 5,
-    marginRight: 5
+    color: "#E6E7E8",
   }
   // imageNameSettingAreaのスタイルここまで
 });
