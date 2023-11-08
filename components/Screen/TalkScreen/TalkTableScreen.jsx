@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React, { useState, useEffect } from "react";
-import { AntDesign } from '@expo/vector-icons';//むしめがね用
+// import { AntDesign } from '@expo/vector-icons';//むしめがね用
 import {
   View,
   Text,
@@ -25,10 +25,10 @@ function TalkScreenStack() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerTintColor: "#ffffff",
+        headerTintColor: "#5214BA",
         //headerShown: false, //ヘッダー隠す
         headerStyle: {
-          backgroundColor: "#333399",
+          backgroundColor: "#FFFFFF",
         },
       }}
     >
@@ -115,7 +115,6 @@ function TalkScreenStack() {
 // }
 
 // スタイル用(テストデータ)
-//ここから担当
 function TalkTable() {
   const navigation = useNavigation();
 
@@ -128,34 +127,33 @@ function TalkTable() {
       style={styles.talk_list}
       onTouchEnd={() => navigation.navigate("Talk")}
     >
-      <Text style={{ color: 'white' }}>Name: {item.name}</Text>
+      {/* <Text style={{ color: 'white' }}>Name: {item.name}</Text>
       <Text style={{ color: 'white' }}>Title: {item.title}</Text>
       <Text style={{ color: 'white' }}>Hogen: {item.hogen}</Text>
-      <Text style={{ color: 'white' }}>IconSrc: {item.icon}</Text>
-      <View style={styles.horizontalLine} />
+      <Text style={{ color: 'white' }}>IconSrc: {item.icon}</Text> */} {/*文字を白色に変更*/}
+      
+      {/* <View style={styles.horizontalLine} />*/} {/*アイテム間の水平線用 */}
     </View>
   ));
 
   return ( 
     <View style={styles.talk_table_container}>
-    {/* <View style={{backgroundColor:'#333399'}}> */}
-      <View style={styles.search_area}>
-      <View style={styles.text_input_container}>
-      <AntDesign name="search1" size={24} color="black" style={styles.search_icon}/>
+       {/* <View style={styles.search_area}>
+       <View style={styles.text_input_container}>
+       <AntDesign name="search1" size={24} color="black" style={styles.search_icon}/> */} {/*新たにスタイルを定義*/}
         <TextInput
           style={styles.text_input}
           placeholder="Search" // プレースホルダーを設定
           // onChangeText={(e) => setSearch(e)} // 検索機能を追加する場合はこの行を有効にする
         />  
         </View>
-      </View>
-      <Text>{search}</Text>
-      <ScrollView>{talkList}</ScrollView>
-      {/* </View> */}
-    </View> 
+    //   </View>
+    //   <Text>{search}</Text>
+    //   <ScrollView>{talkList}</ScrollView>
+    //   {/* </View> */}
+    // </View> 
   );
 }
-//ここまで担当
 
 function Talk() {
   const navigation = useNavigation();
@@ -275,45 +273,37 @@ function TalkHistory() {
 
 const styles = StyleSheet.create({
   talk_table_container: {
-    backgroundColor: "#5214BA",
+    // backgroundColor: "#5214BA",
     flex: 1,
     // alignItems: "center",
     justifyContent: "center",
   },
-  talk_container: {
-    flexDirection: 'row', // テキストと横線を横方向に配置
-    alignItems: 'center', // 要素を中央に配置
+  // talk_container: {
+  //   flexDirection: 'row', // テキストと横線を横方向に配置
+  //   alignItems: 'center', // 要素を中央に配置
 
-    flexDirection: "column", // 横並びに配置
-    justifyContent: "space-between", // 左右に均等に配置
-    paddingHorizontal: 16, // 左右の余白
-    paddingVertical: 20,
-  },
-  horizontalLine: {
-    flex: 1, // 空間を均等に分配して横線を伸ばす
-    borderBottomColor: '#e6cde3', // 横線の色を指定
-    borderBottomWidth: 1, // 横線の太さを指定
-    marginTop: 5,
-    padding: 5,
-  },
+  //   flexDirection: "column", // 横並びに配置
+  //   justifyContent: "space-between", // 左右に均等に配置
+  //   paddingHorizontal: 16, // 左右の余白
+  //   paddingVertical: 20,
+  // },
+  // horizontalLine: {
+  //   flex: 1, // 空間を均等に分配して横線を伸ばす
+  //   borderBottomColor: '#e6cde3', // 横線の色を指定
+  //   borderBottomWidth: 1, // 横線の太さを指定
+  //   marginTop: 5,
+  //   padding: 5,
+  // },
   text_input: {
-    backgroundColor: "#e6cde3",
-    width: "85%",
-    alignSelf: 'center', // 横方向に中央に配置
-    fontSize: 18, // テキストの大きさを変更
+    // backgroundColor: "#e6cde3",//変更
+    // width: "85%",//変更
+    //alignSelf: 'center', // 横方向に中央に配置
+    //fontSize: 18, // テキストの大きさを変更
     borderBottomWidth: 1, // 下部にボーダーラインを追加
-    borderColor: 'gray', // ボーダーラインの色を指定
-    /*padding: 5,
-    marginTop: 15,//search欄の上の空白
-    marginBottom: 15,
-    borderRadius: 5, // 角を丸くする*/
+    //borderColor: 'gray', // ボーダーラインの色を指定
   },
   talk_list: {
-    //backgroundColor: "#5214BA",
-    //borderBottomColor: "#e6cde3",
-    //borderBottomWidth: "1px",
-    //marginBottom: "3%",
-    padding: 10,
+    // padding: 10,//スタイル変更
   },
   partner_area: {
     backgroundColor: "lightgray",
@@ -337,25 +327,26 @@ const styles = StyleSheet.create({
   // partner_area: { left: 0 },
   // your_area: { alignSelf: "flex-end" },
 
-  search_area: {
-    backgroundColor: "#39057A",
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text_input_container: {
-    flexDirection: 'row', // アイコンとテキスト入力を横に配置
-    alignItems: 'center', // 中央寄せ
-    backgroundColor: "#e6cde3", // テキストボックスの背景色
-    width: '85%', // テキストボックスの幅を設定
-    alignSelf: 'center', // 横方向に中央に配置
-    fontSize: 18, // テキストの大きさを変更
-    borderBottomWidth: 1, // 下部にボーダーラインを追加
-    borderColor: 'gray', // ボーダーラインの色を指定
-    padding: 5,
-    marginTop: 15, // search欄の上の空白
-    marginBottom: 15,
-    borderRadius: 5, // 角を丸くする
-  }
+  // search_area: {
+  //   backgroundColor: "#39057A",
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  // }, //虫眼鏡アイコン用
+
+  // text_input_container: {
+  //   flexDirection: 'row', // アイコンとテキスト入力を横に配置
+  //   alignItems: 'center', // 中央寄せ
+  //   backgroundColor: "#e6cde3", // テキストボックスの背景色
+  //   width: '85%', // テキストボックスの幅を設定
+  //   alignSelf: 'center', // 横方向に中央に配置
+  //   fontSize: 18, // テキストの大きさを変更
+  //   borderBottomWidth: 1, // 下部にボーダーラインを追加
+  //   borderColor: 'gray', // ボーダーラインの色を指定
+  //   padding: 5,
+  //   marginTop: 15, // search欄の上の空白
+  //   marginBottom: 15,
+  //   borderRadius: 5, // 角を丸くする
+  // } // 色々
   
 });
 
