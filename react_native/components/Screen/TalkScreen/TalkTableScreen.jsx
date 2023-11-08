@@ -11,6 +11,7 @@ import {
   Modal,
   ScrollView,
   TouchableOpacity,
+  KeyboardAvoidingView,
 } from "react-native";
 import MainScreen from "../MainScreen/MainScreen";
 import talkListData from "./TalkList.json";
@@ -318,35 +319,37 @@ function TalkHistory() {
   ));
 
   return (
-    <View style={styles.talk_history}>
-      <ScrollView style={styles.talk_history_area}>{talkHistory}</ScrollView>
-      <View style={styles.talk_history_b_input}>
-        <TouchableOpacity
-          style={styles.talk_history_b_camera}
-          onPress={() => console.log("カメラを開く")}
-        >
-          <Fontisto name="camera" size={20} color="#d9d9d9" />
-        </TouchableOpacity>
-        <TextInput
-          style={styles.talk_history_chat_input}
-          placeholder="Message..."
-          placeholderTextColor="#d9d9d9"
-          onChangeText={(e) => setChat(e)}
-        />
-        <TouchableOpacity
-          style={styles.talk_history_b_mic}
-          onPress={() => console.log("マイクを起動")}
-        >
-          <Fontisto name="mic" size={20} color="#d9d9d9" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.talk_history_b_send}
-          onPress={() => console.log("送信")}
-        >
-          <Fontisto name="play" size={10} color="#5214BA" />
-        </TouchableOpacity>
+    <KeyboardAvoidingView behavior="position" style={styles.keyboad}>
+      <View style={styles.talk_history}>
+        <ScrollView style={styles.talk_history_area}>{talkHistory}</ScrollView>
+        <View style={styles.talk_history_b_input}>
+          <TouchableOpacity
+            style={styles.talk_history_b_camera}
+            onPress={() => console.log("カメラを開く")}
+          >
+            <Fontisto name="camera" size={20} color="#d9d9d9" />
+          </TouchableOpacity>
+          <TextInput
+            style={styles.talk_history_chat_input}
+            placeholder="Message..."
+            placeholderTextColor="#d9d9d9"
+            onChangeText={(e) => setChat(e)}
+          />
+          <TouchableOpacity
+            style={styles.talk_history_b_mic}
+            onPress={() => console.log("マイクを起動")}
+          >
+            <Fontisto name="mic" size={20} color="#d9d9d9" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.talk_history_b_send}
+            onPress={() => console.log("送信")}
+          >
+            <Fontisto name="play" size={10} color="#5214BA" />
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -582,6 +585,8 @@ const styles = StyleSheet.create({
     // borderWidth: 2,
     // borderColor: "pink",
   },
+
+  keyboad: {},
   // ↑トーク履歴表示画面のスタイル終わりじゃぜ
 });
 
