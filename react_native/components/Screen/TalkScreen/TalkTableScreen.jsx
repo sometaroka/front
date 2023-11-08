@@ -302,7 +302,7 @@ function TalkHistory() {
       .then((data) => {
         // 取得した変換されたメッセージを intonation として設定
         console.log(data);
-        const intonation = String(data.translated_data);
+        // const intonation = String(data.translated_data);
 
         // アバターが出てくる画面のチャットで使う．
         // 送ったデータが表示される．
@@ -336,7 +336,7 @@ function TalkHistory() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             message_data: message,
-            intnation: intonation, // ここに変換されたメッセージを設定
+            // intnation: intonation, // ここに変換されたメッセージを設定
             user: 1,
             talk_id: "592e2e4e-295a-43cc-b09a-b8254efe9b69",
           }),
