@@ -12,6 +12,7 @@ import {
   Modal,
   ScrollView,
   TouchableOpacity,
+  KeyboardAvoidingView,
 } from "react-native";
 import MainScreen from "../MainScreen/MainScreen";
 import talkListData from "./TalkList.json";
@@ -192,101 +193,109 @@ function Talk() {
   };
 
   return (
-    <View>
-      <View style={styles.topber}>
-        <Button
-          title="トーク履歴"
-          onPress={() => navigation.navigate("TalkHistory")}
-        />
-        <TouchableOpacity style={styles.b_hogen} onPress={reverseVisible}>
-          <Text style={styles.buttonText}>{hogen}</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.talk_container}>
-        <View style={styles.partner_area}>
-          <View style={styles.t_option}>
-            <Text style={styles.area_text}>partner_text_here</Text>
-          </View>
-          <View style={styles.b_area}>
-            <TouchableOpacity onPress={() => console.log("intonation")}>
-              <FontAwesome name="comment" size={20} color="#5214BA" />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => console.log("音が鳴る")}>
-              <Fontisto name="volume-up" size={20} color="#5214BA" />
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        <View style={styles.partner_stage}>
-          <Image
-            style={styles.avatar_image}
-            source={require("../../../assets/icon.png")}
+    <KeyboardAvoidingView
+      behavior="position"
+      keyboardVerticalOffset={Platform.select({
+        ios: 136, // iOS
+        android: 136, // android
+      })}
+    >
+      <View>
+        <View style={styles.topber}>
+          <Button
+            title="トーク履歴"
+            onPress={() => navigation.navigate("TalkHistory")}
           />
+          <TouchableOpacity style={styles.b_hogen} onPress={reverseVisible}>
+            <Text style={styles.buttonText}>{hogen}</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.talk_container}>
+          <View style={styles.partner_area}>
+            <View style={styles.t_option}>
+              <Text style={styles.area_text}>partner_text_here</Text>
+            </View>
+            <View style={styles.b_area}>
+              <TouchableOpacity onPress={() => console.log("intonation")}>
+                <FontAwesome name="comment" size={20} color="#5214BA" />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => console.log("音が鳴る")}>
+                <Fontisto name="volume-up" size={20} color="#5214BA" />
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={styles.partner_stage}>
+            <Image
+              style={styles.avatar_image}
+              source={require("../../../assets/icon.png")}
+            />
+          </View>
+
+          <View style={styles.your_stage}>
+            <Image
+              style={styles.avatar_image}
+              source={require("../../../assets/icon.png")}
+            />
+          </View>
+
+          <View style={styles.your_area}>
+            <View style={styles.t_option}>
+              <Text style={styles.area_text}>your_text_here</Text>
+            </View>
+            <View style={styles.b_area}>
+              <TouchableOpacity onPress={() => console.log("intonation")}>
+                <FontAwesome name="comment" size={20} color="#5214BA" />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => console.log("音が鳴る2")}>
+                <Fontisto name="volume-up" size={20} color="#5214BA" />
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <Modal
+            animationType="slide"
+            presentationStyle="pageSheet"
+            visible={visible}
+          >
+            <View style={styles.modalView}>
+              <Button title="閉じる" onPress={reverseVisible} />
+              {hogenList}
+            </View>
+          </Modal>
         </View>
 
-        <View style={styles.your_stage}>
-          <Image
-            style={styles.avatar_image}
-            source={require("../../../assets/icon.png")}
+        <View style={styles.b_input}>
+          <TouchableOpacity
+            style={styles.b_camera}
+            onPress={() => console.log("カメラを開く")}
+          >
+            <Fontisto name="camera" size={20} color="#d9d9d9" />
+          </TouchableOpacity>
+          <TextInput
+            style={styles.chat_input}
+            placeholder="Message..."
+            placeholderTextColor="#d9d9d9"
+            onChangeText={(e) => setChat(e)}
           />
+          <TouchableOpacity
+            style={styles.b_mic}
+            onPress={() => console.log("マイクを起動")}
+          >
+            <Fontisto name="mic" size={20} color="#d9d9d9" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.b_send}
+            onPress={() => console.log("送信")}
+          >
+            <Fontisto name="play" size={10} color="#5214BA" />
+          </TouchableOpacity>
         </View>
-
-        <View style={styles.your_area}>
-          <View style={styles.t_option}>
-            <Text style={styles.area_text}>your_text_here</Text>
-          </View>
-          <View style={styles.b_area}>
-            <TouchableOpacity onPress={() => console.log("intonation")}>
-              <FontAwesome name="comment" size={20} color="#5214BA" />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => console.log("音が鳴る2")}>
-              <Fontisto name="volume-up" size={20} color="#5214BA" />
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        <Modal
-          animationType="slide"
-          presentationStyle="pageSheet"
-          visible={visible}
-        >
-          <View style={styles.modalView}>
-            <Button title="閉じる" onPress={reverseVisible} />
-            {hogenList}
-          </View>
-        </Modal>
+        <Text>
+          {chat}&{hogen}
+        </Text>
       </View>
-
-      <View style={styles.b_input}>
-        <TouchableOpacity
-          style={styles.b_camera}
-          onPress={() => console.log("カメラを開く")}
-        >
-          <Fontisto name="camera" size={20} color="#d9d9d9" />
-        </TouchableOpacity>
-        <TextInput
-          style={styles.chat_input}
-          placeholder="Message..."
-          placeholderTextColor="#d9d9d9"
-          onChangeText={(e) => setChat(e)}
-        />
-        <TouchableOpacity
-          style={styles.b_mic}
-          onPress={() => console.log("マイクを起動")}
-        >
-          <Fontisto name="mic" size={20} color="#d9d9d9" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.b_send}
-          onPress={() => console.log("送信")}
-        >
-          <Fontisto name="play" size={10} color="#5214BA" />
-        </TouchableOpacity>
-      </View>
-      <Text>
-        {chat}&{hogen}
-      </Text>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -372,35 +381,43 @@ function TalkHistory() {
   ));
 
   return (
-    <View style={styles.talk_history}>
-      <ScrollView style={styles.talk_history_area}>{talkHistory}</ScrollView>
-      <View style={styles.talk_history_b_input}>
-        <TouchableOpacity
-          style={styles.talk_history_b_camera}
-          onPress={() => console.log("カメラを開く")}
-        >
-          <Fontisto name="camera" size={20} color="#d9d9d9" />
-        </TouchableOpacity>
-        <TextInput
-          style={styles.talk_history_chat_input}
-          placeholder="Message..."
-          placeholderTextColor="#d9d9d9"
-          onChangeText={(e) => setChat(e)}
-        />
-        <TouchableOpacity
-          style={styles.talk_history_b_mic}
-          onPress={() => console.log("マイクを起動")}
-        >
-          <Fontisto name="mic" size={20} color="#d9d9d9" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.talk_history_b_send}
-          onPress={() => console.log("送信")}
-        >
-          <Fontisto name="play" size={10} color="#5214BA" />
-        </TouchableOpacity>
+    <KeyboardAvoidingView
+      behavior="position"
+      keyboardVerticalOffset={Platform.select({
+        ios: 136, // iOS
+        android: 136, // android
+      })}
+    >
+      <View style={styles.talk_history}>
+        <ScrollView style={styles.talk_history_area}>{talkHistory}</ScrollView>
+        <View style={styles.talk_history_b_input}>
+          <TouchableOpacity
+            style={styles.talk_history_b_camera}
+            onPress={() => console.log("カメラを開く")}
+          >
+            <Fontisto name="camera" size={20} color="#d9d9d9" />
+          </TouchableOpacity>
+          <TextInput
+            style={styles.talk_history_chat_input}
+            placeholder="Message..."
+            placeholderTextColor="#d9d9d9"
+            onChangeText={(e) => setChat(e)}
+          />
+          <TouchableOpacity
+            style={styles.talk_history_b_mic}
+            onPress={() => console.log("マイクを起動")}
+          >
+            <Fontisto name="mic" size={20} color="#d9d9d9" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.talk_history_b_send}
+            onPress={() => console.log("送信")}
+          >
+            <Fontisto name="play" size={10} color="#5214BA" />
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
