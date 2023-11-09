@@ -197,7 +197,7 @@ function Talk() {
       behavior="position"
       keyboardVerticalOffset={Platform.select({
         ios: 136, // iOS
-        android: 136, // android
+        android: -100, // android
       })}
     >
       <View>
@@ -384,9 +384,9 @@ function TalkHistory() {
     <KeyboardAvoidingView
       behavior="position"
       keyboardVerticalOffset={Platform.select({
-        ios: 136, // iOS
-        android: 136, // android
-      })}
+      ios: 136, // iOS
+      android: -100, // android
+    })}
     >
       <View style={styles.talk_history}>
         <ScrollView style={styles.talk_history_area}>{talkHistory}</ScrollView>
