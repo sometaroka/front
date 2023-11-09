@@ -21,7 +21,11 @@ import { FontAwesome } from "@expo/vector-icons";
 
 const Stack = createStackNavigator();
 
-const user_table = { id: 1, name: "testUser", icon: "icon.png" };
+const user_table1 = { id: 1, name: "testUser", icon: "icon.png" };
+const user_table2 = { id: 2, name: "testUser2", icon: "icon.png" };
+
+const my_id = user_table1.id;
+// const my_id = user_table2.id;
 
 function TalkScreenStack() {
   return (
@@ -299,11 +303,10 @@ function TalkHistory() {
       })
       .then((data) => {
         // setData(data);
-        const myId = item.user;
         const talkHistory = data.map((item) => (
           <View
             style={
-              item.user == myId
+              item.user == my_id
                 ? styles.talk_history_container_mine
                 : styles.talk_history_container_partner
             }
@@ -313,7 +316,7 @@ function TalkHistory() {
             <View style={styles.talk_time_mine_parent}>
               <Text
                 style={
-                  item.user == myId
+                  item.user == my_id
                     ? styles.talk_time_mine
                     : styles.talk_time_mine_hidden
                 }
@@ -324,7 +327,7 @@ function TalkHistory() {
 
             <View
               style={
-                item.user == myId
+                item.user == my_id
                   ? styles.talk_history_content_mine
                   : styles.talk_history_content_partner
               }
@@ -332,8 +335,9 @@ function TalkHistory() {
               <View style={styles.talk_content_text}>
                 <Text>トークルームID: {item.message_id}</Text>
                 <Text>トーク内容: {item.message_data}</Text>
+                <Text>翻訳後内容: {item.intnation}</Text>
                 <Text>トーク日時:{item.message_date}</Text>
-                <Text>ユーザーID: {item.message_user}</Text>
+                <Text>ユーザーID: {item.user}</Text>
               </View>
               <View style={styles.talk_history_b_area}>
                 <TouchableOpacity
@@ -353,7 +357,7 @@ function TalkHistory() {
             <View>
               <Text
                 style={
-                  item.user == myId
+                  item.user == my_id
                     ? styles.talk_time_partner_hidden
                     : styles.talk_time_partner
                 }
@@ -388,8 +392,8 @@ function TalkHistory() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         message_data: message,
-        intnation: "intonation~~~~!!!!!",
-        user: 1,
+        intnation: "translate",
+        user: my_id,
         talk_id: "a29ac742-0796-4f36-b9bf-fd7b537b491d",
       }),
     })
@@ -422,6 +426,8 @@ function TalkHistory() {
       // });
       .then(() => {
         getTestData();
+        console.log(message);
+        setMessage("");
       })
       .catch((error) => {
         console.log(error);
