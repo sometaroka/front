@@ -20,17 +20,17 @@ const ProfileScreen_MyProfileAndHome = () => {
       <Image
         style={styles.otherIcon}
         source={require("../../../assets/icon.png")}
-        />
+      />
       <View style={styles.container}>
         <View style={styles.container3}>
-      <Text style={styles.otherName}>{item.name}</Text>
-      <Text style={styles.otherId}>@{item.userId}</Text>
-      </View>
-      <Text style={styles.otherPost}>{item.post}</Text>
-      <View style={styles.container3}>
-      <Text style={styles.otherDailect}>方言: {item.hougen}</Text>
-      <Text style={styles.otherDailect}>Good: {item.good}</Text>
-      </View>
+          <Text style={styles.otherName}>{item.name}</Text>
+          <Text style={styles.otherId}>@{item.userId}</Text>
+        </View>
+        <Text style={styles.otherPost}>{item.post}</Text>
+        <View style={styles.container3}>
+          <Text style={styles.otherDailect}>方言: {item.hougen}</Text>
+          <Text style={styles.otherDailect}>Good: {item.good}</Text>
+        </View>
       </View>
     </View>
   ));
@@ -50,25 +50,25 @@ const ProfileScreen_MyProfileAndHome = () => {
           <View style={styles.container2}>
             <Pressable
               style={styles.edit}
-               onPress={() => navigation.navigate("ProfileStackScreen_Follower")}>
-                <Text style={styles.follow}>Followers</Text>
+              onPress={() => navigation.navigate("ProfileStackScreen_Follower")}>
+              <Text style={styles.follow}>Followers</Text>
             </Pressable>
-        <Pressable
-          style={styles.edit}
-          onPress={() => navigation.navigate("ProfileStackScreen_Follow")}>
-          <Text style={styles.follow}>Following</Text>
-          </Pressable>
-          <Pressable
-          style={styles.edit}
-          onPress={() => navigation.navigate("ProfileStackScreen_Setting")}>
-          <Text style={styles.edit_font}>Edit Profile</Text>
-          </Pressable>
-          <Pressable
-          style={styles.edit}
-          onPress={() => navigation.navigate("ProfileStackScreen_FavoriteDialect")}>
-          <Text style={styles.edit_font}>Fav Dailect</Text>
-          </Pressable>
-        </View>
+            <Pressable
+              style={styles.edit}
+              onPress={() => navigation.navigate("ProfileStackScreen_Follow")}>
+              <Text style={styles.follow}>Following</Text>
+            </Pressable>
+            <Pressable
+              style={styles.edit}
+              onPress={() => navigation.navigate("ProfileStackScreen_Setting")}>
+              <Text style={styles.edit_font}>Edit Profile</Text>
+            </Pressable>
+            <Pressable
+              style={styles.edit}
+              onPress={() => navigation.navigate("ProfileStackScreen_FavoriteDialect")}>
+              <Text style={styles.edit_font}>Fav Dailect</Text>
+            </Pressable>
+          </View>
         </View>
         <Text style={styles.userName}>UserName</Text>
         <Text style={styles.introduce}>About you</Text>

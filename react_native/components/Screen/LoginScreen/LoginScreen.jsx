@@ -34,16 +34,16 @@ function LoginScreen() {
     console.log(email + password);
     navigation.navigate("MainScreen");
   };
-  
+
   // アイコン画像を載せる
-  return(
+  return (
     <View style={styles.container}>
-      <Pressable 
+      <Pressable
         style={styles.button_style}
         onPress={handleOnPressLogin}>
-          <Text style={styles.button_text}>Login</Text>
+        <Text style={styles.button_text}>Login</Text>
       </Pressable>
-      <Pressable 
+      <Pressable
         style={styles.button_style}
         onPress={() => navigation.navigate("Register")}>
         <Text style={styles.button_text}>Sign Up</Text>
@@ -119,13 +119,13 @@ function RegisterScreen() {
         secureTextEntry={true}
         onChangeText={(e) => setPassword(e)}
       />
-      <Pressable 
+      <Pressable
         style={styles.button_style1}
         onPress={handleOnPressRegister}>
         <Text style={styles.button_text}>Sign Up</Text>
       </Pressable>
       <Text>Already have an account ? Login</Text>
-      <Pressable 
+      <Pressable
         style={styles.account}
         onPress={handleOnPressRegister}>
         <Text style={styles.button_text1}>Sign Up with Google</Text>

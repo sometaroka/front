@@ -26,12 +26,12 @@ const ProfileScreen_Follower = () => {
       <Image
         style={styles.otherIcon}
         source={require("../../../assets/icon.png")}
-        />
+      />
       <View style={styles.container}>
         <View style={styles.container3}>
-      <Text style={styles.otherName}>{item.name}</Text>
-      <Text style={styles.otherId}>@{item.userId}</Text>
-      </View>
+          <Text style={styles.otherName}>{item.name}</Text>
+          <Text style={styles.otherId}>@{item.userId}</Text>
+        </View>
         <Text style={styles.selfIntroduce}>{item.selfIntroduce}</Text>
       </View>
     </View>
