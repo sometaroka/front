@@ -134,6 +134,7 @@ function TalkTable() {
       <Text style={{ color: "white" }}>Title: {item.title}</Text>
       <Text style={{ color: "white" }}>Hogen: {item.hogen}</Text>
       <Text style={{ color: "white" }}>IconSrc: {item.icon}</Text>
+
       <View style={styles.horizontalLine} />
     </View>
   ));
@@ -148,6 +149,7 @@ function TalkTable() {
             color="black"
             style={styles.search_icon}
           />
+
           <TextInput
             style={styles.text_input}
             placeholder="Search" // プレースホルダーを設定
