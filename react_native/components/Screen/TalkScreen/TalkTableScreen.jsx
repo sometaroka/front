@@ -248,6 +248,7 @@ function TalkHistory() {
   //     <Text>talkContent: {item.talk_content}</Text>
   //   </View>
   // ));
+  //ss
 
   const [talkHistory, setHistory] = useState("");
   const [message, setMessage] = useState("");
