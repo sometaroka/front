@@ -471,7 +471,7 @@ function TalkHistory() {
         <TouchableOpacity
           style={styles.talk_history_b_send}
           onPress={() => {
-            handleSubmit2();
+            // handleSubmit2();
             handleSubmit();
           }}
         >
