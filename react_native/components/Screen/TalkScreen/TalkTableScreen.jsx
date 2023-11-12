@@ -164,6 +164,22 @@ function Talk() {
     setVisible((vis) => !vis);
   };
 
+  const handleSubmit_hougen = (talk_name) => {
+    fetch("http://192.168.3.4:8000/tests/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        talk_name: talk_name,
+      }),
+    })
+      .then(() => {
+        console.log(talk_name);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   // チャット画面
   const hogenList = hogenListData.map((item) => (
     <View key={item.id}>
@@ -171,14 +187,11 @@ function Talk() {
         title={item.name}
         onPress={() => {
           setHogen(item.name), reverseVisible();
+          handleSubmit_hougen(item.name);
         }}
       />
     </View>
   ));
-
-  const handleOnPress = () => {
-    // console.log(chat);
-  };
 
   return (
     <View style={styles.chat}>
@@ -289,7 +302,7 @@ function TalkHistory() {
 
   //下から持ってきた2
   const getTestData = async () => {
-    await fetch("http://localhost:8000/tests/", {
+    await fetch("http://192.168.3.4:8000/tests/", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -387,14 +400,14 @@ function TalkHistory() {
 
   //下から持ってきた4
   const handleSubmit = () => {
-    fetch("http://localhost:8000/tests/", {
+    fetch("http://192.168.3.4:8000/tests/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         message_data: message,
         intnation: "translate",
         user: my_id,
-        talk_id: "a29ac742-0796-4f36-b9bf-fd7b537b491d",
+        talk_id: "78f121f4-7514-4aa5-84a2-a915c5727846",
       }),
     })
       // アバターが出てくる画面のチャットで使う．
