@@ -11,6 +11,7 @@ import {
   Modal,
   ScrollView,
   TouchableOpacity,
+  KeyboardAvoidingView,
 } from "react-native";
 // import MainScreen from "../MainScreen/MainScreen";
 import talkListData from "./TalkList.json";
@@ -459,40 +460,51 @@ function TalkHistory() {
   // };
 
   return (
-    <View style={styles.talk_history}>
-      <ScrollView style={styles.talk_history_area}>{talkHistory}</ScrollView>
-      <View style={styles.talk_history_b_input}>
-        <TouchableOpacity
-          style={styles.talk_history_b_camera}
-          onPress={() => console.log("カメラを開く")}
-        >
-          <Fontisto name="camera" size={20} color="#d9d9d9" />
-        </TouchableOpacity>
-        <TextInput
-          style={styles.talk_history_chat_input}
-          placeholder="Message..."
-          placeholderTextColor="#d9d9d9"
-          value={message}
-          onChangeText={(e) => setMessage(e)}
-          // onChangeText={(e) => setChat(e)}
-        />
-        <TouchableOpacity
-          style={styles.talk_history_b_mic}
-          onPress={() => console.log("マイクを起動")}
-        >
-          <Fontisto name="mic" size={20} color="#d9d9d9" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.talk_history_b_send}
-          onPress={() => {
-            // handleSubmit2();
-            handleSubmit();
-          }}
-        >
-          <Fontisto name="play" size={10} color="#5214BA" />
-        </TouchableOpacity>
+    <KeyboardAvoidingView
+      behavior={Platform.select({
+        ios: "position",
+        android: undefined,
+      })}
+      keyboardVerticalOffset={Platform.select({
+        ios: 136, // iOS
+        android: -100, // android
+      })}
+    >
+      <View style={styles.talk_history}>
+        <ScrollView style={styles.talk_history_area}>{talkHistory}</ScrollView>
+        <View style={styles.talk_history_b_input}>
+          <TouchableOpacity
+            style={styles.talk_history_b_camera}
+            onPress={() => console.log("カメラを開く")}
+          >
+            <Fontisto name="camera" size={20} color="#d9d9d9" />
+          </TouchableOpacity>
+          <TextInput
+            style={styles.talk_history_chat_input}
+            placeholder="Message..."
+            placeholderTextColor="#d9d9d9"
+            value={message}
+            onChangeText={(e) => setMessage(e)}
+            // onChangeText={(e) => setChat(e)}
+          />
+          <TouchableOpacity
+            style={styles.talk_history_b_mic}
+            onPress={() => console.log("マイクを起動")}
+          >
+            <Fontisto name="mic" size={20} color="#d9d9d9" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.talk_history_b_send}
+            onPress={() => {
+              // handleSubmit2();
+              handleSubmit();
+            }}
+          >
+            <Fontisto name="play" size={10} color="#5214BA" />
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
