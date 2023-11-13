@@ -164,16 +164,17 @@ function Talk() {
     setVisible((vis) => !vis);
   };
 
-  const handleSubmit_hougen = (talk_name) => {
+  //選択した方言名をバックに送る処理
+  const handleSubmit_hougen = (hougen_name) => {
     fetch("http://192.168.3.4:8000/tests/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        talk_name: talk_name,
+        hugen_name: hougen_name,
       }),
     })
       .then(() => {
-        console.log(talk_name);
+        console.log(hougen_name);
       })
       .catch((error) => {
         console.log(error);
