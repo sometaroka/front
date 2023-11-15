@@ -81,6 +81,7 @@ export function TalkTable() {
             >
               <Text>{item.talk_id}</Text>
               <Talk talk_id={item.talk_id} />
+              <TalkHistory talk_id={item.talk_id} />
             </View>
           ));
           setData(talkList);
@@ -182,6 +183,76 @@ export function Talk(props) {
   };
 
   //↓talk_idに対応するトーク内容を取得　テンプレートリテラル使って
+  //↓自分のトーク内容取得
+  const [myTalkContent, setMyTalkContent] = useState("");
+
+  const getMyTalkContent = async () => {
+    await fetch(`http://192.168.3.4:8000/tests?${props.talk_id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error("Some Error");
+      })
+      .then((data) => {
+        let myTalkContent = null; //メッセージテーブルを最後から順に参照していって、user=1(※user:自分は1,相手は2(それ以外)とする)となる最初の要素のmessageを取得
+        for (let i = data.length - 1; i >= 0; i--) {
+          if (data[i].user === 1) {
+            myTalkContent = data[i].message_data;
+            break;
+          }
+        }
+        setMyTalkContent(myTalkContent);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getMyTalkContent();
+  }, []);
+
+  //相手のトーク内容取得
+  const [yourTalkContent, setyourTalkContent] = useState("");
+
+  const getyourTalkContent = async () => {
+    await fetch(`http://192.168.3.4:8000/tests?${props.talk_id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error("Some Error");
+      })
+      .then((data) => {
+        let yourTalkContent = null; //メッセージテーブルを最後から順に参照していって、user=1(※user:自分は1,相手は2(それ以外)とする)となる最初の要素のmessageを取得
+        for (let i = data.length - 1; i >= 0; i--) {
+          if (data[i].user === 1) {
+            myTalkContent = data[i].message_data;
+            break;
+          }
+        }
+
+        setyourTalkContent(yourTalkContent);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getyourTalkContent();
+  }, []);
 
   // チャット画面
   const hogenList = hogenListData.map((item) => (
@@ -210,7 +281,7 @@ export function Talk(props) {
       <View style={styles.talk_container}>
         <View style={styles.partner_area}>
           <View style={styles.t_option}>
-            <Text style={styles.area_text}>partner_text_here</Text>
+            <Text style={styles.area_text}>{yourTalkContent}</Text>
           </View>
           <View style={styles.b_area}>
             <TouchableOpacity onPress={() => console.log("intonation")}>
@@ -238,7 +309,7 @@ export function Talk(props) {
 
         <View style={styles.your_area}>
           <View style={styles.t_option}>
-            <Text style={styles.area_text}>your_text_here</Text>
+            <Text style={styles.area_text}>{myTalkContent}</Text>
           </View>
           <View style={styles.b_area}>
             <TouchableOpacity onPress={() => console.log("intonation")}>
@@ -296,7 +367,7 @@ export function Talk(props) {
 }
 
 // 下の通信機能を取り入れてください．
-function TalkHistory() {
+export function TalkHistory(props) {
   const [inputValue, setInputValue] = useState(""); // ステート変数の名前を修正
 
   //下から持ってきた1
@@ -305,7 +376,7 @@ function TalkHistory() {
 
   //下から持ってきた2
   const getTestData = async () => {
-    await fetch("http://192.168.3.4:8000/tests/", {
+    await fetch(`http://192.168.3.4:8000/tests?${props.talks_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
