@@ -77,11 +77,14 @@ export function TalkTable() {
             <View
               style={styles.talk_list}
               key={item.talk_id}
-              onTouchEnd={() => navigation.navigate("Talk")}
+              onTouchEnd={() =>
+                navigation.navigate("Talk", { talk_id: item.talk_id })
+              }
             >
               <Text>{item.talk_id}</Text>
-              <Talk talk_id={item.talk_id} />
-              <TalkHistory talk_id={item.talk_id} />
+
+              {/* <Talk talk_id={item.talk_id} />
+              <TalkHistory talk_id={item.talk_id} /> */}
             </View>
           ));
           setData(talkList);
@@ -155,6 +158,8 @@ export function TalkTable() {
 // }
 
 export function Talk(props) {
+  const { talk_id } = props.route.params;
+
   const navigation = useNavigation();
 
   const [chat, setChat] = useState("");
@@ -187,7 +192,7 @@ export function Talk(props) {
   const [myTalkContent, setMyTalkContent] = useState("");
 
   const getMyTalkContent = async () => {
-    await fetch(`http://192.168.3.4:8000/tests?${props.talk_id}`, {
+    await fetch(`http://192.168.3.4:8000/tests?${talk_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -222,7 +227,7 @@ export function Talk(props) {
   const [yourTalkContent, setyourTalkContent] = useState("");
 
   const getyourTalkContent = async () => {
-    await fetch(`http://192.168.3.4:8000/tests?${props.talk_id}`, {
+    await fetch(`http://192.168.3.4:8000/tests?${talk_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -272,7 +277,9 @@ export function Talk(props) {
       <View style={styles.topber}>
         <Button
           title="トーク履歴"
-          onPress={() => navigation.navigate("TalkHistory")}
+          onPress={() =>
+            navigation.navigate("TalkHistory", { talk_id: talk_id })
+          }
         />
         <TouchableOpacity style={styles.b_hogen} onPress={reverseVisible}>
           <Text style={styles.buttonText}>{hogen}</Text>
@@ -281,7 +288,10 @@ export function Talk(props) {
       <View style={styles.talk_container}>
         <View style={styles.partner_area}>
           <View style={styles.t_option}>
-            <Text style={styles.area_text}>{yourTalkContent}</Text>
+            <Text style={styles.area_text}>
+              {talk_id}
+              {yourTalkContent}
+            </Text>
           </View>
           <View style={styles.b_area}>
             <TouchableOpacity onPress={() => console.log("intonation")}>
@@ -368,6 +378,8 @@ export function Talk(props) {
 
 // 下の通信機能を取り入れてください．
 export function TalkHistory(props) {
+  const { talk_id } = props.route.params;
+
   const [inputValue, setInputValue] = useState(""); // ステート変数の名前を修正
 
   //下から持ってきた1
@@ -376,7 +388,7 @@ export function TalkHistory(props) {
 
   //下から持ってきた2
   const getTestData = async () => {
-    await fetch(`http://192.168.3.4:8000/tests?${props.talks_id}`, {
+    await fetch(`http://192.168.3.4:8000/tests?${talk_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
