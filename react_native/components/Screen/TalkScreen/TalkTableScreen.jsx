@@ -227,7 +227,7 @@ export function Talk(props) {
   const [yourTalkContent, setyourTalkContent] = useState("");
 
   const getyourTalkContent = async () => {
-    await fetch(`http://192.168.3.4:8000/tests?${talk_id}`, {
+    await fetch(`http://192.168.3.4:8000/tests?talk_id=${talk_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -242,8 +242,9 @@ export function Talk(props) {
       .then((data) => {
         let yourTalkContent = null; //メッセージテーブルを最後から順に参照していって、user=1(※user:自分は1,相手は2(それ以外)とする)となる最初の要素のmessageを取得
         for (let i = data.length - 1; i >= 0; i--) {
-          if (data[i].user === 1) {
+          if (data[i].user != 1) {
             myTalkContent = data[i].message_data;
+            console.log(myTalkContent);
             break;
           }
         }
@@ -288,10 +289,7 @@ export function Talk(props) {
       <View style={styles.talk_container}>
         <View style={styles.partner_area}>
           <View style={styles.t_option}>
-            <Text style={styles.area_text}>
-              {talk_id}
-              {yourTalkContent}
-            </Text>
+            <Text style={styles.area_text}>{yourTalkContent}</Text>
           </View>
           <View style={styles.b_area}>
             <TouchableOpacity onPress={() => console.log("intonation")}>
@@ -388,7 +386,7 @@ export function TalkHistory(props) {
 
   //下から持ってきた2
   const getTestData = async () => {
-    await fetch(`http://192.168.3.4:8000/tests?${talk_id}`, {
+    await fetch(`http://192.168.3.4:8000/tests?talk_id=${talk_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
