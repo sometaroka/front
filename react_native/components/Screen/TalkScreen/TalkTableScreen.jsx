@@ -59,7 +59,7 @@ export function TalkTable() {
 
   useEffect(() => {
     const getMyData = async () => {
-      await fetch("http://192.168.3.4:8000/tests/", {
+      await fetch("http://192.168.3.4:8000/talk_rooms/", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -192,7 +192,7 @@ export function Talk(props) {
   const [myTalkContent, setMyTalkContent] = useState("");
 
   const getMyTalkContent = async () => {
-    await fetch(`http://192.168.3.4:8000/tests?${talk_id}`, {
+    await fetch(`http://192.168.3.4:8000/tests?talk_id=${talk_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -1084,6 +1084,31 @@ const styles = StyleSheet.create({
     // borderColor: "pink",
   },
   // ↑トーク履歴表示画面のスタイル終わりじゃぜ
+
+  //自分のスタイル↓
+  talk_time_mine_hidden: {
+    display: "none",
+  },
+  search_area: {
+    backgroundColor: "#39057A",
+    alignItems: "center",
+    justifyContent: "center",
+  }, //虫眼鏡アイコン用
+
+  text_input_container: {
+    flexDirection: "row", // アイコンとテキスト入力を横に配置
+    alignItems: "center", // 中央寄せ
+    backgroundColor: "#e6cde3", // テキストボックスの背景色
+    width: "85%", // テキストボックスの幅を設定
+    alignSelf: "center", // 横方向に中央に配置
+    fontSize: 18, // テキストの大きさを変更
+    borderBottomWidth: 1, // 下部にボーダーラインを追加
+    borderColor: "gray", // ボーダーラインの色を指定
+    padding: 5,
+    marginTop: 15, // search欄の上の空白
+    marginBottom: 15,
+    borderRadius: 5, // 角を丸くする
+  }, // 色々
 });
 
 export default TalkScreenStack;
