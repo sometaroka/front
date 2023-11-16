@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TextInput,
   ScrollView,
+  Pressable
 } from "react-native";
 import UserData from "./UserData.json";
 
@@ -42,43 +43,59 @@ const ProfileScreen_Setting_User = ({ navigation }) => {
           style={styles.iconImage}
           source={require("../../../assets/icon.png")}
         />
-        <Text>名前変更</Text>
-        <TextInput
-          style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-          value={inputValue_1}
-          onChangeText={(text) => setInputValue_1(text)}
-        />
-        <Text>自己紹介文</Text>
-        <TextInput
-          style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-          value={inputValue_2}
-          onChangeText={(text) => setInputValue_2(text)}
-        />
-        <Text>メールアドレス</Text>
-        <TextInput
-          style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-          value={inputValue_3}
-          onChangeText={(text) => setInputValue_3(text)}
-        />
-        <Text>居住地</Text>
-        <TextInput
-          style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-          value={inputValue_4}
-          onChangeText={(text) => setInputValue_4(text)}
-        />
-        <Text>パスワード</Text>
-        <TextInput
-          style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-          value={inputValue_5}
-          onChangeText={(text) => setInputValue_5(text)}
-        />
-        <Text>お気に入り方言</Text>
-        <TextInput
-          style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-          value={inputValue_6}
-          onChangeText={(text) => setInputValue_6(text)}
-        />
-        <Button title="変更" onPress={handleSubmit} />
+        <View style={styles.area}>
+          <Text style={styles.title_name}>User Name：</Text>
+          <TextInput
+            style={styles.text_input}
+            value={inputValue_1}
+            onChangeText={(text) => setInputValue_1(text)}
+          />
+        </View>
+        <View style={styles.area}>
+          <Text style={styles.title_introduce}>About you：</Text>
+          <TextInput
+            style={styles.text_input}
+            value={inputValue_2}
+            onChangeText={(text) => setInputValue_2(text)}
+          />
+        </View>
+        <View style={styles.area}>
+          <Text style={styles.title_email}>Email：</Text>
+          <TextInput
+            style={styles.text_input}
+            value={inputValue_3}
+            onChangeText={(text) => setInputValue_3(text)}
+          />
+        </View>
+        <View style={styles.area}>
+          <Text style={styles.title_current}>居住地：</Text>
+          <TextInput
+            style={styles.text_input}
+            value={inputValue_4}
+            onChangeText={(text) => setInputValue_4(text)}
+          />
+        </View>
+        <View style={styles.area}>
+          <Text style={styles.title_pass}>パスワード：</Text>
+          <TextInput
+            style={styles.text_input}
+            value={inputValue_5}
+            onChangeText={(text) => setInputValue_5(text)}
+          />
+        </View>
+        <View style={styles.area}>
+          <Text style={styles.title_fav}>お気に入り方言：</Text>
+          <TextInput
+            style={styles.text_input}
+            value={inputValue_6}
+            onChangeText={(text) => setInputValue_6(text)}
+          />
+        </View>
+        <Pressable
+          style={styles.button_style}
+          onPress={handleSubmit}>
+          <Text style={styles.button_text}>保存</Text>
+        </Pressable>
       </ScrollView>
     </View>
   );
@@ -87,16 +104,81 @@ const ProfileScreen_Setting_User = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#5214BA",
   },
-
+  area: {
+    margin: 7,
+    width: 365,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 2,
+    borderColor: "blue",
+    flexDirection: "row",
+    borderRadius: 5,
+    backgroundColor: "#b0c4de",
+  },
   headerImage: {
-    height: 100,
+    height: 80,
     width: "100%",
   },
 
   iconImage: {
-    height: 70,
-    width: 70,
+    bottom: 20,
+    left: 145,
+    height: 90,
+    width: 90,
+    borderRadius: 50,
+  },
+  title_name: {
+    marginLeft: 35,
+    fontWeight: "bold",
+    fontSize: 20,
+  },
+  title_introduce: {
+    marginLeft: 30,
+    fontWeight: "bold",
+    fontSize: 20,
+  },
+  title_email: {
+    fontWeight: "bold",
+    fontSize: 20,
+  },
+  title_current: {
+    fontWeight: "bold",
+    fontSize: 20,
+  },
+  title_pass: {
+    marginLeft: 25,
+    fontWeight: "bold",
+    fontSize: 20,
+  },
+  title_fav: {
+    marginLeft: 55,
+    fontWeight: "bold",
+    fontSize: 20,
+  },
+
+  text_input: {
+    width: "80%",
+  },
+  button_style: {
+    marginTop: 10,
+    left: 145,
+    width: 100,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 50,
+    borderWidth: 2,
+    borderColor: "blue",
+    backgroundColor: "#b0c4de",
+  },
+  button_text: {
+    fontSize: 20,
+    fontWeight: "bold",
   },
 });
 
