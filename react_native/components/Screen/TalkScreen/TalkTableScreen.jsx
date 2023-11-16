@@ -484,14 +484,14 @@ export function TalkHistory(props) {
 
   //下から持ってきた4
   const handleSubmit = () => {
-    fetch(`http://192.168.3.4:8000/tests?${talk_id}`, {
+    fetch("http://192.168.3.4:8000/tests/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         message_data: message,
         intnation: "translate",
         user: my_id,
-        talk_id: "78f121f4-7514-4aa5-84a2-a915c5727846",
+        talk_id: talk_id,
       }),
     })
       // アバターが出てくる画面のチャットで使う．
