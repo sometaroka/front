@@ -420,7 +420,7 @@ export function TalkHistory(props) {
                     : styles.talk_time_mine_hidden
                 }
               >
-                {item.message_date}
+                {item.massege_date}
               </Text>
             </View>
 
@@ -432,11 +432,11 @@ export function TalkHistory(props) {
               }
             >
               <View style={styles.talk_content_text}>
-                <Text>トークルームID: {item.message_id}</Text>
+                {/* <Text>トークルームID: {item.message_id}</Text> */}
                 <Text>トーク内容: {item.message_data}</Text>
-                <Text>翻訳後内容: {item.intnation}</Text>
-                <Text>トーク日時:{item.message_date}</Text>
-                <Text>ユーザーID: {item.user}</Text>
+                {/* <Text>翻訳後内容: {item.intnation}</Text>
+                <Text>トーク日時:{item.massege_date}</Text>
+                <Text>ユーザーID: {item.user}</Text> */}
               </View>
               <View style={styles.talk_history_b_area}>
                 <TouchableOpacity
@@ -461,7 +461,7 @@ export function TalkHistory(props) {
                     : styles.talk_time_partner
                 }
               >
-                {item.message_date}
+                {item.massege_date}
               </Text>
             </View>
           </View>
@@ -937,6 +937,7 @@ const styles = StyleSheet.create({
   talk_history_content_mine: {
     minWidth: "1%",
     maxWidth: "70%",
+    minHeight: 55,
 
     marginTop: 10,
     marginRight: 4,
@@ -963,6 +964,7 @@ const styles = StyleSheet.create({
   talk_history_content_partner: {
     minWidth: "1%",
     maxWidth: "70%",
+    minHeight: 55,
     marginTop: 10,
     marginLeft: 5,
     padding: 4,
@@ -984,6 +986,8 @@ const styles = StyleSheet.create({
     // width: "88%",
     maxWidth: "90%",
     minWidth: "10%",
+
+    marginTop: 5,
 
     // marginRight: 5,
 
