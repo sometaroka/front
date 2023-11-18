@@ -25,8 +25,8 @@ const Stack = createStackNavigator();
 const user_table1 = { id: 1, name: "testUser", icon: "icon.png" };
 const user_table2 = { id: 2, name: "testUser2", icon: "icon.png" };
 
-// const my_id = user_table1.id;
-const my_id = user_table2.id;
+const my_id = user_table1.id;
+// const my_id = user_table2.id;
 
 function TalkScreenStack() {
   return (
@@ -207,8 +207,9 @@ export function Talk(props) {
       .then((data) => {
         let myTalkContent = null; //メッセージテーブルを最後から順に参照していって、user=1(※user:自分は1,相手は2(それ以外)とする)となる最初の要素のmessageを取得
         for (let i = data.length - 1; i >= 0; i--) {
-          if (data[i].user === 1) {
-            myTalkContent = data[i].message_data;
+          if (data[i].user === my_id) {
+            // myTalkContent = data[i].message_data;
+            myTalkContent = data[i].intnation;
             break;
           }
         }
@@ -242,9 +243,10 @@ export function Talk(props) {
       .then((data) => {
         let yourTalkContent = null; //メッセージテーブルを最後から順に参照していって、user=1(※user:自分は1,相手は2(それ以外)とする)となる最初の要素のmessageを取得
         for (let i = data.length - 1; i >= 0; i--) {
-          if (data[i].user != 1) {
-            myTalkContent = data[i].message_data;
-            console.log(myTalkContent);
+          if (data[i].user != my_id) {
+            // yourTalkContent = data[i].message_data;
+            yourTalkContent = data[i].intnation;
+            // console.log(yourTalkContent);
             break;
           }
         }
@@ -400,7 +402,6 @@ export function TalkHistory(props) {
       })
       .then((data) => {
         // setData(data);
-
         const talkHistory = data.map((item) => (
           <View
             style={
@@ -419,7 +420,7 @@ export function TalkHistory(props) {
                     : styles.talk_time_mine_hidden
                 }
               >
-                {item.massege_date}
+                {item.message_date}
               </Text>
             </View>
 
@@ -434,7 +435,7 @@ export function TalkHistory(props) {
                 <Text>トークルームID: {item.message_id}</Text>
                 <Text>トーク内容: {item.message_data}</Text>
                 <Text>翻訳後内容: {item.intnation}</Text>
-                <Text>トーク日時:{item.massege_date}</Text>
+                <Text>トーク日時:{item.message_date}</Text>
                 <Text>ユーザーID: {item.user}</Text>
               </View>
               <View style={styles.talk_history_b_area}>
@@ -460,7 +461,7 @@ export function TalkHistory(props) {
                     : styles.talk_time_partner
                 }
               >
-                {item.massege_date}
+                {item.message_date}
               </Text>
             </View>
           </View>
@@ -526,7 +527,6 @@ export function TalkHistory(props) {
         getTestData();
         console.log(message);
         setMessage("");
-        console.log("my_id = " + my_id);
       })
       .catch((error) => {
         console.log(error);
