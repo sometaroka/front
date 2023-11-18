@@ -420,7 +420,7 @@ export function TalkHistory(props) {
                     : styles.talk_time_mine_hidden
                 }
               >
-                {item.massege_date}
+                {item.massege_date.substring(11, 16)}
               </Text>
             </View>
 
@@ -462,7 +462,7 @@ export function TalkHistory(props) {
                     : styles.talk_time_partner
                 }
               >
-                {item.massege_date}
+                {item.massege_date.substring(11, 16)}
               </Text>
             </View>
           </View>
