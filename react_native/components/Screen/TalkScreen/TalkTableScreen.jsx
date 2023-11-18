@@ -207,8 +207,9 @@ export function Talk(props) {
       .then((data) => {
         let myTalkContent = null; //メッセージテーブルを最後から順に参照していって、user=1(※user:自分は1,相手は2(それ以外)とする)となる最初の要素のmessageを取得
         for (let i = data.length - 1; i >= 0; i--) {
-          if (data[i].user === 1) {
-            myTalkContent = data[i].message_data;
+          if (data[i].user === my_id) {
+            // myTalkContent = data[i].message_data;
+            myTalkContent = data[i].intnation;
             break;
           }
         }
@@ -242,9 +243,10 @@ export function Talk(props) {
       .then((data) => {
         let yourTalkContent = null; //メッセージテーブルを最後から順に参照していって、user=1(※user:自分は1,相手は2(それ以外)とする)となる最初の要素のmessageを取得
         for (let i = data.length - 1; i >= 0; i--) {
-          if (data[i].user != 1) {
-            myTalkContent = data[i].message_data;
-            console.log(myTalkContent);
+          if (data[i].user != my_id) {
+            // yourTalkContent = data[i].message_data;
+            yourTalkContent = data[i].intnation;
+            // console.log(yourTalkContent);
             break;
           }
         }
