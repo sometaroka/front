@@ -433,15 +433,16 @@ export function TalkHistory(props) {
             >
               <View style={styles.talk_content_text}>
                 {/* <Text>トークルームID: {item.message_id}</Text> */}
+                <Text>翻訳後内容: {item.intnation}</Text>
                 <Text>トーク内容: {item.message_data}</Text>
-                {/* <Text>翻訳後内容: {item.intnation}</Text>
-                <Text>トーク日時:{item.massege_date}</Text>
+
+                {/* <Text>トーク日時:{item.massege_date}</Text>
                 <Text>ユーザーID: {item.user}</Text> */}
               </View>
               <View style={styles.talk_history_b_area}>
                 <TouchableOpacity
                   style={styles.talk_icon1}
-                  onPress={() => console.log("intonation")}
+                  onPress={() => console.log("ああ")}
                 >
                   <FontAwesome name="comment" size={17} color="#5214BA" />
                 </TouchableOpacity>
@@ -1087,6 +1088,7 @@ const styles = StyleSheet.create({
     // borderWidth: 2,
     // borderColor: "pink",
   },
+
   // ↑トーク履歴表示画面のスタイル終わりじゃぜ
 
   //自分のスタイル↓
