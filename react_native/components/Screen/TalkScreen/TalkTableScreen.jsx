@@ -25,8 +25,8 @@ const Stack = createStackNavigator();
 const user_table1 = { id: 1, name: "testUser", icon: "icon.png" };
 const user_table2 = { id: 2, name: "testUser2", icon: "icon.png" };
 
-const my_id = user_table1.id;
-// const my_id = user_table2.id;
+// const my_id = user_table1.id;
+const my_id = user_table2.id;
 
 function TalkScreenStack() {
   return (
@@ -432,10 +432,10 @@ export function TalkHistory(props) {
               }
             >
               <View style={styles.talk_content_text}>
-                {/* <Text>トークルームID: {item.message_id}</Text> */}
-                <Text>翻訳後内容: {item.intnation}</Text>
-                <Text>トーク内容: {item.message_data}</Text>
+                <Text>翻訳後 {item.intnation}</Text>
+                <Text>翻訳前: {item.message_data}</Text>
 
+                {/* <Text>トークルームID: {item.message_id}</Text> */}
                 {/* <Text>トーク日時:{item.massege_date}</Text>
                 <Text>ユーザーID: {item.user}</Text> */}
               </View>
@@ -936,7 +936,7 @@ const styles = StyleSheet.create({
   },
 
   talk_history_content_mine: {
-    minWidth: "1%",
+    minWidth: "20%",
     maxWidth: "70%",
     minHeight: 55,
 
@@ -963,7 +963,7 @@ const styles = StyleSheet.create({
   },
 
   talk_history_content_partner: {
-    minWidth: "1%",
+    minWidth: "20%",
     maxWidth: "70%",
     minHeight: 55,
     marginTop: 10,
@@ -1011,6 +1011,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 5,
     fontSize: 12,
+    // marginLeft: 5,
     justifyContent: "flex-end",
   },
 
