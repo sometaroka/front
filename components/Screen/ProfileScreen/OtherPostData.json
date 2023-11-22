@@ -1,0 +1,46 @@
+[
+  {
+    "name": "かまきり",
+    "userId": "3141592653589",
+    "post": "おれのかまは鉄をも切り裂くぜ！",
+    "icon": "icon1.png",
+    "hougen": "kansai",
+    "good": "5"
+  },
+
+  {
+    "name": "ところてん",
+    "userId": "3141592653589",
+    "post": "マロニーと一緒にすんな。どう考えても違うやろ",
+    "icon": "icon1.png",
+    "hougen": "kansai",
+    "good": "2"
+  },
+
+  {
+    "name": "孫正義",
+    "userId": "3141592653589",
+    "post": "生え際が後退しているのではない、私が前進しているのだ",
+    "icon": "icon1.png",
+    "hougen": "kansai",
+    "good": "5"
+  },
+
+  {
+    "name": "ひきにく",
+    "userId": "3141592653589",
+    "post": "ひじの関節痛い。病院行こ",
+    "icon": "icon1.png",
+    "hougen": "kansai",
+    "good": "5"
+  },
+
+  {
+    "name": "おれ",
+    "userId": "3141592653589",
+    "post": "英語で一人称「I」しかないってま？",
+    "icon": "icon1.png",
+    "hougen": "kansai",
+    "good": "5"
+  }
+]
