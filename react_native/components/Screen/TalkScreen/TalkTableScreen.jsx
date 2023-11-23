@@ -1,6 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React, { useState, useEffect } from "react";
+import { AntDesign } from "@expo/vector-icons"; //むしめがね用
 import {
   View,
   Text,
@@ -81,7 +82,8 @@ export function TalkTable() {
                 navigation.navigate("Talk", { talk_id: item.talk_id })
               }
             >
-              <Text>{item.talk_id}</Text>
+              <Text style={{ color: "black" }}>{item.talk_id}</Text>
+              <View style={styles.horizontalLine} />
 
               {/* <Talk talk_id={item.talk_id} />
               <TalkHistory talk_id={item.talk_id} /> */}
@@ -112,14 +114,34 @@ export function TalkTable() {
 
   return (
     <View style={styles.talk_table_container}>
-      <TextInput
-        style={styles.text_input}
-        placeholder="search"
-        onChangeText={(e) => setSearch(e)}
-      />
+      <View style={styles.search_area}>
+        <View style={styles.text_input_container}>
+          <AntDesign
+            name="search1"
+            size={24}
+            color="black"
+            style={styles.search_icon}
+          />
+          <TextInput
+            style={styles.text_input}
+            placeholder="Search" // プレースホルダーを設定
+            // onChangeText={(e) => setSearch(e)} // 検索機能を追加する場合はこの行を有効にする
+          />
+        </View>
+      </View>
       <Text>{search}</Text>
-      {/* {talkList} */}
-      {data}
+      <ScrollView>{data}</ScrollView>
+
+      {/* Rectangular button with plus icon */}
+      <TouchableOpacity
+        style={styles.rectangularButton}
+        onPress={() => {
+          // Handle button press here
+          // For example, you can navigate to a different screen
+        }}
+      >
+        <Text style={styles.plusText}>+</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -1127,6 +1149,15 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     borderRadius: 5, // 角を丸くする
   }, // 色々
+
+  //トークルーム一覧↓↓
+
+  horizontalLine: {
+    // Add your horizontal line styles here
+    borderBottomColor: "white",
+    borderBottomWidth: 1,
+    marginVertical: 5,
+  },
 });
 
 export default TalkScreenStack;
