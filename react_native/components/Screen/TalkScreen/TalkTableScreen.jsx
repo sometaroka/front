@@ -275,119 +275,119 @@ function Talk() {
   );
 }
 
-function TalkHistory() {
-  const [inputValue, setInputValue] = useState(""); // ステート変数の名前を修正
+// function TalkHistory() {
+//   const [inputValue, setInputValue] = useState(""); // ステート変数の名前を修正
 
-  const handleSubmit = () => {
-    console.log("送信された値:", inputValue); // 正しいステート変数を使用するように修正
-    setInputValue(""); // 送信後に入力をクリアする
-  };
+//   const handleSubmit = () => {
+//     console.log("送信された値:", inputValue); // 正しいステート変数を使用するように修正
+//     setInputValue(""); // 送信後に入力をクリアする
+//   };
 
-  const navigation = useNavigation();
+//   const navigation = useNavigation();
 
-  const [chat, setChat] = useState("");
+//   const [chat, setChat] = useState("");
 
-  const [visible, setVisible] = useState(false);
-  const reverseVisible = () => {
-    setVisible((vis) => !vis);
-  };
+//   const [visible, setVisible] = useState(false);
+//   const reverseVisible = () => {
+//     setVisible((vis) => !vis);
+//   };
 
-  const talkHistory = talkHistoryData.map((item) => (
-    <View
-      style={
-        item.user_id == 12345
-          ? styles.talk_history_container_mine
-          : styles.talk_history_container_partner
-      }
-      key={item.id}
-    >
-      {/* <View style={styles.talk_history_content}> */}
-      <View style={styles.talk_time_mine_parent}>
-        <Text
-          style={
-            item.user_id == 12345
-              ? styles.talk_time_mine
-              : styles.talk_time_mine_hidden
-          }
-        >
-          {item.time}
-        </Text>
-      </View>
+//   const talkHistory = talkHistoryData.map((item) => (
+//     <View
+//       style={
+//         item.user_id == 12345
+//           ? styles.talk_history_container_mine
+//           : styles.talk_history_container_partner
+//       }
+//       key={item.id}
+//     >
+//       {/* <View style={styles.talk_history_content}> */}
+//       <View style={styles.talk_time_mine_parent}>
+//         <Text
+//           style={
+//             item.user_id == 12345
+//               ? styles.talk_time_mine
+//               : styles.talk_time_mine_hidden
+//           }
+//         >
+//           {item.time}
+//         </Text>
+//       </View>
 
-      <View
-        style={
-          item.user_id == 12345
-            ? styles.talk_history_content_mine
-            : styles.talk_history_content_partner
-        }
-      >
-        <View style={styles.talk_content_text}>
-          <Text>Name: {item.name}</Text>
-          <Text>UserId: {item.user_id}</Text>
-          <Text>icon: {item.icon}</Text>
-          <Text>talkContent: {item.talk_content}</Text>
-        </View>
-        <View style={styles.talk_history_b_area}>
-          <TouchableOpacity
-            style={styles.talk_icon1}
-            onPress={() => console.log("intonation")}
-          >
-            <FontAwesome name="comment" size={17} color="#5214BA" />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.talk_icon2}
-            onPress={() => console.log("音が鳴る2")}
-          >
-            <Fontisto name="volume-up" size={17} color="#5214BA" />
-          </TouchableOpacity>
-        </View>
-      </View>
-      <View>
-        <Text
-          style={
-            item.user_id == 12345
-              ? styles.talk_time_partner_hidden
-              : styles.talk_time_partner
-          }
-        >
-          {item.time}
-        </Text>
-      </View>
-    </View>
-  ));
+//       <View
+//         style={
+//           item.user_id == 12345
+//             ? styles.talk_history_content_mine
+//             : styles.talk_history_content_partner
+//         }
+//       >
+//         <View style={styles.talk_content_text}>
+//           <Text>Name: {item.name}</Text>
+//           <Text>UserId: {item.user_id}</Text>
+//           <Text>icon: {item.icon}</Text>
+//           <Text>talkContent: {item.talk_content}</Text>
+//         </View>
+//         <View style={styles.talk_history_b_area}>
+//           <TouchableOpacity
+//             style={styles.talk_icon1}
+//             onPress={() => console.log("intonation")}
+//           >
+//             <FontAwesome name="comment" size={17} color="#5214BA" />
+//           </TouchableOpacity>
+//           <TouchableOpacity
+//             style={styles.talk_icon2}
+//             onPress={() => console.log("音が鳴る2")}
+//           >
+//             <Fontisto name="volume-up" size={17} color="#5214BA" />
+//           </TouchableOpacity>
+//         </View>
+//       </View>
+//       <View>
+//         <Text
+//           style={
+//             item.user_id == 12345
+//               ? styles.talk_time_partner_hidden
+//               : styles.talk_time_partner
+//           }
+//         >
+//           {item.time}
+//         </Text>
+//       </View>
+//     </View>
+//   ));
 
-  return (
-    <View style={styles.talk_history}>
-      <ScrollView style={styles.talk_history_area}>{talkHistory}</ScrollView>
-      <View style={styles.talk_history_b_input}>
-        <TouchableOpacity
-          style={styles.talk_history_b_camera}
-          onPress={() => console.log("カメラを開く")}
-        >
-          <Fontisto name="camera" size={20} color="#d9d9d9" />
-        </TouchableOpacity>
-        <TextInput
-          style={styles.talk_history_chat_input}
-          placeholder="Message..."
-          placeholderTextColor="#d9d9d9"
-          onChangeText={(e) => setChat(e)}
-        />
-        <TouchableOpacity
-          style={styles.talk_history_b_mic}
-          onPress={() => console.log("マイクを起動")}
-        >
-          <Fontisto name="mic" size={20} color="#d9d9d9" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.talk_history_b_send}
-          onPress={() => console.log("送信")}
-        >
-          <Fontisto name="play" size={10} color="#5214BA" />
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
-}
+//   return (
+//     <View style={styles.talk_history}>
+//       <ScrollView style={styles.talk_history_area}>{talkHistory}</ScrollView>
+//       <View style={styles.talk_history_b_input}>
+//         <TouchableOpacity
+//           style={styles.talk_history_b_camera}
+//           onPress={() => console.log("カメラを開く")}
+//         >
+//           <Fontisto name="camera" size={20} color="#d9d9d9" />
+//         </TouchableOpacity>
+//         <TextInput
+//           style={styles.talk_history_chat_input}
+//           placeholder="Message..."
+//           placeholderTextColor="#d9d9d9"
+//           onChangeText={(e) => setChat(e)}
+//         />
+//         <TouchableOpacity
+//           style={styles.talk_history_b_mic}
+//           onPress={() => console.log("マイクを起動")}
+//         >
+//           <Fontisto name="mic" size={20} color="#d9d9d9" />
+//         </TouchableOpacity>
+//         <TouchableOpacity
+//           style={styles.talk_history_b_send}
+//           onPress={() => console.log("送信")}
+//         >
+//           <Fontisto name="play" size={10} color="#5214BA" />
+//         </TouchableOpacity>
+//       </View>
+//     </View>
+//   );
+// }
 
 function TalkHistory() {
   // const [inputValue, setInputValue] = useState(""); // ステート変数の名前を修正
