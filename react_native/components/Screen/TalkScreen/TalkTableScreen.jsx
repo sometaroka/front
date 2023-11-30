@@ -45,84 +45,36 @@ function TalkScreenStack() {
 }
 
 // ↓↓適宜コメント文に切り替えたりして
-
-// ガチ本番用(Django起動しないと使えない)
-// function TalkTable() {
-//   const navigation = useNavigation();
-
-//   const [search, setSearch] = useState("");
-//   const [data, setData] = useState("");
-
-//   useEffect(() => {
-//     const getMyData = async () => {
-//       await fetch("http://localhost:8000/tests/", {
-//         method: "GET",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//       })
-//         .then((res) => {
-//           if (res.ok) {
-//             return res.json();
-//           }
-//           throw new Error("Some Error");
-//         })
-//         .then((data) => {
-//           // setData(data);
-//           const talkList = data.map((item) => (
-//             <View
-//               style={styles.talk_list}
-//               key={item.message_id}
-//               onTouchEnd={() => navigation.navigate("Talk")}
-//             >
-//               <Text>{item.message_id}</Text>
-//               <Text>{item.message_data}</Text>
-//               <Text>{item.massege_date}</Text>
-//             </View>
-//           ));
-//           setData(talkList);
-//         })
-//         .catch((error) => {
-//           console.log(error);
-//         });
-//     };
-
-//     getMyData();
-//   }, []);
-
-//   const talkList = talkListData.map((item) => (
-//     <View
-//       key={item.name}
-//       style={styles.talk_list}
-//       onTouchEnd={() => navigation.navigate("Talk")}
-//     >
-//       <Text>Name: {item.name}</Text>
-//       <Text>Title: {item.title}</Text>
-//       <Text>Hogen: {item.hogen}</Text>
-//       <Text>IconSrc: {item.icon}</Text>
-//     </View>
-//   ));
-
-//   return (
-//     <View style={styles.talk_table_container}>
-//       <TextInput
-//         style={styles.text_input}
-//         placeholder="search"
-//         onChangeText={(e) => setSearch(e)}
-//       />
-//       <Text>{search}</Text>
-//       {/* {talkList} */}
-//       {data}
-//     </View>
-//   );
-// }
-
-// スタイル用(テストデータ)
+//ガチ本番用(Django起動しないと使えない)
 function TalkTable() {
   const navigation = useNavigation();
 
   const [search, setSearch] = useState("");
-  const [data, setData] = useState("");
+  const [talkListData, setTalkListData] = useState([]);
+
+  useEffect(() => {
+    const getMyData = async () => {
+      try {
+        const response = await fetch("http://localhost:8000", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Some Error");
+        }
+
+        const data = await response.json();
+        setTalkListData(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getMyData();
+  }, []);
 
   const talkList = talkListData.map((item) => (
     <View
@@ -130,11 +82,11 @@ function TalkTable() {
       style={styles.talk_list}
       onTouchEnd={() => navigation.navigate("Talk")}
     >
-      <Text style={{ color: "white" }}>Name: {item.name}</Text>
-      <Text style={{ color: "white" }}>Title: {item.title}</Text>
-      <Text style={{ color: "white" }}>Hogen: {item.hogen}</Text>
-      <Text style={{ color: "white" }}>IconSrc: {item.icon}</Text>
-      <View style={styles.horizontalLine} />
+       <Text style={{ color: "white" }}>Name: {item.name}</Text>
+       <Text style={{ color: "white" }}>Title: {item.title}</Text>
+       <Text style={{ color: "white" }}>Hogen: {item.hogen}</Text>
+       <Text style={{ color: "white" }}>IconSrc: {item.icon}</Text>
+       <View style={styles.horizontalLine} />
     </View>
   ));
 
@@ -150,8 +102,8 @@ function TalkTable() {
           />
           <TextInput
             style={styles.text_input}
-            placeholder="Search" // プレースホルダーを設定
-            // onChangeText={(e) => setSearch(e)} // 検索機能を追加する場合はこの行を有効にする
+            placeholder="Search"
+            onChangeText={(e) => setSearch(e)}
           />
         </View>
       </View>
@@ -171,6 +123,60 @@ function TalkTable() {
     </View>
   );
 }
+
+// function TalkTable() {
+//   const navigation = useNavigation();
+
+//   const [search, setSearch] = useState("");
+//   const [data, setData] = useState("");
+
+//   const talkList = talkListData.map((item) => (
+//     <View
+//       key={item.name}
+//       style={styles.talk_list}
+//       onTouchEnd={() => navigation.navigate("Talk")}
+//     >
+//       <Text style={{ color: "white" }}>Name: {item.name}</Text>
+//       <Text style={{ color: "white" }}>Title: {item.title}</Text>
+//       <Text style={{ color: "white" }}>Hogen: {item.hogen}</Text>
+//       <Text style={{ color: "white" }}>IconSrc: {item.icon}</Text>
+//       <View style={styles.horizontalLine} />
+//     </View>
+//   ));
+
+//   return (
+//     <View style={styles.talk_table_container}>
+//       <View style={styles.search_area}>
+//         <View style={styles.text_input_container}>
+//           <AntDesign
+//             name="search1"
+//             size={24}
+//             color="black"
+//             style={styles.search_icon}
+//           />
+//           <TextInput
+//             style={styles.text_input}
+//             placeholder="Search" // プレースホルダーを設定
+//             // onChangeText={(e) => setSearch(e)} // 検索機能を追加する場合はこの行を有効にする
+//           />
+//         </View>
+//       </View>
+//       <Text>{search}</Text>
+//       <ScrollView>{talkList}</ScrollView>
+
+//       {/* Rectangular button with plus icon */}
+//       <TouchableOpacity
+//         style={styles.rectangularButton}
+//         onPress={() => {
+//           // Handle button press here
+//           // For example, you can navigate to a different screen
+//         }}
+//       >
+//         <Text style={styles.plusText}>+</Text>
+//       </TouchableOpacity>
+//     </View>
+//   );
+// }
 
 function Talk() {
   const navigation = useNavigation();
