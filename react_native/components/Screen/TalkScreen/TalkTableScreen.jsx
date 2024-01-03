@@ -21,6 +21,7 @@ import talkHistoryData from "./TalkHistory.json";
 import { Fontisto } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { Audio } from "expo-av";
+import ChatHistory from "./ChatHistory";
 
 const Stack = createStackNavigator();
 
@@ -61,7 +62,7 @@ export function TalkTable() {
 
   useEffect(() => {
     const getMyData = async () => {
-      await fetch("http://192.168.3.4:8000/talk_rooms/", {
+      await fetch("http://localhost:8000/talk_rooms/", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -195,7 +196,7 @@ export function Talk(props) {
 
   //選択した方言名をバックに送る処理
   const handleSubmit_hougen = (hougen_name) => {
-    fetch("http://192.168.3.4:8000/tests/", {
+    fetch("http://localhost:8000/tests/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -215,7 +216,7 @@ export function Talk(props) {
   const [myTalkContent, setMyTalkContent] = useState("");
 
   const getMyTalkContent = async () => {
-    await fetch(`http://192.168.3.4:8000/tests?talk_id=${talk_id}`, {
+    await fetch(`http://localhost:8000/tests?talk_id=${talk_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -251,7 +252,7 @@ export function Talk(props) {
   const [yourTalkContent, setyourTalkContent] = useState("");
 
   const getyourTalkContent = async () => {
-    await fetch(`http://192.168.3.4:8000/tests?talk_id=${talk_id}`, {
+    await fetch(`http://localhost:8000/tests?talk_id=${talk_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -412,45 +413,52 @@ export function Talk(props) {
 
 // 下の通信機能を取り入れてください．
 export function TalkHistory(props) {
-  const playSound = async () => {
-    try {
-      // 音声の読み込み
-      const { sound } = await Audio.Sound.createAsync(
-        require("../../../assets/voice/HougenVoice1.m4a")
-      );
-      // 音声の再生
-      await sound.playAsync();
-      // 再生が終わった後にリソースを解放
-      sound.setOnPlaybackStatusUpdate(async (status) => {
-        if (status.didJustFinish) {
-          await sound.unloadAsync();
-          console.log("再生成功");
-          setIconName("pause");
-        }
-      });
-    } catch (error) {
-      console.error("音声の再生中にエラーが発生しました", error);
-    }
-  };
+  // const [iconName, setIconName] = useState("volume-up");
 
-  const [iconName, setIconName] = useState("volume-up");
+  // const playSound = async () => {
+  //   setIconName("pause");
+  //   // console.log(iconName);
+
+  //   try {
+  //     const { sound } = await Audio.Sound.createAsync(
+  //       require("../../../assets/voice/HougenVoice1.m4a")
+  //     );
+
+  //     await sound.playAsync();
+
+  //     sound.setOnPlaybackStatusUpdate(async (status) => {
+  //       if (status.didJustFinish) {
+  //         await sound.unloadAsync();
+  //         // console.log("再生成功");
+  //         setIconName("volume-up");
+  //       }
+  //     });
+  //   } catch (error) {
+  //     console.error("音声の再生中にエラーが発生しました", error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   console.log(iconName);
+  //   // getTestData();
+  // }, [iconName]);
 
   //ボリュームボタンを押したときに停止アイコンに遷移
-  const iconChange = () => {
-    // アイコン切り替え
-    // console.log(iconName);
-    console.log("volume-up から 停止ボタン に変更");
-    setIconName("volume-down");
+  // const iconChange = () => {
+  //   // アイコン切り替え
+  //   // console.log(iconName);
+  //   console.log("volume-up から 停止ボタン に変更");
+  //   setIconName("volume-down");
 
-    console.log(iconName);
+  //   console.log(iconName);
 
-    //音の再生が終わったらボリュームボタンに戻す(PlaySound()内に記述)
-  };
+  //   //音の再生が終わったらボリュームボタンに戻す(PlaySound()内に記述)
+  // };
 
-  function func() {
-    iconChange();
-    playSound();
-  }
+  // function func() {
+  //   iconChange();
+  //   playSound();
+  // }
 
   const { talk_id } = props.route.params;
 
@@ -462,7 +470,7 @@ export function TalkHistory(props) {
 
   //下から持ってきた2
   const getTestData = async () => {
-    await fetch(`http://192.168.3.4:8000/tests?talk_id=${talk_id}`, {
+    await fetch(`http://localhost:8000/tests?talk_id=${talk_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -477,66 +485,72 @@ export function TalkHistory(props) {
       .then((data) => {
         // setData(data);
         const talkHistory = data.map((item) => (
-          <View
-            style={
-              item.user == my_id
-                ? styles.talk_history_container_mine
-                : styles.talk_history_container_partner
-            }
-            key={item.message_id}
-          >
-            {/* <View style={styles.talk_history_content}> */}
-            <View style={styles.talk_time_mine_parent}>
-              <Text
-                style={
-                  item.user == my_id
-                    ? styles.talk_time_mine
-                    : styles.talk_time_mine_hidden
-                }
-              >
-                {item.massege_date.substring(11, 16)}
-              </Text>
-            </View>
+          // <View
+          //   style={
+          //     item.user == my_id
+          //       ? styles.talk_history_container_mine
+          //       : styles.talk_history_container_partner
+          //   }
+          //   key={item.message_id}
+          // >
+          //   {/* <View style={styles.talk_history_content}> */}
+          //   <View style={styles.talk_time_mine_parent}>
+          //     <Text
+          //       style={
+          //         item.user == my_id
+          //           ? styles.talk_time_mine
+          //           : styles.talk_time_mine_hidden
+          //       }
+          //     >
+          //       {item.massege_date.substring(11, 16)}
+          //     </Text>
+          //   </View>
 
-            <View
-              style={
-                item.user == my_id
-                  ? styles.talk_history_content_mine
-                  : styles.talk_history_content_partner
-              }
-            >
-              <View style={styles.talk_content_text}>
-                <Text>翻訳後 {item.intnation}</Text>
-                <Text>翻訳前: {item.message_data}</Text>
+          //   <View
+          //     style={
+          //       item.user == my_id
+          //         ? styles.talk_history_content_mine
+          //         : styles.talk_history_content_partner
+          //     }
+          //   >
+          //     <View style={styles.talk_content_text}>
+          //       <Text>翻訳後 {item.intnation}</Text>
+          //       <Text>翻訳前: {item.message_data}</Text>
 
-                {/* <Text>トークルームID: {item.message_id}</Text> */}
-                {/* <Text>トーク日時:{item.massege_date}</Text>
-                <Text>ユーザーID: {item.user}</Text> */}
-              </View>
-              <View style={styles.talk_history_b_area}>
-                <TouchableOpacity
-                  style={styles.talk_icon1}
-                  onPress={() => console.log("ああ")}
-                >
-                  <FontAwesome name="comment" size={17} color="#5214BA" />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.talk_icon2} onPress={func}>
-                  <Fontisto name={iconName} size={17} color="#5214BA" />
-                </TouchableOpacity>
-              </View>
-            </View>
-            <View>
-              <Text
-                style={
-                  item.user == my_id
-                    ? styles.talk_time_partner_hidden
-                    : styles.talk_time_partner
-                }
-              >
-                {item.massege_date.substring(11, 16)}
-              </Text>
-            </View>
-          </View>
+          //       {/* <Text>トークルームID: {item.message_id}</Text> */}
+          //       {/* <Text>トーク日時:{item.massege_date}</Text>
+          //       <Text>ユーザーID: {item.user}</Text> */}
+          //     </View>
+          //     <View style={styles.talk_history_b_area}>
+          //       <TouchableOpacity
+          //         style={styles.talk_icon1}
+          //         onPress={() => console.log("ああ")}
+          //       >
+          //         <FontAwesome name="comment" size={17} color="#5214BA" />
+          //       </TouchableOpacity>
+          //       <TouchableOpacity style={styles.talk_icon2}>
+          //         <Fontisto
+          //           name={iconName}
+          //           size={17}
+          //           color="#5214BA"
+          //           onPress={() => playSound()}
+          //         />
+          //       </TouchableOpacity>
+          //     </View>
+          //   </View>
+          //   <View>
+          //     <Text
+          //       style={
+          //         item.user == my_id
+          //           ? styles.talk_time_partner_hidden
+          //           : styles.talk_time_partner
+          //       }
+          //     >
+          //       {item.massege_date.substring(11, 16)}
+          //     </Text>
+          //   </View>
+          // </View>
+          <ChatHistory item={item} my_id={my_id} key={item.id} />
         ));
         setHistory(talkHistory);
       })
@@ -558,7 +572,7 @@ export function TalkHistory(props) {
 
   //下から持ってきた4
   const handleSubmit = () => {
-    fetch("http://192.168.3.4:8000/tests/", {
+    fetch("http://localhost:8000/tests/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -784,7 +798,7 @@ export function TalkHistory(props) {
 //   );
 // }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   talk_table_container: {
     flex: 1,
     // alignItems: "center",
