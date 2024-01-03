@@ -20,14 +20,15 @@ import hogenListData from "./HogenList.json";
 import talkHistoryData from "./TalkHistory.json";
 import { Fontisto } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
+import { Audio } from "expo-av";
 
 const Stack = createStackNavigator();
 
 const user_table1 = { id: 1, name: "testUser", icon: "icon.png" };
 const user_table2 = { id: 2, name: "testUser2", icon: "icon.png" };
 
-const my_id = user_table1.id;
-// const my_id = user_table2.id;
+// const my_id = user_table1.id;
+const my_id = user_table2.id;
 
 function TalkScreenStack() {
   return (
@@ -411,6 +412,46 @@ export function Talk(props) {
 
 // 下の通信機能を取り入れてください．
 export function TalkHistory(props) {
+  const playSound = async () => {
+    try {
+      // 音声の読み込み
+      const { sound } = await Audio.Sound.createAsync(
+        require("../../../assets/voice/HougenVoice1.m4a")
+      );
+      // 音声の再生
+      await sound.playAsync();
+      // 再生が終わった後にリソースを解放
+      sound.setOnPlaybackStatusUpdate(async (status) => {
+        if (status.didJustFinish) {
+          await sound.unloadAsync();
+          console.log("再生成功");
+          setIconName("pause");
+        }
+      });
+    } catch (error) {
+      console.error("音声の再生中にエラーが発生しました", error);
+    }
+  };
+
+  const [iconName, setIconName] = useState("volume-up");
+
+  //ボリュームボタンを押したときに停止アイコンに遷移
+  const iconChange = () => {
+    // アイコン切り替え
+    // console.log(iconName);
+    console.log("volume-up から 停止ボタン に変更");
+    setIconName("volume-down");
+
+    console.log(iconName);
+
+    //音の再生が終わったらボリュームボタンに戻す(PlaySound()内に記述)
+  };
+
+  function func() {
+    iconChange();
+    playSound();
+  }
+
   const { talk_id } = props.route.params;
 
   const [inputValue, setInputValue] = useState(""); // ステート変数の名前を修正
@@ -479,11 +520,8 @@ export function TalkHistory(props) {
                 >
                   <FontAwesome name="comment" size={17} color="#5214BA" />
                 </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.talk_icon2}
-                  onPress={() => console.log("音が鳴る2")}
-                >
-                  <Fontisto name="volume-up" size={17} color="#5214BA" />
+                <TouchableOpacity style={styles.talk_icon2} onPress={func}>
+                  <Fontisto name={iconName} size={17} color="#5214BA" />
                 </TouchableOpacity>
               </View>
             </View>
