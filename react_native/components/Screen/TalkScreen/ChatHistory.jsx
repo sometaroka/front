@@ -7,27 +7,40 @@ import { styles } from "./TalkTableScreen";
 
 const ChatHistory = ({ item, my_id }) => {
   const [iconName, setIconName] = useState("volume-up");
+  const [voiceNum, setVoiceNum] = useState(1);
 
   const playSound = async () => {
     setIconName("pause");
-    // console.log(iconName);
-
     try {
-      const { sound } = await Audio.Sound.createAsync(
-        require("../../../assets/voice/HougenVoice1.m4a")
-      );
+      let soundObject;
+      // 各ファイルに対して個別のrequireを使用
+      switch (voiceNum) {
+        case 1:
+          soundObject = require("../../../assets/voice/HougenVoice1.m4a");
+          break;
+        case 2:
+          soundObject = require("../../../assets/voice/HougenVoice2.m4a");
+          break;
+        // 以降、HougenVoice3.m4aからHougenVoice10.m4aまで同様に追加
+        default:
+          soundObject = require("../../../assets/voice/HougenVoice1.m4a");
+      }
 
+      const { sound } = await Audio.Sound.createAsync(soundObject);
       await sound.playAsync();
 
       sound.setOnPlaybackStatusUpdate(async (status) => {
         if (status.didJustFinish) {
           await sound.unloadAsync();
-          // console.log("再生成功");
           setIconName("volume-up");
+          setVoiceNum((prevVoiceNum) => (prevVoiceNum % 2) + 1);
         }
       });
     } catch (error) {
-      console.error("音声の再生中にエラーが発生しました", error);
+      console.error(
+        "音声ファイルの読み込みに失敗しました。エラー内容: ",
+        error
+      );
     }
   };
 
