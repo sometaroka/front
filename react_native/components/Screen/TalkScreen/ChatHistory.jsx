@@ -49,6 +49,12 @@ const ChatHistory = ({ item, my_id }) => {
     // getTestData();
   }, [iconName]);
 
+  const [isTranslate, setIsTranslate] = useState(false);
+
+  const handlePress = () => {
+    setIsTranslate(!isTranslate);
+  };
+
   return (
     <View
       style={
@@ -80,8 +86,13 @@ const ChatHistory = ({ item, my_id }) => {
         }
       >
         <View style={styles.talk_content_text}>
-          <Text>翻訳後 {item.intnation}</Text>
-          <Text>翻訳前: {item.message_data}</Text>
+          {/* <Text>翻訳後 {item.intnation}</Text>
+          <Text>翻訳前: {item.message_data}</Text> */}
+          <Text>
+            {isTranslate
+              ? `翻訳語：${item.intnation}`
+              : `翻訳前：${item.message_data}`}
+          </Text>
 
           {/* <Text>トークルームID: {item.message_id}</Text> */}
           {/* <Text>トーク日時:{item.massege_date}</Text>
@@ -90,7 +101,7 @@ const ChatHistory = ({ item, my_id }) => {
         <View style={styles.talk_history_b_area}>
           <TouchableOpacity
             style={styles.talk_icon1}
-            onPress={() => console.log("ああ")}
+            onPress={() => handlePress()}
           >
             <FontAwesome name="comment" size={17} color="#5214BA" />
           </TouchableOpacity>
