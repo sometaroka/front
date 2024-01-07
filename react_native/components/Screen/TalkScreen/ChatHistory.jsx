@@ -19,7 +19,7 @@ const ChatHistory = ({ item, my_id }) => {
           soundObject = require("../../../assets/voice/HougenVoice1.m4a");
           break;
         case 2:
-          soundObject = require("../../../assets/voice/HougenVoice2.m4a");
+          soundObject = require("../../../assets/voice/HougenVoice1.m4a");
           break;
         // 以降、HougenVoice3.m4aからHougenVoice10.m4aまで同様に追加
         default:

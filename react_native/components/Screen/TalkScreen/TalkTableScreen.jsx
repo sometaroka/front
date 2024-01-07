@@ -62,7 +62,7 @@ export function TalkTable() {
 
   useEffect(() => {
     const getMyData = async () => {
-      await fetch("http://localhost:8000/talk_rooms/", {
+      await fetch("http://192.168.3.4:8000/talk_rooms/", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -196,7 +196,7 @@ export function Talk(props) {
 
   //選択した方言名をバックに送る処理
   const handleSubmit_hougen = (hougen_name) => {
-    fetch("http://localhost:8000/tests/", {
+    fetch("http://192.168.3.4:8000/tests/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -216,7 +216,7 @@ export function Talk(props) {
   const [myTalkContent, setMyTalkContent] = useState("");
 
   const getMyTalkContent = async () => {
-    await fetch(`http://localhost:8000/tests?talk_id=${talk_id}`, {
+    await fetch(`http://192.168.3.4:8000/tests?talk_id=${talk_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -252,7 +252,7 @@ export function Talk(props) {
   const [yourTalkContent, setyourTalkContent] = useState("");
 
   const getyourTalkContent = async () => {
-    await fetch(`http://localhost:8000/tests?talk_id=${talk_id}`, {
+    await fetch(`http://192.168.3.4:8000/tests?talk_id=${talk_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -470,7 +470,7 @@ export function TalkHistory(props) {
 
   //下から持ってきた2
   const getTestData = async () => {
-    await fetch(`http://localhost:8000/tests?talk_id=${talk_id}`, {
+    await fetch(`http://192.168.3.4:8000/tests?talk_id=${talk_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -572,7 +572,7 @@ export function TalkHistory(props) {
 
   //下から持ってきた4
   const handleSubmit = () => {
-    fetch("http://localhost:8000/tests/", {
+    fetch("http://192.168.3.4:8000/tests/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -701,7 +701,7 @@ export function TalkHistory(props) {
 
 //   //上に持って行った2
 //   const getTestData = async () => {
-//     await fetch("http://localhost:8000/tests/", {
+//     await fetch("http://192.168.3.4:8000/tests/", {
 //       method: "GET",
 //       headers: {
 //         "Content-Type": "application/json",
@@ -738,7 +738,7 @@ export function TalkHistory(props) {
 
 //   //上に持って行った4
 //   const handleSubmit = () => {
-//     fetch("http://localhost:8000/tests/", {
+//     fetch("http://192.168.3.4:8000/tests/", {
 //       method: "POST",
 //       headers: { "Content-Type": "application/json" },
 //       body: JSON.stringify({
