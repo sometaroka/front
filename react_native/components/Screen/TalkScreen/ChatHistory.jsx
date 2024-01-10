@@ -90,8 +90,8 @@ const ChatHistory = ({ item, my_id }) => {
           <Text>翻訳前: {item.message_data}</Text> */}
           <Text>
             {isTranslate
-              ? `翻訳語：${item.intnation}`
-              : `翻訳前：${item.message_data}`}
+              ? `翻訳前：${item.message_data}`
+              : `翻訳後：${item.intnation}`}
           </Text>
 
           {/* <Text>トークルームID: {item.message_id}</Text> */}
