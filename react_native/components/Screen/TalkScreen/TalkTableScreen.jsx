@@ -28,8 +28,8 @@ const Stack = createStackNavigator();
 const user_table1 = { id: 1, name: "testUser", icon: "icon.png" };
 const user_table2 = { id: 2, name: "testUser2", icon: "icon.png" };
 
-// const my_id = user_table1.id;
-const my_id = user_table2.id;
+const my_id = user_table1.id;
+// const my_id = user_table2.id;
 
 function TalkScreenStack() {
   return (
