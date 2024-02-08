@@ -45,49 +45,98 @@ function TalkScreenStack() {
 
 // ↓↓適宜コメント文に切り替えたりして
 
-// ガチ本番用(Django起動しないと使えない)
+//ガチ本番用(Django起動しないと使えない)
+function TalkTable() {
+  const navigation = useNavigation();
+
+  const [search, setSearch] = useState("");
+  const [data, setData] = useState("");
+
+  useEffect(() => {
+    const getMyData = async () => {
+      await fetch("http://localhost:8000/tests/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          }
+          throw new Error("Some Error");
+        })
+        .then((data) => {
+          // setData(data);
+          const talkList = data.map((item) => (
+            <View
+              style={styles.talk_list}
+              key={item.message_id}
+              onTouchEnd={() => navigation.navigate("Talk")}
+            >
+              <Text>{item.message_id}</Text>
+              <Text>{item.message_data}</Text>
+              <Text>{item.massege_date}</Text>
+            </View>
+          ));
+          setData(talkList);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+
+    getMyData();
+  }, []);
+
+  const talkList = talkListData.map((item) => (
+    <View
+      key={item.name}
+      style={styles.talk_list}
+      onTouchEnd={() => navigation.navigate("Talk")}
+    >
+    <Text style={styles.talkText}>Name:{item.name}</Text>
+    <Text style={styles.talkText}>Title:{item.title}</Text>
+    <Text style={styles.talkText}>Hogen:{item.hogen}</Text>
+    <Text style={styles.talkText}>IconSrc:{item.icon}</Text>
+    <View style={styles.horizontalLine} />
+    </View>
+  ));
+
+  return (
+    <View style={styles.container}>
+       <View style={styles.surroundingRectangle}>
+        <View style={styles.pinkRectangle}>
+        <View style={styles.searchContainer}>
+        <FontAwesome name="search" size={20} style={styles.magnifyingGlass}/>
+      <TextInput
+        style={styles.text_input}
+        //backgroundColor: "#e6cde3"
+        placeholder="Search"
+        onChangeText={(e) => setSearch(e)}
+      />
+      </View>
+      </View>
+      </View>
+      {talkList}
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={() => console.log("Add button pressed")}
+      >
+        <View style={styles.whiteCircle}>
+        <Text style={styles.addButtonText}>+</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+// スタイル用(テストデータ)
 // function TalkTable() {
 //   const navigation = useNavigation();
 
 //   const [search, setSearch] = useState("");
 //   const [data, setData] = useState("");
-
-//   useEffect(() => {
-//     const getMyData = async () => {
-//       await fetch("http://localhost:8000/tests/", {
-//         method: "GET",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//       })
-//         .then((res) => {
-//           if (res.ok) {
-//             return res.json();
-//           }
-//           throw new Error("Some Error");
-//         })
-//         .then((data) => {
-//           // setData(data);
-//           const talkList = data.map((item) => (
-//             <View
-//               style={styles.talk_list}
-//               key={item.message_id}
-//               onTouchEnd={() => navigation.navigate("Talk")}
-//             >
-//               <Text>{item.message_id}</Text>
-//               <Text>{item.message_data}</Text>
-//               <Text>{item.massege_date}</Text>
-//             </View>
-//           ));
-//           setData(talkList);
-//         })
-//         .catch((error) => {
-//           console.log(error);
-//         });
-//     };
-
-//     getMyData();
-//   }, []);
 
 //   const talkList = talkListData.map((item) => (
 //     <View
@@ -110,44 +159,10 @@ function TalkScreenStack() {
 //         onChangeText={(e) => setSearch(e)}
 //       />
 //       <Text>{search}</Text>
-//       {/* {talkList} */}
-//       {data}
+//       <ScrollView>{talkList}</ScrollView>
 //     </View>
 //   );
 // }
-
-// スタイル用(テストデータ)
-function TalkTable() {
-  const navigation = useNavigation();
-
-  const [search, setSearch] = useState("");
-  const [data, setData] = useState("");
-
-  const talkList = talkListData.map((item) => (
-    <View
-      key={item.name}
-      style={styles.talk_list}
-      onTouchEnd={() => navigation.navigate("Talk")}
-    >
-      <Text>Name: {item.name}</Text>
-      <Text>Title: {item.title}</Text>
-      <Text>Hogen: {item.hogen}</Text>
-      <Text>IconSrc: {item.icon}</Text>
-    </View>
-  ));
-
-  return (
-    <View style={styles.talk_table_container}>
-      <TextInput
-        style={styles.text_input}
-        placeholder="search"
-        onChangeText={(e) => setSearch(e)}
-      />
-      <Text>{search}</Text>
-      <ScrollView>{talkList}</ScrollView>
-    </View>
-  );
-}
 
 function Talk() {
   const navigation = useNavigation();
@@ -511,11 +526,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
-  text_input: {
-    backgroundColor: "#ddd",
-    width: "50%",
-    borderBottomWidth: 1,
-  },
   talk_list: {
     backgroundColor: "#e6cde3",
     borderBottomWidth: "1px",
@@ -863,6 +873,97 @@ const styles = StyleSheet.create({
     // borderColor: "pink",
   },
   // ↑トーク履歴表示画面のスタイル終わりじゃぜ
+
+  //TalkTableのスタイル
+  container: {
+    flex: 1,
+    backgroundColor: "#5214ba",
+  },
+
+  text_input: {
+    backgroundColor: "#e6cde3",
+    width: "50%",
+    borderBottomWidth: 1,
+  },
+
+  searchContainer: {
+    flexDirection: "row",
+  },
+
+  magnifyingGlass: {
+    marginRight: 5, // Add a small gap between the magnifying glass icon and the text
+  },
+
+  surroundingRectangle: {
+    backgroundColor: "#38057b", // Background color of the surrounding rectangle
+    padding: 35, // Padding around the pinkRectangle
+  },
+
+  pinkRectangle: {
+    position: "absolute",
+    padding:10,
+    borderRadius: 5,
+    top: 15,
+    left: 30,
+    width: "100%",
+    height: 40,
+    backgroundColor: "#e6cde3",
+    zIndex: 0,
+  },
+
+  talk_list: {
+    marginTop: 10,
+    backgroundColor: "#5214ba",
+    left: 5,
+    marginBottom: 5,
+  },
+
+  horizontalLine: {
+    backgroundColor: 'white',
+    height: 1, 
+    marginTop: 10,
+    alignSelf: 'stretch',
+  },
+
+  talkText: {
+    color: "white",
+    borderBottomColor: "white",
+    marginBottom: 5,
+  },
+
+  addButton: {
+    position: "absolute",
+    bottom: 10,
+    right: 10,
+    backgroundColor: "#5214ba",
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  addButtonText: {
+    fontSize: 40,
+    top: -4,
+    left: 0,
+    color: "white",
+    fontWeight: "bold",
+  },
+
+  whiteCircle: {
+    position: "absolute",
+    top: -10,
+    left: -10,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    borderWidth: 3,
+    borderColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
 });
 
 export default TalkScreenStack;
