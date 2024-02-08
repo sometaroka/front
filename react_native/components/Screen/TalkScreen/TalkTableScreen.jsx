@@ -53,8 +53,8 @@ function TalkScreenStack() {
 
 // ↓↓適宜コメント文に切り替えたりして
 
-//ガチ本番用(Django起動しないと使えない)
-function TalkTable() {
+// ガチ本番用(Django起動しないと使えない);
+export function TalkTable() {
   const navigation = useNavigation();
 
   const [search, setSearch] = useState("");
@@ -62,7 +62,7 @@ function TalkTable() {
 
   useEffect(() => {
     const getMyData = async () => {
-      await fetch("http://192.168.3.4:8000/talk_rooms/", {
+      await fetch("http://localhost:8000/talk_rooms/", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -84,7 +84,8 @@ function TalkTable() {
                 navigation.navigate("Talk", { talk_id: item.talk_id })
               }
             >
-              <Text>{item.talk_id}</Text>
+              <Text style={{ color: "black" }}>{item.talk_id}</Text>
+              <View style={styles.horizontalLine} />
 
               {/* <Talk talk_id={item.talk_id} />
               <TalkHistory talk_id={item.talk_id} /> */}
@@ -100,43 +101,48 @@ function TalkTable() {
     getMyData();
   }, []);
 
-  const talkList = talkListData.map((item) => (
-    <View
-      key={item.name}
-      style={styles.talk_list}
-      onTouchEnd={() => navigation.navigate("Talk")}
-    >
-    <Text style={styles.talkText}>Name:{item.name}</Text>
-    <Text style={styles.talkText}>Title:{item.title}</Text>
-    <Text style={styles.talkText}>Hogen:{item.hogen}</Text>
-    <Text style={styles.talkText}>IconSrc:{item.icon}</Text>
-    <View style={styles.horizontalLine} />
-    </View>
-  ));
+  // const talkList = talkListData.map((item) => (
+  //   <View
+  //     key={item.name}
+  //     style={styles.talk_list}
+  //     onTouchEnd={() => navigation.navigate("Talk")}
+  //   >
+  //     <Text>Name: {item.name}</Text>
+  //     <Text>Title: {item.title}</Text>
+  //     <Text>Hogen: {item.hogen}</Text>
+  //     <Text>IconSrc: {item.icon}</Text>
+  //   </View>
+  // ));
 
   return (
-    <View style={styles.container}>
-       <View style={styles.surroundingRectangle}>
-        <View style={styles.pinkRectangle}>
-        <View style={styles.searchContainer}>
-        <FontAwesome name="search" size={20} style={styles.magnifyingGlass}/>
-      <TextInput
-        style={styles.text_input}
-        //backgroundColor: "#e6cde3"
-        placeholder="Search"
-        onChangeText={(e) => setSearch(e)}
-      />
-      </View>
-      </View>
-      </View>
-      {talkList}
-      <TouchableOpacity
-        style={styles.addButton}
-        onPress={() => console.log("Add button pressed")}
-      >
-        <View style={styles.whiteCircle}>
-        <Text style={styles.addButtonText}>+</Text>
+    <View style={styles.talk_table_container}>
+      <View style={styles.search_area}>
+        <View style={styles.text_input_container}>
+          <AntDesign
+            name="search1"
+            size={24}
+            color="black"
+            style={styles.search_icon}
+          />
+          <TextInput
+            style={styles.text_input}
+            placeholder="Search" // プレースホルダーを設定
+            // onChangeText={(e) => setSearch(e)} // 検索機能を追加する場合はこの行を有効にする
+          />
         </View>
+      </View>
+      <Text>{search}</Text>
+      <ScrollView>{data}</ScrollView>
+
+      {/* Rectangular button with plus icon */}
+      <TouchableOpacity
+        style={styles.rectangularButton}
+        onPress={() => {
+          // Handle button press here
+          // For example, you can navigate to a different screen
+        }}
+      >
+        <Text style={styles.plusText}>+</Text>
       </TouchableOpacity>
     </View>
   );
@@ -190,7 +196,7 @@ export function Talk(props) {
 
   //選択した方言名をバックに送る処理
   const handleSubmit_hougen = (hougen_name) => {
-    fetch("http://192.168.3.4:8000/tests/", {
+    fetch("http://localhost:8000/tests/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -210,7 +216,7 @@ export function Talk(props) {
   const [myTalkContent, setMyTalkContent] = useState("");
 
   const getMyTalkContent = async () => {
-    await fetch(`http://192.168.3.4:8000/tests?talk_id=${talk_id}`, {
+    await fetch(`http://localhost:8000/tests?talk_id=${talk_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -246,7 +252,7 @@ export function Talk(props) {
   const [yourTalkContent, setyourTalkContent] = useState("");
 
   const getyourTalkContent = async () => {
-    await fetch(`http://192.168.3.4:8000/tests?talk_id=${talk_id}`, {
+    await fetch(`http://localhost:8000/tests?talk_id=${talk_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -464,7 +470,7 @@ export function TalkHistory(props) {
 
   //下から持ってきた2
   const getTestData = async () => {
-    await fetch(`http://192.168.3.4:8000/tests?talk_id=${talk_id}`, {
+    await fetch(`http://localhost:8000/tests?talk_id=${talk_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -566,7 +572,7 @@ export function TalkHistory(props) {
 
   //下から持ってきた4
   const handleSubmit = () => {
-    fetch("http://192.168.3.4:8000/tests/", {
+    fetch("http://localhost:8000/tests/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -695,7 +701,7 @@ export function TalkHistory(props) {
 
 //   //上に持って行った2
 //   const getTestData = async () => {
-//     await fetch("http://192.168.3.4:8000/tests/", {
+//     await fetch("http://localhost:8000/tests/", {
 //       method: "GET",
 //       headers: {
 //         "Content-Type": "application/json",
@@ -732,7 +738,7 @@ export function TalkHistory(props) {
 
 //   //上に持って行った4
 //   const handleSubmit = () => {
-//     fetch("http://192.168.3.4:8000/tests/", {
+//     fetch("http://localhost:8000/tests/", {
 //       method: "POST",
 //       headers: { "Content-Type": "application/json" },
 //       body: JSON.stringify({
@@ -799,6 +805,11 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
+  text_input: {
+    backgroundColor: "#ddd",
+    width: "50%",
+    borderBottomWidth: 1,
+  },
   talk_list: {
     backgroundColor: "#e6cde3",
     borderBottomWidth: "1px",
@@ -1166,96 +1177,39 @@ export const styles = StyleSheet.create({
 
   // ↑トーク履歴表示画面のスタイル終わりじゃぜ
 
-  //TalkTableのスタイル
-  container: {
-    flex: 1,
-    backgroundColor: "#5214ba",
+  //自分のスタイル↓
+  talk_time_mine_hidden: {
+    display: "none",
   },
+  search_area: {
+    backgroundColor: "#39057A",
+    alignItems: "center",
+    justifyContent: "center",
+  }, //虫眼鏡アイコン用
 
-  text_input: {
-    backgroundColor: "#e6cde3",
-    width: "50%",
-    borderBottomWidth: 1,
-  },
+  text_input_container: {
+    flexDirection: "row", // アイコンとテキスト入力を横に配置
+    alignItems: "center", // 中央寄せ
+    backgroundColor: "#e6cde3", // テキストボックスの背景色
+    width: "85%", // テキストボックスの幅を設定
+    alignSelf: "center", // 横方向に中央に配置
+    fontSize: 18, // テキストの大きさを変更
+    borderBottomWidth: 1, // 下部にボーダーラインを追加
+    borderColor: "gray", // ボーダーラインの色を指定
+    padding: 5,
+    marginTop: 15, // search欄の上の空白
+    marginBottom: 15,
+    borderRadius: 5, // 角を丸くする
+  }, // 色々
 
-  searchContainer: {
-    flexDirection: "row",
-  },
-
-  magnifyingGlass: {
-    marginRight: 5, // Add a small gap between the magnifying glass icon and the text
-  },
-
-  surroundingRectangle: {
-    backgroundColor: "#38057b", // Background color of the surrounding rectangle
-    padding: 35, // Padding around the pinkRectangle
-  },
-
-  pinkRectangle: {
-    position: "absolute",
-    padding:10,
-    borderRadius: 5,
-    top: 15,
-    left: 30,
-    width: "100%",
-    height: 40,
-    backgroundColor: "#e6cde3",
-    zIndex: 0,
-  },
-
-  talk_list: {
-    marginTop: 10,
-    backgroundColor: "#5214ba",
-    left: 5,
-    marginBottom: 5,
-  },
+  //トークルーム一覧↓↓
 
   horizontalLine: {
-    backgroundColor: 'white',
-    height: 1, 
-    marginTop: 10,
-    alignSelf: 'stretch',
-  },
-
-  talkText: {
-    color: "white",
+    // Add your horizontal line styles here
     borderBottomColor: "white",
-    marginBottom: 5,
+    borderBottomWidth: 1,
+    marginVertical: 5,
   },
-
-  addButton: {
-    position: "absolute",
-    bottom: 10,
-    right: 10,
-    backgroundColor: "#5214ba",
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  addButtonText: {
-    fontSize: 40,
-    top: -4,
-    left: 0,
-    color: "white",
-    fontWeight: "bold",
-  },
-
-  whiteCircle: {
-    position: "absolute",
-    top: -10,
-    left: -10,
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    borderWidth: 3,
-    borderColor: "white",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
 });
 
 export default TalkScreenStack;
