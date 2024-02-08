@@ -1,6 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React, { useState, useEffect } from "react";
+import { AntDesign } from "@expo/vector-icons"; //むしめがね用
 import {
   View,
   Text,
@@ -19,14 +20,16 @@ import hogenListData from "./HogenList.json";
 import talkHistoryData from "./TalkHistory.json";
 import { Fontisto } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
+import { Audio } from "expo-av";
+import ChatHistory from "./ChatHistory";
 
 const Stack = createStackNavigator();
 
 const user_table1 = { id: 1, name: "testUser", icon: "icon.png" };
 const user_table2 = { id: 2, name: "testUser2", icon: "icon.png" };
 
-const my_id = user_table1.id;
-// const my_id = user_table2.id;
+// const my_id = user_table1.id;
+const my_id = user_table2.id;
 
 function TalkScreenStack() {
   return (
@@ -59,7 +62,7 @@ function TalkTable() {
 
   useEffect(() => {
     const getMyData = async () => {
-      await fetch("http://localhost:8000/tests/", {
+      await fetch("http://localhost:8000/talk_rooms/", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -187,7 +190,7 @@ export function Talk(props) {
 
   //選択した方言名をバックに送る処理
   const handleSubmit_hougen = (hougen_name) => {
-    fetch("http://192.168.3.4:8000/tests/", {
+    fetch("http://localhost:8000/tests/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -207,7 +210,7 @@ export function Talk(props) {
   const [myTalkContent, setMyTalkContent] = useState("");
 
   const getMyTalkContent = async () => {
-    await fetch(`http://192.168.3.4:8000/tests?talk_id=${talk_id}`, {
+    await fetch(`http://localhost:8000/tests?talk_id=${talk_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -243,7 +246,7 @@ export function Talk(props) {
   const [yourTalkContent, setyourTalkContent] = useState("");
 
   const getyourTalkContent = async () => {
-    await fetch(`http://192.168.3.4:8000/tests?talk_id=${talk_id}`, {
+    await fetch(`http://localhost:8000/tests?talk_id=${talk_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -291,108 +294,166 @@ export function Talk(props) {
   ));
 
   return (
-    <View style={styles.chat}>
-      <View style={styles.topber}>
-        <Button
-          title="トーク履歴"
-          onPress={() =>
-            navigation.navigate("TalkHistory", { talk_id: talk_id })
-          }
-        />
-        <TouchableOpacity style={styles.b_hogen} onPress={reverseVisible}>
-          <Text style={styles.buttonText}>{hogen}</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.talk_container}>
-        <View style={styles.partner_area}>
-          <View style={styles.t_option}>
-            <Text style={styles.area_text}>{yourTalkContent}</Text>
-          </View>
-          <View style={styles.b_area}>
-            <TouchableOpacity onPress={() => console.log("intonation")}>
-              <FontAwesome name="comment" size={20} color="#5214BA" />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => console.log("音が鳴る")}>
-              <Fontisto name="volume-up" size={20} color="#5214BA" />
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        <View style={styles.partner_stage}>
-          <Image
-            style={styles.avatar_image}
-            source={require("../../../assets/icon.png")}
+    <KeyboardAvoidingView
+      behavior={Platform.select({
+        ios: "position",
+        android: undefined,
+      })}
+      keyboardVerticalOffset={Platform.select({
+        ios: 136, // iOS
+        android: -100, // android
+      })}
+    >
+      <View style={styles.chat}>
+        <View style={styles.topber}>
+          <Button
+            title="トーク履歴"
+            onPress={() =>
+              navigation.navigate("TalkHistory", { talk_id: talk_id })
+            }
           />
+          <TouchableOpacity style={styles.b_hogen} onPress={reverseVisible}>
+            <Text style={styles.buttonText}>{hogen}</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.talk_container}>
+          <View style={styles.partner_area}>
+            <View style={styles.t_option}>
+              <Text style={styles.area_text}>{yourTalkContent}</Text>
+            </View>
+            <View style={styles.b_area}>
+              <TouchableOpacity onPress={() => console.log("intonation")}>
+                <FontAwesome name="comment" size={20} color="#5214BA" />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => console.log("音が鳴る")}>
+                <Fontisto name="volume-up" size={20} color="#5214BA" />
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={styles.partner_stage}>
+            <Image
+              style={styles.avatar_image}
+              source={require("../../../assets/icon.png")}
+            />
+          </View>
+
+          <View style={styles.your_stage}>
+            <Image
+              style={styles.avatar_image}
+              source={require("../../../assets/icon.png")}
+            />
+          </View>
+
+          <View style={styles.your_area}>
+            <View style={styles.t_option}>
+              <Text style={styles.area_text}>{myTalkContent}</Text>
+            </View>
+            <View style={styles.b_area}>
+              <TouchableOpacity onPress={() => console.log("intonation")}>
+                <FontAwesome name="comment" size={20} color="#5214BA" />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => console.log("音が鳴る2")}>
+                <Fontisto name="volume-up" size={20} color="#5214BA" />
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <Modal
+            animationType="slide"
+            presentationStyle="pageSheet"
+            visible={visible}
+          >
+            <View style={styles.modalView}>
+              <Button title="閉じる" onPress={reverseVisible} />
+              {hogenList}
+            </View>
+          </Modal>
         </View>
 
-        <View style={styles.your_stage}>
-          <Image
-            style={styles.avatar_image}
-            source={require("../../../assets/icon.png")}
+        <View style={styles.b_input}>
+          <TouchableOpacity
+            style={styles.b_camera}
+            onPress={() => console.log("カメラを開く")}
+          >
+            <Fontisto name="camera" size={20} color="#d9d9d9" />
+          </TouchableOpacity>
+          <TextInput
+            style={styles.chat_input}
+            placeholder="Message..."
+            placeholderTextColor="#d9d9d9"
+            onChangeText={(e) => setChat(e)}
           />
+          <TouchableOpacity
+            style={styles.b_mic}
+            onPress={() => console.log("マイクを起動")}
+          >
+            <Fontisto name="mic" size={20} color="#d9d9d9" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.b_send}
+            onPress={() => console.log("送信")}
+          >
+            <Fontisto name="play" size={10} color="#5214BA" />
+          </TouchableOpacity>
         </View>
-
-        <View style={styles.your_area}>
-          <View style={styles.t_option}>
-            <Text style={styles.area_text}>{myTalkContent}</Text>
-          </View>
-          <View style={styles.b_area}>
-            <TouchableOpacity onPress={() => console.log("intonation")}>
-              <FontAwesome name="comment" size={20} color="#5214BA" />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => console.log("音が鳴る2")}>
-              <Fontisto name="volume-up" size={20} color="#5214BA" />
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        <Modal
-          animationType="slide"
-          presentationStyle="pageSheet"
-          visible={visible}
-        >
-          <View style={styles.modalView}>
-            <Button title="閉じる" onPress={reverseVisible} />
-            {hogenList}
-          </View>
-        </Modal>
+        <Text>
+          {chat}&{hogen}
+        </Text>
       </View>
-
-      <View style={styles.b_input}>
-        <TouchableOpacity
-          style={styles.b_camera}
-          onPress={() => console.log("カメラを開く")}
-        >
-          <Fontisto name="camera" size={20} color="#d9d9d9" />
-        </TouchableOpacity>
-        <TextInput
-          style={styles.chat_input}
-          placeholder="Message..."
-          placeholderTextColor="#d9d9d9"
-          onChangeText={(e) => setChat(e)}
-        />
-        <TouchableOpacity
-          style={styles.b_mic}
-          onPress={() => console.log("マイクを起動")}
-        >
-          <Fontisto name="mic" size={20} color="#d9d9d9" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.b_send}
-          onPress={() => console.log("送信")}
-        >
-          <Fontisto name="play" size={10} color="#5214BA" />
-        </TouchableOpacity>
-      </View>
-      <Text>
-        {chat}&{hogen}
-      </Text>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
 // 下の通信機能を取り入れてください．
 export function TalkHistory(props) {
+  // const [iconName, setIconName] = useState("volume-up");
+
+  // const playSound = async () => {
+  //   setIconName("pause");
+  //   // console.log(iconName);
+
+  //   try {
+  //     const { sound } = await Audio.Sound.createAsync(
+  //       require("../../../assets/voice/HougenVoice1.m4a")
+  //     );
+
+  //     await sound.playAsync();
+
+  //     sound.setOnPlaybackStatusUpdate(async (status) => {
+  //       if (status.didJustFinish) {
+  //         await sound.unloadAsync();
+  //         // console.log("再生成功");
+  //         setIconName("volume-up");
+  //       }
+  //     });
+  //   } catch (error) {
+  //     console.error("音声の再生中にエラーが発生しました", error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   console.log(iconName);
+  //   // getTestData();
+  // }, [iconName]);
+
+  //ボリュームボタンを押したときに停止アイコンに遷移
+  // const iconChange = () => {
+  //   // アイコン切り替え
+  //   // console.log(iconName);
+  //   console.log("volume-up から 停止ボタン に変更");
+  //   setIconName("volume-down");
+
+  //   console.log(iconName);
+
+  //   //音の再生が終わったらボリュームボタンに戻す(PlaySound()内に記述)
+  // };
+
+  // function func() {
+  //   iconChange();
+  //   playSound();
+  // }
+
   const { talk_id } = props.route.params;
 
   const [inputValue, setInputValue] = useState(""); // ステート変数の名前を修正
@@ -403,7 +464,7 @@ export function TalkHistory(props) {
 
   //下から持ってきた2
   const getTestData = async () => {
-    await fetch(`http://192.168.3.4:8000/tests?talk_id=${talk_id}`, {
+    await fetch(`http://localhost:8000/tests?talk_id=${talk_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -418,68 +479,72 @@ export function TalkHistory(props) {
       .then((data) => {
         // setData(data);
         const talkHistory = data.map((item) => (
-          <View
-            style={
-              item.user == my_id
-                ? styles.talk_history_container_mine
-                : styles.talk_history_container_partner
-            }
-            key={item.message_id}
-          >
-            {/* <View style={styles.talk_history_content}> */}
-            <View style={styles.talk_time_mine_parent}>
-              <Text
-                style={
-                  item.user == my_id
-                    ? styles.talk_time_mine
-                    : styles.talk_time_mine_hidden
-                }
-              >
-                {item.message_date}
-              </Text>
-            </View>
+          // <View
+          //   style={
+          //     item.user == my_id
+          //       ? styles.talk_history_container_mine
+          //       : styles.talk_history_container_partner
+          //   }
+          //   key={item.message_id}
+          // >
+          //   {/* <View style={styles.talk_history_content}> */}
+          //   <View style={styles.talk_time_mine_parent}>
+          //     <Text
+          //       style={
+          //         item.user == my_id
+          //           ? styles.talk_time_mine
+          //           : styles.talk_time_mine_hidden
+          //       }
+          //     >
+          //       {item.massege_date.substring(11, 16)}
+          //     </Text>
+          //   </View>
 
-            <View
-              style={
-                item.user == my_id
-                  ? styles.talk_history_content_mine
-                  : styles.talk_history_content_partner
-              }
-            >
-              <View style={styles.talk_content_text}>
-                <Text>トークルームID: {item.message_id}</Text>
-                <Text>トーク内容: {item.message_data}</Text>
-                <Text>翻訳後内容: {item.intnation}</Text>
-                <Text>トーク日時:{item.message_date}</Text>
-                <Text>ユーザーID: {item.user}</Text>
-              </View>
-              <View style={styles.talk_history_b_area}>
-                <TouchableOpacity
-                  style={styles.talk_icon1}
-                  onPress={() => console.log("intonation")}
-                >
-                  <FontAwesome name="comment" size={17} color="#5214BA" />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.talk_icon2}
-                  onPress={() => console.log("音が鳴る2")}
-                >
-                  <Fontisto name="volume-up" size={17} color="#5214BA" />
-                </TouchableOpacity>
-              </View>
-            </View>
-            <View>
-              <Text
-                style={
-                  item.user == my_id
-                    ? styles.talk_time_partner_hidden
-                    : styles.talk_time_partner
-                }
-              >
-                {item.message_date}
-              </Text>
-            </View>
-          </View>
+          //   <View
+          //     style={
+          //       item.user == my_id
+          //         ? styles.talk_history_content_mine
+          //         : styles.talk_history_content_partner
+          //     }
+          //   >
+          //     <View style={styles.talk_content_text}>
+          //       <Text>翻訳後 {item.intnation}</Text>
+          //       <Text>翻訳前: {item.message_data}</Text>
+
+          //       {/* <Text>トークルームID: {item.message_id}</Text> */}
+          //       {/* <Text>トーク日時:{item.massege_date}</Text>
+          //       <Text>ユーザーID: {item.user}</Text> */}
+          //     </View>
+          //     <View style={styles.talk_history_b_area}>
+          //       <TouchableOpacity
+          //         style={styles.talk_icon1}
+          //         onPress={() => console.log("ああ")}
+          //       >
+          //         <FontAwesome name="comment" size={17} color="#5214BA" />
+          //       </TouchableOpacity>
+          //       <TouchableOpacity style={styles.talk_icon2}>
+          //         <Fontisto
+          //           name={iconName}
+          //           size={17}
+          //           color="#5214BA"
+          //           onPress={() => playSound()}
+          //         />
+          //       </TouchableOpacity>
+          //     </View>
+          //   </View>
+          //   <View>
+          //     <Text
+          //       style={
+          //         item.user == my_id
+          //           ? styles.talk_time_partner_hidden
+          //           : styles.talk_time_partner
+          //       }
+          //     >
+          //       {item.massege_date.substring(11, 16)}
+          //     </Text>
+          //   </View>
+          // </View>
+          <ChatHistory item={item} my_id={my_id} key={item.id} />
         ));
         setHistory(talkHistory);
       })
@@ -501,7 +566,7 @@ export function TalkHistory(props) {
 
   //下から持ってきた4
   const handleSubmit = () => {
-    fetch("http://192.168.3.4:8000/tests/", {
+    fetch("http://localhost:8000/tests/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -727,7 +792,7 @@ export function TalkHistory(props) {
 //   );
 // }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   talk_table_container: {
     flex: 1,
     // alignItems: "center",
@@ -945,8 +1010,9 @@ const styles = StyleSheet.create({
   },
 
   talk_history_content_mine: {
-    minWidth: "1%",
+    minWidth: "20%",
     maxWidth: "70%",
+    minHeight: 55,
 
     marginTop: 10,
     marginRight: 4,
@@ -971,8 +1037,9 @@ const styles = StyleSheet.create({
   },
 
   talk_history_content_partner: {
-    minWidth: "1%",
+    minWidth: "20%",
     maxWidth: "70%",
+    minHeight: 55,
     marginTop: 10,
     marginLeft: 5,
     padding: 4,
@@ -995,6 +1062,8 @@ const styles = StyleSheet.create({
     maxWidth: "90%",
     minWidth: "10%",
 
+    marginTop: 5,
+
     // marginRight: 5,
 
     // borderWidth: 2,
@@ -1016,6 +1085,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 5,
     fontSize: 12,
+    // marginLeft: 5,
     justifyContent: "flex-end",
   },
 
@@ -1093,6 +1163,7 @@ const styles = StyleSheet.create({
     // borderWidth: 2,
     // borderColor: "pink",
   },
+
   // ↑トーク履歴表示画面のスタイル終わりじゃぜ
 
   //TalkTableのスタイル
