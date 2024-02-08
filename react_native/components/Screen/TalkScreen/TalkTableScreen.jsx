@@ -11,6 +11,7 @@ import {
   Modal,
   ScrollView,
   TouchableOpacity,
+  KeyboardAvoidingView,
 } from "react-native";
 // import MainScreen from "../MainScreen/MainScreen";
 import talkListData from "./TalkList.json";
@@ -21,7 +22,11 @@ import { FontAwesome } from "@expo/vector-icons";
 
 const Stack = createStackNavigator();
 
-const user_table = { id: 1, name: "testUser", icon: "icon.png" };
+const user_table1 = { id: 1, name: "testUser", icon: "icon.png" };
+const user_table2 = { id: 2, name: "testUser2", icon: "icon.png" };
+
+const my_id = user_table1.id;
+// const my_id = user_table2.id;
 
 function TalkScreenStack() {
   return (
@@ -45,8 +50,13 @@ function TalkScreenStack() {
 
 // ↓↓適宜コメント文に切り替えたりして
 
+<<<<<<< HEAD
 //ガチ本番用(Django起動しないと使えない)
 function TalkTable() {
+=======
+// ガチ本番用(Django起動しないと使えない);
+export function TalkTable() {
+>>>>>>> 21bc25fc51118b50fa53a7f6fd28dc5d6937fb3c
   const navigation = useNavigation();
 
   const [search, setSearch] = useState("");
@@ -54,7 +64,11 @@ function TalkTable() {
 
   useEffect(() => {
     const getMyData = async () => {
+<<<<<<< HEAD
       await fetch("http://localhost:8000/tests/", {
+=======
+      await fetch("http://192.168.3.4:8000/talk_rooms/", {
+>>>>>>> 21bc25fc51118b50fa53a7f6fd28dc5d6937fb3c
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -71,12 +85,24 @@ function TalkTable() {
           const talkList = data.map((item) => (
             <View
               style={styles.talk_list}
+<<<<<<< HEAD
               key={item.message_id}
               onTouchEnd={() => navigation.navigate("Talk")}
             >
               <Text>{item.message_id}</Text>
               <Text>{item.message_data}</Text>
               <Text>{item.massege_date}</Text>
+=======
+              key={item.talk_id}
+              onTouchEnd={() =>
+                navigation.navigate("Talk", { talk_id: item.talk_id })
+              }
+            >
+              <Text>{item.talk_id}</Text>
+
+              {/* <Talk talk_id={item.talk_id} />
+              <TalkHistory talk_id={item.talk_id} /> */}
+>>>>>>> 21bc25fc51118b50fa53a7f6fd28dc5d6937fb3c
             </View>
           ));
           setData(talkList);
@@ -89,6 +115,7 @@ function TalkTable() {
     getMyData();
   }, []);
 
+<<<<<<< HEAD
   const talkList = talkListData.map((item) => (
     <View
       key={item.name}
@@ -127,6 +154,31 @@ function TalkTable() {
         <Text style={styles.addButtonText}>+</Text>
         </View>
       </TouchableOpacity>
+=======
+  // const talkList = talkListData.map((item) => (
+  //   <View
+  //     key={item.name}
+  //     style={styles.talk_list}
+  //     onTouchEnd={() => navigation.navigate("Talk")}
+  //   >
+  //     <Text>Name: {item.name}</Text>
+  //     <Text>Title: {item.title}</Text>
+  //     <Text>Hogen: {item.hogen}</Text>
+  //     <Text>IconSrc: {item.icon}</Text>
+  //   </View>
+  // ));
+
+  return (
+    <View style={styles.talk_table_container}>
+      <TextInput
+        style={styles.text_input}
+        placeholder="search"
+        onChangeText={(e) => setSearch(e)}
+      />
+      <Text>{search}</Text>
+      {/* {talkList} */}
+      {data}
+>>>>>>> 21bc25fc51118b50fa53a7f6fd28dc5d6937fb3c
     </View>
   );
 }
@@ -164,7 +216,13 @@ function TalkTable() {
 //   );
 // }
 
+<<<<<<< HEAD
 function Talk() {
+=======
+export function Talk(props) {
+  const { talk_id } = props.route.params;
+
+>>>>>>> 21bc25fc51118b50fa53a7f6fd28dc5d6937fb3c
   const navigation = useNavigation();
 
   const [chat, setChat] = useState("");
@@ -175,6 +233,98 @@ function Talk() {
     setVisible((vis) => !vis);
   };
 
+  //選択した方言名をバックに送る処理
+  const handleSubmit_hougen = (hougen_name) => {
+    fetch("http://192.168.3.4:8000/tests/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        hugen_name: hougen_name,
+      }),
+    })
+      .then(() => {
+        console.log(hougen_name);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  //↓talk_idに対応するトーク内容を取得　テンプレートリテラル使って
+  //↓自分のトーク内容取得
+  const [myTalkContent, setMyTalkContent] = useState("");
+
+  const getMyTalkContent = async () => {
+    await fetch(`http://192.168.3.4:8000/tests?talk_id=${talk_id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error("Some Error");
+      })
+      .then((data) => {
+        let myTalkContent = null; //メッセージテーブルを最後から順に参照していって、user=1(※user:自分は1,相手は2(それ以外)とする)となる最初の要素のmessageを取得
+        for (let i = data.length - 1; i >= 0; i--) {
+          if (data[i].user === my_id) {
+            // myTalkContent = data[i].message_data;
+            myTalkContent = data[i].intnation;
+            break;
+          }
+        }
+        setMyTalkContent(myTalkContent);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getMyTalkContent();
+  }, []);
+
+  //相手のトーク内容取得
+  const [yourTalkContent, setyourTalkContent] = useState("");
+
+  const getyourTalkContent = async () => {
+    await fetch(`http://192.168.3.4:8000/tests?talk_id=${talk_id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error("Some Error");
+      })
+      .then((data) => {
+        let yourTalkContent = null; //メッセージテーブルを最後から順に参照していって、user=1(※user:自分は1,相手は2(それ以外)とする)となる最初の要素のmessageを取得
+        for (let i = data.length - 1; i >= 0; i--) {
+          if (data[i].user != my_id) {
+            // yourTalkContent = data[i].message_data;
+            yourTalkContent = data[i].intnation;
+            // console.log(yourTalkContent);
+            break;
+          }
+        }
+
+        setyourTalkContent(yourTalkContent);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getyourTalkContent();
+  }, []);
+
   // チャット画面
   const hogenList = hogenListData.map((item) => (
     <View key={item.id}>
@@ -182,21 +332,20 @@ function Talk() {
         title={item.name}
         onPress={() => {
           setHogen(item.name), reverseVisible();
+          handleSubmit_hougen(item.name);
         }}
       />
     </View>
   ));
 
-  const handleOnPress = () => {
-    // console.log(chat);
-  };
-
   return (
-    <View>
+    <View style={styles.chat}>
       <View style={styles.topber}>
         <Button
           title="トーク履歴"
-          onPress={() => navigation.navigate("TalkHistory")}
+          onPress={() =>
+            navigation.navigate("TalkHistory", { talk_id: talk_id })
+          }
         />
         <TouchableOpacity style={styles.b_hogen} onPress={reverseVisible}>
           <Text style={styles.buttonText}>{hogen}</Text>
@@ -205,7 +354,7 @@ function Talk() {
       <View style={styles.talk_container}>
         <View style={styles.partner_area}>
           <View style={styles.t_option}>
-            <Text style={styles.area_text}>partner_text_here</Text>
+            <Text style={styles.area_text}>{yourTalkContent}</Text>
           </View>
           <View style={styles.b_area}>
             <TouchableOpacity onPress={() => console.log("intonation")}>
@@ -233,7 +382,7 @@ function Talk() {
 
         <View style={styles.your_area}>
           <View style={styles.t_option}>
-            <Text style={styles.area_text}>your_text_here</Text>
+            <Text style={styles.area_text}>{myTalkContent}</Text>
           </View>
           <View style={styles.b_area}>
             <TouchableOpacity onPress={() => console.log("intonation")}>
@@ -290,6 +439,7 @@ function Talk() {
   );
 }
 
+<<<<<<< HEAD
 // function TalkHistory() {
 //   const [inputValue, setInputValue] = useState(""); // ステート変数の名前を修正
 
@@ -420,11 +570,21 @@ function TalkHistory() {
   //   </View>
   // ));
 
+=======
+// 下の通信機能を取り入れてください．
+export function TalkHistory(props) {
+  const { talk_id } = props.route.params;
+
+  const [inputValue, setInputValue] = useState(""); // ステート変数の名前を修正
+
+  //下から持ってきた1
+>>>>>>> 21bc25fc51118b50fa53a7f6fd28dc5d6937fb3c
   const [talkHistory, setHistory] = useState("");
   const [message, setMessage] = useState("");
 
+  //下から持ってきた2
   const getTestData = async () => {
-    await fetch("http://localhost:8000/tests/", {
+    await fetch(`http://192.168.3.4:8000/tests?talk_id=${talk_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -439,12 +599,67 @@ function TalkHistory() {
       .then((data) => {
         // setData(data);
         const talkHistory = data.map((item) => (
-          <View style={styles.talk_list} key={item.message_id}>
-            <Text>{item.message_id}</Text>
-            <Text>{item.message_data}</Text>
-            <Text>{item.massege_date}</Text>
-            <Text>{item.intnation}</Text>
-            <Text>{item.user}</Text>
+          <View
+            style={
+              item.user == my_id
+                ? styles.talk_history_container_mine
+                : styles.talk_history_container_partner
+            }
+            key={item.message_id}
+          >
+            {/* <View style={styles.talk_history_content}> */}
+            <View style={styles.talk_time_mine_parent}>
+              <Text
+                style={
+                  item.user == my_id
+                    ? styles.talk_time_mine
+                    : styles.talk_time_mine_hidden
+                }
+              >
+                {item.message_date}
+              </Text>
+            </View>
+
+            <View
+              style={
+                item.user == my_id
+                  ? styles.talk_history_content_mine
+                  : styles.talk_history_content_partner
+              }
+            >
+              <View style={styles.talk_content_text}>
+                <Text>トークルームID: {item.message_id}</Text>
+                <Text>トーク内容: {item.message_data}</Text>
+                <Text>翻訳後内容: {item.intnation}</Text>
+                <Text>トーク日時:{item.message_date}</Text>
+                <Text>ユーザーID: {item.user}</Text>
+              </View>
+              <View style={styles.talk_history_b_area}>
+                <TouchableOpacity
+                  style={styles.talk_icon1}
+                  onPress={() => console.log("intonation")}
+                >
+                  <FontAwesome name="comment" size={17} color="#5214BA" />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.talk_icon2}
+                  onPress={() => console.log("音が鳴る2")}
+                >
+                  <Fontisto name="volume-up" size={17} color="#5214BA" />
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View>
+              <Text
+                style={
+                  item.user == my_id
+                    ? styles.talk_time_partner_hidden
+                    : styles.talk_time_partner
+                }
+              >
+                {item.message_date}
+              </Text>
+            </View>
           </View>
         ));
         setHistory(talkHistory);
@@ -454,19 +669,27 @@ function TalkHistory() {
       });
   };
 
+  //下から持ってきた3
   useEffect(() => {
     getTestData();
   }, []);
 
+  //ログに入力したデータを表示
+  const handleSubmit2 = () => {
+    console.log("送信された値:", inputValue); // 正しいステート変数を使用するように修正
+    setInputValue(""); // 送信後に入力をクリアする
+  };
+
+  //下から持ってきた4
   const handleSubmit = () => {
-    fetch("http://localhost:8000/tests/", {
+    fetch("http://192.168.3.4:8000/tests/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         message_data: message,
-        intnation: "intonation~~~~!!!!!",
-        user: 1,
-        talk_id: "a29ac742-0796-4f36-b9bf-fd7b537b491d",
+        intnation: "translate",
+        user: my_id,
+        talk_id: talk_id,
       }),
     })
       // アバターが出てくる画面のチャットで使う．
@@ -498,26 +721,192 @@ function TalkHistory() {
       // });
       .then(() => {
         getTestData();
+        console.log(message);
+        setMessage("");
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
+  const navigation = useNavigation();
+
+  // const [chat, setChat] = useState("");
+
+  const [visible, setVisible] = useState(false);
+
+  // const reverseVisible = () => {
+  //   setVisible((vis) => !vis);
+  // };
+
   return (
-    <View>
-      <ScrollView>
-        {talkHistory}
-        <TextInput
-          style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-          value={message}
-          onChangeText={(e) => setMessage(e)}
-        />
-        <Button title="送信" onPress={handleSubmit} />
-      </ScrollView>
-    </View>
+    <KeyboardAvoidingView
+      behavior={Platform.select({
+        ios: "position",
+        android: undefined,
+      })}
+      keyboardVerticalOffset={Platform.select({
+        ios: 136, // iOS
+        android: -100, // android
+      })}
+    >
+      <View style={styles.talk_history}>
+        <ScrollView style={styles.talk_history_area}>{talkHistory}</ScrollView>
+        <View style={styles.talk_history_b_input}>
+          <TouchableOpacity
+            style={styles.talk_history_b_camera}
+            onPress={() => console.log("カメラを開く")}
+          >
+            <Fontisto name="camera" size={20} color="#d9d9d9" />
+          </TouchableOpacity>
+          <TextInput
+            style={styles.talk_history_chat_input}
+            placeholder="Message..."
+            placeholderTextColor="#d9d9d9"
+            value={message}
+            onChangeText={(e) => setMessage(e)}
+            // onChangeText={(e) => setChat(e)}
+          />
+          <TouchableOpacity
+            style={styles.talk_history_b_mic}
+            onPress={() => console.log("マイクを起動")}
+          >
+            <Fontisto name="mic" size={20} color="#d9d9d9" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.talk_history_b_send}
+            onPress={() => {
+              // handleSubmit2();
+              handleSubmit();
+            }}
+          >
+            <Fontisto name="play" size={10} color="#5214BA" />
+          </TouchableOpacity>
+        </View>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
+
+// // 通信機能
+// function TalkHistory() {
+//   // const [inputValue, setInputValue] = useState(""); // ステート変数の名前を修正
+
+//   // const handleSubmit = () => {
+//   //   console.log("送信された値:", inputValue); // 正しいステート変数を使用するように修正
+//   //   setInputValue(""); // 送信後に入力をクリアする
+//   // };
+
+//   // const talkHistory = talkHistoryData.map((item) => (
+//   //   <View key={item.id}>
+//   //     <Text>Name: {item.name}</Text>
+//   //     <Text>icon: {item.icon}</Text>
+//   //     <Text>talkContent: {item.talk_content}</Text>
+//   //   </View>
+//   // ));
+
+//   //上に持って行った1
+//   const [talkHistory, setHistory] = useState("");
+//   const [message, setMessage] = useState("");
+
+//   //上に持って行った2
+//   const getTestData = async () => {
+//     await fetch("http://localhost:8000/tests/", {
+//       method: "GET",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     })
+//       .then((res) => {
+//         if (res.ok) {
+//           return res.json();
+//         }
+//         throw new Error("Some Error");
+//       })
+//       .then((data) => {
+//         // setData(data);
+//         const talkHistory = data.map((item) => (
+//           <View style={styles.talk_list} key={item.message_id}>
+//             <Text>{item.message_id}</Text>
+//             <Text>{item.message_data}</Text>
+//             <Text>{item.massege_date}</Text>
+//             <Text>{item.intnation}</Text>
+//             <Text>{item.user}</Text>
+//           </View>
+//         ));
+//         setHistory(talkHistory);
+//       })
+//       .catch((error) => {
+//         console.log(error);
+//       });
+//   };
+
+//   //上に持って行った3
+//   useEffect(() => {
+//     getTestData();
+//   }, []);
+
+//   //上に持って行った4
+//   const handleSubmit = () => {
+//     fetch("http://localhost:8000/tests/", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({
+//         message_data: message,
+//         intnation: "intonation~~~~!!!!!",
+//         user: 1,
+//         talk_id: "a29ac742-0796-4f36-b9bf-fd7b537b491d",
+//       }),
+//     })
+//       // アバターが出てくる画面のチャットで使う．
+//       // 送ったデータが表示される．
+//       //  .then((response) => {
+//       //   if (!response.ok) {
+//       //     throw new Error("Network response was not ok");
+//       //   }
+//       //   return response.json();
+//       // })
+//       // .then((responseJson) => {
+//       //   const talkHistory = responseJson.map((item) => (
+//       //     <View
+//       //       style={styles.talk_list}
+//       //       key={item.message_id}
+//       //       onTouchEnd={() => navigation.navigate("Talk")}
+//       //     >
+//       //        <Text>{item.message_id}</Text>
+//       // <Text>{item.message_data}</Text>
+//       // <Text>{item.massege_date}</Text>
+//       // <Text>{item.intnation}</Text>
+//       // <Text>{item.user}</Text>
+//       //     </View>
+//       //   ));
+//       //   setHistory(talkHistory);
+//       // })
+//       // .catch((error) => {
+//       //   console.log(error);
+//       // });
+//       .then(() => {
+//         getTestData();
+//       })
+//       .catch((error) => {
+//         console.log(error);
+//       });
+//   };
+
+//   return (
+//     <View>
+//       <ScrollView>
+//         {talkHistory}
+//         <TextInput
+//           style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
+//           value={message}
+//           onChangeText={(e) => setMessage(e)}
+//         />
+//         <Button title="送信" onPress={handleSubmit} />
+//       </ScrollView>
+//     </View>
+//   );
+// }
 
 const styles = StyleSheet.create({
   talk_table_container: {
@@ -534,6 +923,168 @@ const styles = StyleSheet.create({
 
   // partner_area: { left: 0 },
   // your_area: { alignSelf: "flex-end" },
+
+  //↓Talk（チャット画面）のスタイル
+
+  chat: {
+    //画面全体のスタイル
+    height: "100%",
+  },
+
+  topber: {
+    //方言選択ボタン区切ってる線より上
+    borderBottomWidth: 1, // ボーダーの太さ（ピクセル単位）
+    borderBottomColor: "#5214BA", // ボーダーの色
+    flexDirection: "row", // 入力欄とアイコンを横に配置
+    justifyContent: "space-between", // 上下に均等に配置
+    height: "7%",
+  },
+
+  b_hogen: {
+    //方言選択ボタンの形
+    backgroundColor: "#5214AB", // ボタンの背景色
+    paddingVertical: 5, // 垂直方向の余白
+    paddingHorizontal: 10, // 水平方向の余白
+    borderRadius: 100, // ボタンの角丸設定
+    marginLeft: 220, //左の余白
+    height: 25,
+    marginTop: 5,
+  },
+
+  buttonText: {
+    //方言選択ボタンの文字の色
+    color: "#d9d9d9", // ボタンのテキストの色
+    textAlign: "right", // 右寄せ
+    paddingLeft: 0, // 左側の余白を削除
+  },
+
+  talk_container: {
+    //チャット画面の大枠
+    flexDirection: "column", // 垂直方向に配置
+    justifyContent: "space-between", // 上下に均等に配置
+    paddingHorizontal: 10, // 左右の余白
+    paddingVertical: 20,
+    height: "86%",
+  },
+
+  partner_area: {
+    //相手側のメッセージ表示
+    backgroundColor: "#DFCEFF",
+    padding: 10,
+    borderRadius: 10,
+    marginRight: 50, //右側の間を調整
+    height: 75, //高さを設定
+    flexDirection: "row", // 入力欄とアイコンを横に配置
+    justifyContent: "space-between", //均等に配置
+  },
+
+  t_option: {
+    //テキストの改行のためのオプション
+    flex: 1,
+  },
+
+  area_text: {
+    //メッセージのテキスト表示
+    marginTop: 0, //上の余白
+    marginBottom: 0, //下の余白
+    fontSize: 15, //文字の大きさ
+  },
+
+  b_area: {
+    //表示メッセージ横のボタン2つ用
+    flexDirection: "column", //ボタンを縦に配置
+    justifyContent: "space-between", //均等に配置
+  },
+
+  partner_stage: {
+    //相手側のアバター用のステージ（足下の楕円）
+    width: 150,
+    height: 50,
+    backgroundColor: "#d9d9d9",
+    borderRadius: 100,
+    overflow: "visible", //写真がはみ出ても表示されるようにする
+    marginTop: 80,
+  },
+
+  avatar_image: {
+    //アバター用のスタイル
+    width: 100,
+    height: 100,
+    position: "absolute", // 画像の位置を絶対位置に設定
+    left: 25, // 楕円内での画像の左の位置調整
+    bottom: 20, // 楕円内での画像の上の位置調整
+  },
+
+  your_stage: {
+    //こちら側のアバター用のステージ（足下の楕円）
+    width: 150,
+    height: 50,
+    backgroundColor: "#d9d9d9",
+    borderRadius: 100,
+    overflow: "visible", //写真がはみ出ても表示されるようにする
+    marginTop: 80,
+    marginLeft: 220,
+    marginBottom: 5,
+  },
+
+  your_area: {
+    //こちら側のメッセージ表示
+    backgroundColor: "#DFCEFF",
+    padding: 10,
+    borderRadius: 10,
+    marginLeft: 50, //左側の間を調整
+    height: 75, //高さを設定
+    flexDirection: "row", // 入力欄とアイコンを横に配置
+    justifyContent: "space-between", //均等に配置
+  },
+
+  b_input: {
+    //入力フォームの枠
+    height: "100%",
+    flex: 1,
+    backgroundColor: "#5214AB", // ボタンの背景色
+    paddingVertical: 5, // 垂直方向の余白
+    paddingHorizontal: 10, // 水平方向の余白
+    borderRadius: 100, // ボタンの角丸設定
+    flexDirection: "row", // 入力欄とアイコンを横に配置
+    bottom: 0,
+    alignItems: "center",
+    // marginTop: 50, //上の余白
+    justifyContent: "center",
+    // gap: 10,
+  },
+
+  b_camera: {
+    //カメラボタン
+    marginRight: 5, //右側の間を調整
+  },
+
+  chat_input: {
+    //入力フォームのテキスト入力部分
+    //backgroundColor: "#ddd",
+    color: "#d9d9d9",
+    width: "70%",
+    borderBottomWidth: 1,
+    marginLeft: 10, //右側の間を調整
+  },
+
+  b_mic: {
+    //マイクボタン
+    marginLeft: 20, //左側の間を調整
+  },
+
+  b_send: {
+    //送信ボタン
+    marginLeft: 15, //右側の間を調整
+    width: 20,
+    height: 20,
+    backgroundColor: "#d9d9d9",
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  // チャット画面ここまで
 
   // ↓トーク履歴表示画面のスタイルじゃぜ
 
@@ -673,139 +1224,6 @@ const styles = StyleSheet.create({
     marginLeft: 10, //右側の間を調整
   },
 
-  //↓Talk（チャット画面）のスタイル
-  topber: {
-    //方言選択ボタン区切ってる線より上
-    borderBottomWidth: 1, // ボーダーの太さ（ピクセル単位）
-    borderBottomColor: "#5214BA", // ボーダーの色
-    flexDirection: "row", // 入力欄とアイコンを横に配置
-    justifyContent: "space-between", // 上下に均等に配置
-  },
-
-  b_hogen: {
-    //方言選択ボタンの形
-    backgroundColor: "#5214AB", // ボタンの背景色
-    paddingVertical: 5, // 垂直方向の余白
-    paddingHorizontal: 10, // 水平方向の余白
-    borderRadius: 100, // ボタンの角丸設定
-    marginLeft: 220, //左の余白
-    height: 25,
-    marginTop: 5,
-  },
-
-  buttonText: {
-    //方言選択ボタンの文字の色
-    color: "#d9d9d9", // ボタンのテキストの色
-    textAlign: "right", // 右寄せ
-    paddingLeft: 0, // 左側の余白を削除
-  },
-
-  talk_container: {
-    //チャット画面の大枠
-    flexDirection: "column", // 垂直方向に配置
-    justifyContent: "space-between", // 上下に均等に配置
-    paddingHorizontal: 10, // 左右の余白
-    paddingVertical: 20,
-  },
-
-  partner_area: {
-    //相手側のメッセージ表示
-    backgroundColor: "#DFCEFF",
-    padding: 10,
-    borderRadius: 10,
-    marginRight: 50, //右側の間を調整
-    height: 75, //高さを設定
-    flexDirection: "row", // 入力欄とアイコンを横に配置
-    justifyContent: "space-between", //均等に配置
-  },
-
-  t_option: {
-    //テキストの改行のためのオプション
-    flex: 1,
-  },
-
-  area_text: {
-    //メッセージのテキスト表示
-    marginTop: 0, //上の余白
-    marginBottom: 0, //下の余白
-    fontSize: 15, //文字の大きさ
-  },
-
-  b_area: {
-    //表示メッセージ横のボタン2つ用
-    flexDirection: "column", //ボタンを縦に配置
-    justifyContent: "space-between", //均等に配置
-  },
-
-  partner_stage: {
-    //相手側のアバター用のステージ（足下の楕円）
-    width: 150,
-    height: 50,
-    backgroundColor: "#d9d9d9",
-    borderRadius: 100,
-    overflow: "visible", //写真がはみ出ても表示されるようにする
-    marginTop: 80,
-  },
-
-  avatar_image: {
-    //アバター用のスタイル
-    width: 100,
-    height: 100,
-    position: "absolute", // 画像の位置を絶対位置に設定
-    left: 25, // 楕円内での画像の左の位置調整
-    bottom: 20, // 楕円内での画像の上の位置調整
-  },
-
-  your_stage: {
-    //こちら側のアバター用のステージ（足下の楕円）
-    width: 150,
-    height: 50,
-    backgroundColor: "#d9d9d9",
-    borderRadius: 100,
-    overflow: "visible", //写真がはみ出ても表示されるようにする
-    marginTop: 80,
-    marginLeft: 220,
-    marginBottom: 5,
-  },
-
-  your_area: {
-    //こちら側のメッセージ表示
-    backgroundColor: "#DFCEFF",
-    padding: 10,
-    borderRadius: 10,
-    marginLeft: 50, //左側の間を調整
-    height: 75, //高さを設定
-    flexDirection: "row", // 入力欄とアイコンを横に配置
-    justifyContent: "space-between", //均等に配置
-  },
-
-  b_input: {
-    //入力フォームの枠
-    backgroundColor: "#5214AB", // フォームの背景色
-    paddingVertical: 5, // 垂直方向の余白
-    paddingHorizontal: 10, // 水平方向の余白
-    borderRadius: 100, // フォームの角丸設定
-    flexDirection: "row", // 入力欄とアイコンを横に配置
-    bottom: 0,
-    marginTop: 50, //上の余白
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  b_camera: {
-    //カメラボタン
-    marginRight: 5, //右側の間を調整
-  },
-
-  chat_input: {
-    //入力フォームのテキスト入力部分
-    //backgroundColor: "#ddd",
-    color: "#d9d9d9",
-    width: "70%",
-    borderBottomWidth: 1,
-    marginLeft: 10, //右側の間を調整
-  },
-
   talk_history_b_input: {
     //入力欄
     height: "100%",
@@ -843,22 +1261,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  b_mic: {
-    //マイクボタン
-    marginLeft: 20, //左側の間を調整
-  },
-
-  b_send: {
-    //送信ボタン
-    marginLeft: 15, //右側の間を調整
-    width: 20,
-    height: 20,
-    backgroundColor: "#d9d9d9",
-    borderRadius: 50,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
   talk_history_b_area: {
     //表示メッセージ横のボタン2つ用
     // backgroundColor: "#DFCEFF",
@@ -874,6 +1276,7 @@ const styles = StyleSheet.create({
   },
   // ↑トーク履歴表示画面のスタイル終わりじゃぜ
 
+<<<<<<< HEAD
   //TalkTableのスタイル
   container: {
     flex: 1,
@@ -964,6 +1367,32 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
+=======
+  //自分のスタイル↓
+  talk_time_mine_hidden: {
+    display: "none",
+  },
+  search_area: {
+    backgroundColor: "#39057A",
+    alignItems: "center",
+    justifyContent: "center",
+  }, //虫眼鏡アイコン用
+
+  text_input_container: {
+    flexDirection: "row", // アイコンとテキスト入力を横に配置
+    alignItems: "center", // 中央寄せ
+    backgroundColor: "#e6cde3", // テキストボックスの背景色
+    width: "85%", // テキストボックスの幅を設定
+    alignSelf: "center", // 横方向に中央に配置
+    fontSize: 18, // テキストの大きさを変更
+    borderBottomWidth: 1, // 下部にボーダーラインを追加
+    borderColor: "gray", // ボーダーラインの色を指定
+    padding: 5,
+    marginTop: 15, // search欄の上の空白
+    marginBottom: 15,
+    borderRadius: 5, // 角を丸くする
+  }, // 色々
+>>>>>>> 21bc25fc51118b50fa53a7f6fd28dc5d6937fb3c
 });
 
 export default TalkScreenStack;
